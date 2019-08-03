@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>赊销账期及额度 - Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+<meta name="copyright" content="wemall Inc. All Rights Reserved">
+<link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/common/css/overlay.css" type="text/css" rel="stylesheet" />
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+
+</head>
+<style>
+ #opertitle{
+    text-align:center;
+}
+
+</style>
+<body>
+$!httpInclude.include("/top.htm")
+<div class="main"> $!httpInclude.include("/seller/nav_head.htm")
+  <div class="user_center">
+    <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+      <tr> $!httpInclude.include("/seller/nav.htm?op=quota_Management")
+        <td id="centerbg" valign="top">
+         <div class="buyer_position"><div class="buyer_p_box"><a href="$!webPath/seller/index.htm">卖家中心</a> > <span>赊销管理</span></div></div>
+        <div class="productmain">
+            <div class="ordernav">
+              <ul class="orderul">
+                #if($!storstatus == 0)
+                <li class="this"><a href="$!webPath/seller/is_charge_sales.htm">开通赊销</a></li>
+                #end
+                #if($!storstatus == 1)
+                <li><a href="$!webPath/seller/charge_sales_wallet.htm">赊销钱包</a></li>
+                <li><a href="$!webPath/seller/my_charge_sales.htm">我的赊销</a></li>
+                <li><a href="$!webPath/seller/charge_sales_check.htm">赊销审核</a></li>
+                <li><a href="$!webPath/seller/addUpdate_customerCredit.htm?type=save">赊销授额</a></li>
+                <li id="ssdd"><a href="$!webPath/seller/charge_sales_order.htm?twoStatus=1">赊销订单</a></li>
+                #end
+              </ul>
+            </div>
+            <div class="ordercon">
+              <div class="addnav">
+                <form action="#" method="post" name="theForm" id="theForm">
+                  <input type="hidden" name="storeId" id="storeId" value="$!creditLlineManagement.storeId"/>
+                  <input type="hidden" name="sellerId" id="sellerId" value="$!creditLlineManagement.sellerId"/>
+                  <br /><br />
+                  <div class="zf-description">
+<p>赊销支付是平台推出的一种基于买卖双方信用的支付方式。</p>
+<p>卖家授予买家固定额度，买家在额度内使用赊销支付获取商品，并在规定日期还款。</p>
+                  </div>
+                  <div style="margin-left:300px;">
+                    <label><input name="butn" type="radio" id="opeval" value="1" #if($!{storstatus.indexOf("1")}!=-1) checked="checked" #end/>开启</label><span id="closeTips">如需关闭请联系平台客服</span>
+                  <div class="seInput">
+                    <span>审批额度阈值<span style="color:red">*</span>：</span><input type="number" name="storeCredits" id="edInput"><!-- <a class="whycir" title="超过该额度后，赊销授额需要总经理审核">?</a> -->
+                  </div>
+                  <label><input name="agree" type="radio" id="agreeRadio"/>我已同意商户</label><span id="agreeBtn" href="">《赊销服务协议》</span>
+                  </div>
+
+                  <!-- <label style="margin-left:100px;"><input name="butn" type="radio" id="cloval" value="0" #if($!{storstatus.indexOf("0")}!=-1) checked="checked" #end>关闭</label> -->
+                  <br /><br />
+                  <span class="setsub" style="margin-left:300px;">
+                        <input type="button" id="zw_but" value="保存" style="cursor:pointer;"/><span id="errorTips"></span>
+                  </span>
+                </form>
+                <script>
+                jQuery("#ssdd").click(function() {
+                    localStorage.removeItem('Ordervalue')
+                    jQuery("#orderTab li").removeClass('this')
+                    jQuery("#dz-box").show().siblings().hide();
+
+                })
+
+$(document).ready(function (){
+   jQuery("#agreeBtn").click(function(event) {
+    jQuery(".xy-bg").show();
+  });
+    jQuery("#xy-no").click(function(event) {
+      jQuery(".xy-bg").hide();
+    });
+       var nScrollHight = 0; //滚动距离总长(注意不是滚动条的长度)
+       var nScrollTop = 0;   //滚动到的当前位置
+          var nDivHight = $("#xy-content-box").outerHeight();
+       // var nDivHight = 405;
+       $("#xy-content-box").scroll(function(){
+         nScrollHight = $(this)[0].scrollHeight;
+         nScrollTop = $(this)[0].scrollTop;
+         if(nScrollTop + nDivHight >= nScrollHight){
+           // alert("滚动条到底部了");
+           document.getElementById("xy-yes").style.backgroundColor = "#09F";
+           document.getElementById("xy-yes").style.border = "1px solid #09F";
+           document.getElementById("xy-yes").style.color = "#fff";
+           document.getElementById("xy-yes").onclick = function(){
+              jQuery(".xy-bg").hide();
+              jQuery("#agreeRadio").prop("checked",true)           }
+         }
+
+         });
+       });
+
+
+
+                // jQuery("#xy-content-box").scroll(function(event) {
+                //   console.log("666")
+                // });
+                jQuery("#opeval").click(function(){
+                    if(jQuery(this).prop("checked")){
+                      jQuery("#closeTips").show();
+                    }
+
+                })
+                jQuery("#zw_but").click(function () {
+                    if(jQuery("#opeval").prop("checked") && jQuery("#edInput").val() !="" && jQuery("#agreeRadio").prop("checked")){
+
+                      let state = $('input[name="butn"]:checked').val();
+                      let storeCredits = jQuery("#edInput").val();
+                    jQuery.ajax({
+                        url: "$!webPath/seller/is_charge_sale.htm",
+                        type: "post",
+                        data: {
+                          state,
+                          storeCredits
+                        },
+                            // 修改成功
+                            success(args) {
+                  if (args > 0) {
+                      alert("店铺已成功开启赊销!");
+                            window.location.reload();
+                  } else {
+                      alert("请求错误，请稍后重试!");
+                  }
+                        },
+                    });
+
+                    }else if(!jQuery("#opeval").prop("checked")){
+                      jQuery("#errorTips").text("请选择开启按钮");
+                    }else if(jQuery("#edInput").val()==""){
+                      jQuery("#errorTips").text("请输入审批额度");
+                    }else if(!jQuery("#agreeRadio").prop("checked")){
+                      jQuery("#errorTips").text("请先同意用户协议");
+                    }
+
+                });
+                </script>
+              </div>
+
+
+
+
+            </div>
+          </div></td>
+      </tr>
+    </table>
+  </div>
+  $!httpInclude.include("/footer.htm")
+</div>
+
+<div class="xy-bg">
+<h1>赊销服务协议</h1>
+<div id="xy-content-box">
+  <p>    本协议缔约方为药链网平台用户（如未特别说明，“用户”包括“买家”以及“商家”，下同）、湖北今朝药链科技有限公司（下称“药链网”）以及依据本协议向用户提供赊销支付服务的相关方。
+声明与承诺</br>
+    1、用户确认在申请加入赊销支付服务（下称“服务”或“本服务”）之前，已充分阅读、理解并接受本协议的全部内容，并特别关注本协议条款中的黑体及/或加下划线部分，用户通过网络页面点击确认、以其他方式选择接受本协议或实际使用赊销支付服务的，即表示同意遵循本协议之所有约定。</br>
+    2、本协议内容包括协议正文、附件、正文提及的规则及药链网平台上关于本服务已发布或将来可能发布的各类规则（下称“赊销支付规则”），所有这些附件、赊销支付规则都应视为本协议不可分割的组成部分，与本协议正文具有同等法律效力。</br>
+    3、用户同意药链网有权随时对本协议进行单方面的补充和（或）变更，并在网站上以公告的方式予以公布，无需另行单独通知用户；若用户在本协议变更后继续使用本服务的，即表示已充分阅读、理解并接受修改后的协议，也将遵循修改后的协议使用本服务；若不同意修改后的协议，用户应停止使用本服务，并向药链网提交协议终止申请。</br>
+    二、定义</br>
+    除本协议另有规定外，下列用语具有如下含义</br>
+    2.1“赊销支付服务”：指药链网所提供的赊销支付技术服务、赊销支付资金服务方所提供的赊销支付资金服务的总称。</br>
+    2.1.2“赊销支付资金服务”：是指赊销支付资金服务方（包括但不限于银行、小额贷款公司、商业保理公司等）向商家提供的基于应收账款的贷款服务、保理服务、应收账款受让等服务的总称。</br>
+    2.1.4“赊销支付技术服务”：是指赊销支付技术服务方（即药链网）为用户提供的用于获取赊销支付增信服务、赊销支付资金服务及结算服务的信息技术服务。</br>
+    2.2“赊销支付服务方”：是指向用户提供赊销支付服务的赊销支付技术服务方。</br>
+    2.3“赊销支付买家总额度”（简称“总额度“）：是指商家基于赊销支付订单给予买家的信用额度。</br>
+    2.3.1“赊销支付商家赊销总金额（简称“总金额“）：指商家授予买家的基于赊销支付订单进行赊销的总额度。</br>
+2.3.2“赊销支付买家已用额度：指买家已经使用的额度。</br>
+    2.3.3“赊销支付买家剩余额度：指买家剩余的可用额度。</br>
+2.4“赊销支付商家已回款：指买家已经向商家回款的额度。</br>
+2.4.1“赊销支付商家待回款：指买家还未向商家回款的额度。</br>
+    2.5.3“赊销支付罚息费用”：是指买家因未按照赊销支付约定期限还款而需要支付的罚息。</br>
+    2.6“赊销支付订单“：是指用户在药链网平台与交易方达成的赊销支付购销订单。</br>
+    2.7“交易方“：指在药链网平台与您发生商品或服务交易关系的交易相对方。</br>
+    三、申请与信息授权</br>
+    3.1您须亲自通过药链网平台向赊销支付交易方提出申请，同时必须通过药链网平台的交易密码等药链网规定的方式校验您的身份。凡校验通过的，方视为您本人申请。您明确知晓，目前药链网仅允许您通过药链网平台进行登录及密码的校验，如您通过其他方式进行校验的，药链网对因此所产生的后果不承担任何法律责任。</br>
+    3.2您应妥善保管您的常用手机设备（含手机号码）、药链网平台账号及密码，您应确保不向任何人泄露您以上信息。对于因账号、密码泄露所致的损失，由您自行承担。如您授权第三方对您申请账号项下的交易等进行操作及管理的，您确认您将对上述授权行为所产生的一切行为承担法律责任。如您发现有他人冒用或盗用您的账号及密码申请本服务的，您应立即以有效方式通知赊销支付交易方，要求赊销支付交易方暂停本服务。同时，您理解赊销支付交易方对您的请求采取行动需要合理期限，在此之前，赊销支付交易方对已执行的指令及(或)所导致的您的损失不承担任何责任。</br>
+    3.3您保证向赊销支付交易方提供的所有申请信息是真实、完整、准确、合法、有效的，并授权赊销支付交易方向有关机构或单位（包括但不限于芝麻信用、中国人民银行个人信用信息基础数据库、合法的征信机构、公安机关、公积金、社保、税务、民政等）查询或确认与您服务申请相关的信息。</br>
+    3.4赊销支付交易方承诺对客户资料承担保密义务,不会将收集到的用户相关信息提供给赊销支付交易方以外的无关第三方，但赊销支付交易方之间就用户相关信息的使用除外。您同意，赊销支付交易方可以向中国人民银行金融信用信息基础数据库、其他依法设立的征信机构、关联公司查询您使用本服务所必要的个人/单位身份信息及信用信息（包括不良信息）。</br>
+    3.5赊销支付交易方有权依据您的资信情况综合自主决定是否受理您的服务申请及核定您可能获取的额度。您明确知悉，您在药链网平台所获得的额度与对您的信用评定有关。在核定您的额度后，赊销支付交易方有权根据掌握的您的信用情况或认定的风险控管因素或其他正当理由，调整您的额度（包括但不限于调低、调高或者中止、终止）。如赊销支付交易方对您的额度进行调整后导致您的赊购、赊销、借款额度发生变化的，您应该根据调整后的额度进行相关的交易。</br>
+    3.6赊销支付交易方核定的您的信用额度并不构成赊销支付服务方对您的授信承诺，您额度项下具体支用业务，您应逐笔在额度有效期内及可使用额度内向赊销支付服务方申请，赊销支付交易方有权根据您的当期信用及赊销支付交易方自身情况自主决定是否向您提供额度项下的相应的服务。</br>
+    四、用户的权利及义务</br>
+    本协议有效期内，您使用赊销支付服务的限额以药链网平台向您展示的可用额度为准。您同意赊销支付金融服务方将以前述可用额度为限控制您可使用的赊销支付服务额度，一旦单笔或累计超过可用限额，则您将无法继续使用本服务。您知晓并同意，在使用赊销支付服务时，应履行及遵守下述权利及义务：</br>
+    4.1交易规则遵循：</br>
+    4.1.1用户应严格遵守赊销支付服务所支持的药链网平台交易方式所规定的相应交易及争议处理规则的规定。</br>
+    4.1.2用户签署本协议即意味着同意并遵守本协议及其他公布或将来可能公布的赊销支付服务规则、规范、文件、问答等的所有规定。</br>
+    4.1.3用户同意，当药链网受理相关交易纠纷时，用户应积极配合并在药链网要求的时间内提供真实、合法的相关证据材料，当药链网根据相应交易及争议处理规则判定用户仍应支付相应到期应付款项时，用户应及时履行其到期应付款义务。</br>
+    4.1.4在收到用户开通服务的申请后，赊销支付交易方对用户的申请进行审核以确定是否同意其申请，用户同意赊销支付交易方有完全的权利同意或拒绝申请。</br>
+    4.1.5服务成功开通后，药链网可在用户账号、订单及相关信息上加注并展示“赊销支付”标识（或药链网指定的其他标识）及将来本服务中可能增加的其它特别标记。</br>
+    4.1.6当药链网基于独立判断有合理理由怀疑可能存在用户损害第三方或药链网利益的情况下，有权随时关闭用户的赊销支付服务。</br>
+    4.1.7用户同意，药链网可以向争议处理司法机关提供用户一般信息及纠纷调解中保留的证据，且有权向该司法机关提出查看及索要案件处理信息的权利。</br>
+    4.1.8用户了解并同意，即使用户开通赊销支付服务并因此发生服务所支持的相应交易，但对于因该交易所产生的义务包括但不限于交易履行及相关争议等均由用户自行承担责任，药链网对此没有任何法律上的以及道义上的义务。</br>
+    4.1.9本协议项下服务所涉及的药链网、赊销支付服务及其他相关商标或标识、资料等之知识产权及其他相关权利皆为药链网及其关联公司所有，未经药链网书面许可用户不得擅自使用，否则，用户应当赔偿因此给药链网及其关联公司造成的全部损失，药链网有权立即终止本协议。</br>
+    4.1.10用户同意，为使用户更好地使用赊销支付服务,药链网有权通过用户的电子邮件、药链网站内信、手机短信和（或）传真等方式向用户发送服务状态的通知、营销活动及其他商业性电子信息。</br>
+    4.2赊销支付买家赊购</br>
+    在您的交易对手已签署本协议的前提下，您作为赊销支付订单项下的买家可以在下单并选择赊销支付服务下的可用额度支付。买家承诺应如期履行其在相应订单下的到期应付款义务。 </br>
+    您对赊销支付订单确认收货即代表您对货物数量、质量无异议，如有异议，您需在药链网平台交易规则约定的超时自动确认收货前提出相应收货异议。您确认收货（包括超时自动确认收货，下同）后应在账期到期前无条件付款，若您逾期付款，您知晓并同意赊销支付买家增信服务方代您先行偿付应付款，并在代偿后取得对您的追索权。</br>
+    4.4间接付款禁止</br>
+您作为买家同意，通过赊销支付服务所产生订单的相关应付款均应按药链网平台规则支付到商家的账户，若您未经药链网平台及赊销支付服务方的同意私自将款项支付到商家的其他账户，从而造成赊销支付交易方的损失，将由您负责赔偿。您作为商家应知晓并同意在未经药链网平台同意的任何情况下，您不得授意或者串通买家将赊销支付订单项下应付款支付到您在药链网平台绑定的之外的任何其他账户（间接付款），若发生该等违规操作从而造成赊销支付服务方的任何损失，将由您或您与买家共同承担。如发生上述间接付款情况，您明确确认，如您为商家，药链网平台有权要求您将已收到的款项退还至买家的账户；如您为买家，药链网平台有权要求您重新将应付款支付至商家的账户。同时，药链网平台及赊销支付服务方将有权视情况停止或终止对用户的赊销支付服务，由此所产生的法律责任概由用户自行承担。</br>
+    4.8虚假交易禁止</br>
+用户知晓并承诺不得也不可进行相互串通，不能通过刷单、虚拟交易、虚假交易等虚构交易获取赊销支付服务。若发生上述交易行为造成赊销支付服务方损失的，将由买家、商家共同担连带责任，且无论是买家还是商家均应按本协议的约定及其与赊销支付服务方的约定继续支付相关赊销支付服务费。</br>
+    4.9额度冻结</br>
+    4.9.1用户了解并同意，当其有未向赊销支付服务方偿还的款项或其他高危履约风险等情形时，赊销支付服务方有权基于对赊销支付服务风险控制因素的综合考量，冻结用户部分或全部额度，处于冻结状态的额度将无法用于进行赊销支付服务所支持的在线交易，但在冻结前已使用额度进行的交易订单不受影响。</br>
+    六、赊销支付技术服务费</br>
+    6.1赊销支付买家赊购技术服务费</br>
+买家开通并使用赊销支付服务，暂无需向药链网平台支付赊销支付买家赊购技术服务费，但药链网有权单方决定是否向买家收取赊销支付买家赊购技术服务费，如收取的，药链网将通知买家，如买家继续使用赊销支付服务，则视为同意药链网所通知的收费方案与条件。</br>
+注：在赊销支付订单确认收货后，不论后续订单是否发生退款、或赊销支付买家服务方豁免代偿责任，商家了解并同意赊销支付商家赊销技术服务费均将以前述通过赊销支付服务进行交易的订单在确认收货时所占用的信用额度为基数计费及支付。</br>
+    6.2.2为便于赊销支付商家赊销技术服务费的支付与结算，商家同意向药链网指定银行出具协议附件：《代发代扣授权书》，并不可撤销地授权指定银行按照药链网的指令在下列情形下有权自商家绑定的账户内直接划扣相应赊销支付商家赊销技术服务费：</br>
+    （1）如赊销支付订单在经买家“确认收货”后“交易成功”，则在买家付款到商家账户时执行赊销支付商家赊销技术服务费划扣；</br>
+    （2）如赊销支付订单在经买家“确认收货”，因买家逾期付款而由赊销支付买家增信服务方代偿付款时，则在赊销支付买家增信服务方代偿付款到商家账户时执行赊销支付商家赊销技术服务费划扣；</br>
+    （3）如商家申请基于赊销支付订单的资金服务，则赊销支付商家资金服务方融资款项支付到商家账户时执行赊销支付商家赊销技术服务费划扣；</br>
+    （4）如发生以上三种之外的情形，赊销支付商家赊销技术服务费的收取方式将由药链网平台另行通知。</br>
+    6.2.3商家了解并同意，买卖双方一旦通过赊销支付服务进行交易的订单经买家“确认收货”，则不论该订单后续“交易成功”或“交易关闭”，商家均应按本协议约定向药链网支付赊销支付商家赊销技术服务费，如商家的融易收账户余额不足划扣，则药链网有权持续通知指定银行执行剩余赊销支付商家赊销技术服务费划扣，并立即中止或终止商家的赊销支付服务。</br>
+    6.3赊销支付商家借款技术服务费</br>
+您作为商家使用赊销支付技术平台，暂无需向药链网平台支付赊销支付买家赊购技术服务费，但药链网有权单方决定是否向买家收取赊销支付买家赊购技术服务费，如收取的，药链网将通知买家，如买家继续使用赊销支付服务，则视为同意药链网所通知的收费方案与条件。</br>
+        十、免责条款</br>
+    若出现下列任一情形致使赊销支付技术服务方无法向您提供本服务的，赊销支付技术服务方均不承担任何违约或赔偿责任，该情形包括但不限于：</br>
+    10.1不论在何种情况下，药链网均不对由于Internet连接故障，电脑，通讯或其他系统的故障，电力故障，罢工，劳动争议，暴乱，起义，骚乱，生产力或生产资料不足，火灾，洪水，风暴，爆炸，不可抗力，战争，政府行为，国际国内法院的命令或第三方的不作为而造成的不能服务或延迟服务承担责任。</br>
+    10.2用户了解并同意，药链网及其关联公司并非司法机构，仅能以普通、非专业人员的知识水平标准处理纠纷，药链网及其关联公司不能确保判责结果不存在任何错误或疏漏，也无法保证交易纠纷处理结果符合用户的期望，用户同意药链网对判责及赔付处理结果免责。</br>
+    10.3赊销支付服务所引入赊销支付服务均由相应的服务方直接向用户提供，相关的权利、义务，均由用户与该等服务方自行约定与承担，药链网不承担与前述服务相关的法律责任。</br>
+    十一、协议的终止</br>
+    11.1用户主动终止：用户可以主动申请关闭赊销支付服务，药链网收到申请并核实后终止服务后本协议即告终止。</br>
+    11.2 因用户不再符合其申请加入赊销支付服务时所依据的“服务开通条件”全部要求，本协议将自动终止。</br>
+    11.3 通知解除：药链网有权提前七（7）天以书面通知的方式终止本协议。</br>
+    11.4药链网单方终止权：如用户违反药链网的任何规则，包括但不限于本协议项下的任何约定、本服务的其他规则，药链网都有权立刻终止本协议，且按有关规则对用户进行处罚。</br>
+    11.5因用户严重违反与赊销支付金融服务方的相关协议约定，药链网有权同时终止本协议。</br>
+    11.6本协议规定的其他协议终止条件发生或实现，导致本协议终止。</br>
+    11.7无论本协议因何原因终止，在协议终止前的行为所导致的任何赔偿和责任，用户必须完全且独立地承担。即使本协议终止，药链网仍有权依据本协议及附件的规定处理因本协议有效期内发生的本服务下交易所导致的相应赔付。</br>
+    十二、送达与管辖</br>
+    12.１送达条款</br>
+本协议履行过程中，如赊销支付交易方以邮寄方式向您发出书面通知的，则在交邮后的第三天即视为送达。如以网站公告、电子邮件、手机短信和传真等电子方式发出书面通知的，则在发送成功时即视为送达。</br>
+    １2.2.管辖条款</br>
+本协议适用中华人民共和国法律。本协议在履行过程中发生争议，可以协商解决，协商不成，向协议签订地【武汉市东湖高新区】人民法院起诉。在诉讼期间，本协议不涉及争议部分的条款仍须履行。</br>
+    十三、条款独立及其他</br>
+    本协议任何条款在任何时候在任何方面成为不合法、无效或依法不可执行的, 本协议的其他条款的合法性、有效性及/或依法可执行性不受任何影响及/或减损。
+本协议附件是本协议的重要组成部分，具有同等法律效力。</br>
+</p>
+</div>
+<div class="btn-box">
+
+                    <input class="apply-button" id="xy-yes" style='background-color:#eee;border:1px solid #eee; color:#666' type="button" value="我已阅读完，同意" /><button class="apply-button" id="xy-no" style='background-color:#fff; border:1px solid #ddd;color:#666' type="reset">取消</button>
+
+      </div>
+</div>
+</body>
+</html>

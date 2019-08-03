@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>发票管理-$!{config.title}-Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+<meta name="copyright" content="wemall Inc. All Rights Reserved">
+<link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/system/front/default/css/goods.css" type="text/css" rel="stylesheet" />
+<link  href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css" type=text/css rel=stylesheet>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+<script>
+window.onload = function () {
+	$(".1").text("专票");
+	$(".0").text("普票");
+	if("$!pd"=="w"){
+		$("#addShow").css("display","");
+	}
+	else{
+		$("#addShow").css("display","none");
+	}
+}
+</script>
+</head>
+
+<style type="text/css">
+.openstxt>input{
+width:220px;
+}
+.openstxt{
+width:800px;
+}
+.STYLE1 {color: #FF0000}
+</style>
+<body>
+$!httpInclude.include("/top.htm")
+<div class="main">
+  $!httpInclude.include("/buyer/head.htm")
+  <div class="user_center">
+    <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+      <tr>
+        $!httpInclude.include("/buyer/account_nav.htm?op=invoice")
+        <td id="centerbg" valign="top">
+        <div class="buyer_position"><div class="buyer_p_box"><a href="$!webPath/buyer/account.htm">我的账户</a>  <span>发票管理</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span id="addShow"><a href="$!webPath/buyer/invoice_inserttiao.htm"><b>点击新增发票信息</b></a></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="$!webPath/buyer/information.htm"><b>买家订单发票信息</b></a></div></div>
+        <div class="productmain">
+
+            <div class="ordercon">
+              <div class="operation">
+                <table width="1009" border="0" cellspacing="0" cellpadding="0" id="opertable" >
+                  <tr id="opertitle">
+<!--                    <td width="15%">发票抬头</td> -->
+                    <td width="15%">公司名称</td>
+                    <td  width="15%">开户银行</td>
+                    <td  width="15%">银行账户</td>
+                    <td  width="5%">设置修改</td>
+                    <td  width="5%">设置删除</td>
+                  </tr>
+                  #foreach($obj in $objs)
+                  <tr class="opertr">
+<!--                     <td>$!obj.rise</td> -->
+                    <td>$!obj.company</td>
+                    <td>$!obj.bank</td>
+                    <td>$!obj.bankaccount</td>
+                    <td><a href="$!webPath/buyer/invoice_display.htm?id=$!obj.id" style="color: #3232CD">点击修改</a></td>
+                    <td><a href="$!webPath/buyer/invoice_del.htm?id=$!obj.id" style="color: #3232CD">点击删除</a></td>
+                  </tr>
+                  #end
+                </table>
+              </div>
+              <div class="alldel">
+                <div  class="userfenye">$!gotoPageHTML</div>
+              </div>
+            </div>
+      </tr>
+    </table>
+  </div>
+   $!httpInclude.include("/footer.htm")
+</div>
+</body>
+</html>

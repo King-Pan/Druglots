@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>赊销账期及额度 - Powered by Druglots</title>
+    <meta name="keywords" content="$!config.keywords" />
+    <meta name="description" content="$!config.description" />
+    <meta name="generator" content="wemall 2.0" />
+    <meta name="author" content="www.wemall.com">
+    <meta name="copyright" content="wemall Inc. All Rights Reserved">
+    <link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+    <link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet" />
+    <link href="$!webPath/resources/style/common/css/overlay.css" type="text/css" rel="stylesheet" />
+    <script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+    <script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+</head>
+<style>
+    #opertitle{
+    text-align:center;
+}
+
+#isBank p{
+    text-align: center;
+}
+
+#sub-box{
+    text-align: center;
+}
+
+#sub-box button:hover{
+    cursor:pointer;
+}
+
+#xy-content-box h6 {
+line-height: 28px;
+margin-top: 8px;
+}
+
+#xy-content-box p {
+    text-indent: 2em;
+    margin: 6px 0;
+}
+
+#xy-content-box p span{
+    font-size:12px;
+    margin-left: 8px;
+}
+</style>
+
+<body>
+    $!httpInclude.include("/top.htm")
+    <div class="main"> $!httpInclude.include("/seller/nav_head.htm")
+        <div class="user_center">
+            <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+                <tr> $!httpInclude.include("/seller/nav.htm?op=quota_Management")
+                    <td id="centerbg" valign="top">
+                        <div class="buyer_position">
+                            <div class="buyer_p_box"><a href="$!webPath/seller/index.htm">卖家中心</a> > <span>赊销管理</span></div>
+                        </div>
+                        <div class="productmain">
+                            <div class="ordernav">
+                                <ul class="orderul">
+                                    #if($!storstatus == 1)
+                                    <li><a href="$!webPath/seller/is_charge_sales.htm">开通赊销</a></li>
+                                    #end
+                                    <li class="this"><a href="$!webPath/seller/charge_sales_wallet.htm">赊销钱包</a></li>
+                                    <li><a href="$!webPath/seller/my_charge_sales.htm">我的赊销</a></li>
+                                    <li><a href="$!webPath/seller/charge_sales_check.htm">赊销审核</a></li>
+                                    <li><a href="$!webPath/seller/addUpdate_customerCredit.htm?type=save">赊销授额</a></li>
+                                    <li  id="ssdd"><a href="$!webPath/seller/charge_sales_order.htm?twoStatus=1">赊销订单</a></li>
+                                </ul>
+                            </div>
+                            <div class="ordercon">
+                                <div class="addnav">
+                                    <br /><br />
+                                    <div class="zf-description">
+                                        <p>赊销钱包是面向开展赊销交易的买卖双方，用于赊销还款和回款的电子支付工具。</p>
+                                        <p style="color:#ff5d1d">温馨提示：买卖双方均需开通赊销钱包功能，才能正常开展赊销交易。</p>
+                                    </div>
+                                    <div class="seInput seInput2 clearfix">
+                                        <div class="fl-part">
+                                            <p><span>账户类型<span style="color:red">*</span>：</span></p>
+                                            <p><span>开户姓名<span style="color:red">*</span>：</span></p>
+                                            <p><span>绑定银行卡号<span style="color:red">*</span>：</span></p>
+                                            <p><span>银行留存手机号<span style="color:red">*</span>：</span></p>
+                                            <p><span>验证码<span style="color:red">*</span>：</span></p>
+                                        </div>
+                                        <div class="fr-part">
+                                            <p><span>
+                                                    <select name="">
+                                                        <option value="0">企业账户</option>
+                                                        <option value="1">个人账户</option>
+                                                    </select>
+                                                </span></p>
+                                            <p><span><input type="text" name=""></span></p>
+                                            <p><span><input type="text" name="" id="test1"></span></p>
+                                            <p><span><input type="text" name=""></span></p>
+                                            <p><span id="yzm-num"><input type="text" name=""><button type="text" name="">发送验证码</button></span></p>
+                                            <label id="agreeLabel"><input name="agree" type="radio" id="agreeRadio" /><span>认真阅读并同意</span></label><a id="agreeBtn" href="javascript:;">《用户开户协议》</a>
+                                        </div>
+                                    </div>
+                                    <span class="setsub" style="margin-left:300px;">
+                                        <input type="button" id="zw_but" value="确定" style="cursor:pointer;" />
+                                        <span id="errorTips"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        $!httpInclude.include("/footer.htm")
+    </div>
+    <!-- 弹窗未绑定银行卡 -->
+    <div id="tc-box">
+        <h1 onclick="closeTc()">x</h1>
+        <div id="isBank">
+            <div class="seInput seInput2 clearfix">
+                <p>
+                    您暂未绑定任何银行卡!
+                </p>
+            </div>
+            <div id="sub-box">
+                <button class="bank-sub bdrBtn" onclick="closeTc()">以后再说</button>
+                <button class="bank-sub bgcBtn">现在绑定</button>
+            </div>
+        </div>
+    </div>
+    <div class="xy-bg">
+        <h1>用户开户协议</h1>
+        <h2>甲方：客户 乙方：药链网</h2>
+        <div id="xy-content-box">
+            <h6>甲方自愿申请使用乙方提供的电子账户服务，为明确双方的权利和义务，维护双方的合法权益，特签订本服务协议。</h6>
+            <h6>第一条 定义</h6>
+            <p>1.“电子账户”指甲方通过互联网自助申请，经乙方核准后为甲方开立的，供甲方办理赊销功能金融业务的人民币银行结算账户。该账户限于赊销功能金融业务的提现。账户具体功能限制以乙方届时为甲方开通的功能为准。</p>
+            <p>2.密码：指乙方用以识别甲方身份与指令要求甲方提供的代码或口令。 包括登录密码、交易密码、动态密码等多个种类，具体业务中使用的密码类别以乙方要求为准。动态密码包括但不限于短信验证码，短信验证码指在甲方使用电子账户过程中，乙方通过指定客服号码以手机短信息方式发送到绑定手机号码的特定代码。乙方根据甲方申请渠道，对电子账户区分管理，不同渠道开立的电子账户密码受到不同的控制。</p>
+            <p>3.绑定手机号码：是指甲方在申请开立电子账户时，指定的关联电子账户的手机号码。绑定的手机号码用于接收乙方发送的授权码、短信验证码以及交易提示短信等的手机号码。乙方认为必要时，可通过此手机号码向甲方核实身份信息和交易信息。</p>
+            <p>4.直销银行：本协议下的直销银行是指乙方向客户提供的通过客户开立的电子账户享受金融服务的业务渠道，包括但不限于直销银行网上银行、直销银行网站、直销银行手机银行和直销银行微信银行和乙方不时指定的其他渠道。</p>
+            <h6>第二条 申请与开立</h6>
+            <p>1.乙方的电子账户提供给具有完全民事行为能力的自然人，甲方自愿申请开立电子账户，并承诺申请电子账户时具有完全民事行为能力。</p>
+            <p>2.电子账户申请：甲方点击同意本电子账户协议即视为甲方向乙方提交开户申请。</p>
+            <p>3.申请资料</p>
+            <p>甲方同意并授权乙方合作第三方，即甲方申请电子账户的该第三方向乙方提交个人信息及开户申请资料，包括甲方有效的身份证件信息、及其他乙方要求提供的资料。</p>
+            <p>4.申请时的身份识别</p>
+            <p><span>a.乙方在甲方按乙方相应的要求与方法提供了身份证件信息、同名Ⅰ类银行账户信息及其他要求信息后，识别甲方身份；</span></p>
+            <p><span>b.甲方如已持有乙方银行卡，可以选择以已有乙方银行卡下密码验证的方式识别身份。</span></p>
+            <p>5.乙方审核甲方申请资料及验证信息，同意甲方的电子账户开立申请后，即生成电子账户账号。</p>
+            <p>6.甲方可申请开立多个电子账户，具体数量以乙方规定为准。</p>
+            <h6>第三条 使用</h6>
+            <p>1.甲方申请开立的电子账户账号生产后，甲方即可按照协议规定正常使用。</p>
+            <p>2.甲方知悉并同意：</p>
+            <p><span>（1）甲方申请开立的电子账户不提供存取现金服务，不配发实体介质。</span></p>
+            <p><span>（2）甲方只能用该电子账户享受乙方已开通的该电子账户相应的金融服务。</span></p>
+            <p><span>（3）该电子账户与其他账户之间的资金划转额度以乙方具体规定为准。</span></p>
+            <p>3.电子账户只限甲方本人使用，不得出借、转让或出租。否则，由此产生的损失由甲方自行承担。</p>
+            <p>4.乙方为甲方提供电子账户服务，甲方应按乙方的规定进行操作，因操作不当造成的损失，乙方不承担任何责任。</p>
+            <h6>第四条 凭证和签章</h6>
+            <p>1.甲方知悉并同意，乙方与乙方合作第三方电子渠道系统存储的与服务相关的数据电文是甲方使用电子账户情况的有效书面证明。</p>
+            <p>2.甲方在电子账户下使用密码的行为，即视同中国法律法规及规章规定的甲方签章行为，即构成甲方可靠的电子签名，均表明了甲方认可其中交易内容。</p>
+            <p>3.甲方可通过乙方届时开通的渠道进行密码设置和重置。</p>
+            <h6>第五条 使用规则</h6>
+            </p>
+            <p>1.甲方在乙方开立、使用、撤销电子账户，应遵守中华人民共和国的法律、法规和中国人民银行、中国银行业监督管理委员会及国家外汇管理局的各项规定及乙方的业务制度规定。</p>
+            <p>2.甲方承诺向乙方提供的所有资料真实、有效、完整、准确、合法，提交的开户证件符合《中国人民银行关于改进个人银行账户服务加强账户管理的通知》，未由他人代办或冒充他人申请。如甲方提供的资料不符合要求或存在代办、冒充他人申请等情形，乙方有权拒绝甲方的申请，对于已经开立了电子账户的，乙方将立即停止账户的使用，并按照《中国人民银行关于改进个人银行账户服务加强账户管理的通知》的规定进行后续处理。</p>
+            <p>3.甲方应妥善保管电子账户的密码、个人有效身份证件、绑定的手机等个人信息和设备，如上述信息或设备出现遗失、泄露或被他人盗用的情况，甲方应立即拨打客户服务电话申请账户冻结，在申请完成前，已发生的损失由甲方自行承担。</p>
+            <p>4.甲方有权按照乙方的电子账户业务规则向乙方发出划转电子账户资金的指令，乙方应实时执行乙方接收到的甲方指令。甲方同意，乙方将指令发出银行所能控制的乙方系统即为甲方指令执行完成。</p>
+            <p>5.甲方知悉并同意，由于技术原因，乙方无法确保系统不间断无差错运行，但乙方出于电子账户维护升级的需要而停止电子账户的部分或全部时，应提前三个工作日通过网站公告，由于乙方无法控制的原因发生的电子账户系统停运，乙方将在发生停止运营后三日内通过网站公告。</p>
+            <p>6.甲方可通过乙方直销银行渠道完成电子账户信息修改，可以修改的事项以乙方届时业务规则为准。</p>
+            <p>7.如甲方违规使用电子账户，乙方有权停止其使用该账户，由此产生的损失由甲方承担。</p>
+            <p>8.电子账户不设有效期，在撤销前均可使用。</p>
+            <p>9.电子账户的撤销：</p>
+            <p><span>（1）甲方可通过乙方直销银行渠道申请撤销电子账户，电子账户下无有效签约产品时，乙方为甲方撤销电子账户。</span></p>
+            <p><span>（2）乙方发现甲方身份信息不真实，电子账户为假名或虚假代理开户的，有权立即停止账户的使用，按照《中国人民银行关于改进个人银行账户服务加强账户管理的通知》规定进行撤销处理。</span></p>
+            <p><span>（3）其他法定的情形。</span></p>
+            <h6>第六条 账户指令与记录</h6>
+<p>1.乙方系统记录的甲方电子账户信息的数据电文（包括但不限于甲方通过电子渠道传递的指令、电子账户交易信息等），为双方认同的书面证据，可视为该交易的有效凭证。</p>
+<p>2.电子账户不寄送纸质对账单，甲方可通过直销银行渠道核对交易记录。如甲方对交易有异议，可致电乙方客户服务电话。</p>
+<p>3.如乙方发现有下列情形之一，乙方有权不认可或不执行数据电文表达的甲方指令：</p>
+<p>（1）乙方有充足的理由怀疑数据信息或甲方指令的真实性；</p>
+<p>（2）乙方执行甲方指令将违反相关的法律、法规或规章的规定；</p>
+<p>（3）甲方发出的数据电文表达的格式、内容、操作权限等不符合乙方要求；</p>
+<p>（4）电子账户中的余额或账户状态不足以完成甲方指令（上述情况下乙方有权根据具体情况决定对数据电文表达的甲方指令不予执行或给予部分执行）；</p>
+<p>（5）甲方违反本协议或双方已订立的其他协议或合同的；</p>
+<p>（6）双方特别约定或法律法规规定的其他情况。</p>
+<p>4.甲方指令一经发出，除乙方允许情况外，不得要求撤销。</p>
+<h6>第七条 信息采集、使用和披露</h6>
+<p>乙方在法律允许的前提下，为业务和管理需要可收集、处理、传递及应用甲方的个人资料。乙方对甲方的个人隐私和商业秘密（包括申请表等）将依法予以保密，未经客户许可，乙方不向任何第三人提供或许可第三人使用客户个人信息，但依照法律、法规规定应向有权机关（包括但不限于向征信机构）披露，或乙方为完善服务必须向相关外包服务提供商提供以及本协议另有约定的除外。</p>
+<h6>第八条 银行责任的免除与限制</h6>
+<p>1.甲方使用电子账户时，如非乙方过错而发生的数据电文错误或者对甲方指令识别、处理或执行错误时，乙方对因该项错误的发生所导致的损失和其他不利后果不承担责任；但乙方可在甲方处理时对甲方提供必要的协助。</p>
+<p>2.对于不可抗力（包括但不限于战争、自然灾害、电力供应中断、火灾、地震等）、意外事件或乙方无法控制的其他情况所造成的损失，乙方不承担责任。</p>
+<p>3.若发生乙方对于合法有效的甲方指令识别错误或执行错误，则甲方须在知道或应当知道错误发生后于三个工作日内书面通知乙方并尽力采取措施防止损失扩大，乙方应尽快调查处理并在合理可行的范围内采取补救措施，对于因银行/电子账户系统错误而造成的甲方直接财产损失，乙方应按适用的规则予以赔偿，但对于任何间接损失、履行利益、后果性损害、非财产损害、乙方于错误发生时不可预见的损失以及因甲方未能及时通知或及时采取措施而导致扩大的损失，乙方不承担责任。</p>
+<h6>第九条 公告与变更</h6>
+<p>1.甲方同意，乙方可对本协议及电子账户使用规则进行单方变更，以乙方官方网站等乙方渠道发布的公告为准。如客户在银行公告之日后继续使用电子账户，视为客户已接受上述变更，相关条款根据该等变更而自动作相应修改，双方无须另行签订书面协议。</p>
+<p>2.乙方在上述渠道发布电子账户服务相应公告内容的，自发布之日起视为送达；涉及本协议修改的，自发布之日起本协议自动修改。甲方应及时认真阅读并严格遵守，因甲方使用不当所造成的损失由其自行承担。</p>
+<h6>第十条 其他</h6>
+<p>1. 乙方通过指定客户服务号码向甲方提供电话银行服务和短信服务，通过直销银行、乙方官方网站或乙方合作第三方渠道提供电子账户申请，仅通过乙方直销银行提供电子账户的进度查询和电子账户服务，因甲方相信欺诈电话、短信或虚假网站而将电子账户信息泄露造成的全部损失由甲方自行承担。</p>
+<p>2.本协议适用中华人民共和国法律、行政法规和中国人民银行以及中国银行业监督管理委员会的部门规章与命令和有关国内行业惯例。在本协议项下发生的相关争议，双方应友好协商解决，协商不成的，应由乙方所在地的人民法院管辖。</p>
+<p>3.未尽事宜，依据中华人民共和国法律、法规和中国人民银行以及中国银行业监督管理委员会的部门规章与命令和有关国内行业惯例的规则办理。
+<p>4.甲方同意本电子账户协议仅视为甲方向乙方提交的开立电子账户申请，本协议自乙方成功为甲方开立电子账户时（即电子账户账号生成时）生效，至甲方电子账户撤销后终止。</p>
+<h2>在甲方确认同意本协议之前，甲方已认真阅读本协议。在确信其已完全理解的情况下，甲方确认其完全同意本协议的全部条款与内容（特别是但不限于本协议第八条免除与限制乙方责任的条款内容）。</h2>
+        </div>
+        <div class="btn-box">
+            <input class="apply-button" id="xy-yes" style='background-color:#eee;border:1px solid #eee; color:#666' type="button" value="我已阅读完，同意" /><button class="apply-button" id="xy-no" style='background-color:#fff; border:1px solid #ddd;color:#666' type="reset">取消</button>
+        </div>
+    </div>
+</body>
+<script>
+jQuery("#ssdd").click(function() {
+    localStorage.removeItem('Ordervalue')
+    jQuery("#orderTab li").removeClass('this')
+    jQuery("#dz-box").show().siblings().hide();
+
+})
+
+function closeTc() {
+    jQuery("#tc-box").hide();
+    jQuery("#isBank").hide();
+}
+
+function openTc() {
+    jQuery("#tc-box").show();
+    jQuery("#isBank").show();
+}
+
+$(document).ready(function() {
+    jQuery("#agreeBtn").click(function(event) {
+        jQuery(".xy-bg").show();
+    });
+    jQuery("#xy-no").click(function(event) {
+        jQuery(".xy-bg").hide();
+    });
+    var nScrollHight = 0; //滚动距离总长(注意不是滚动条的长度)
+    var nScrollTop = 0; //滚动到的当前位置
+    var nDivHight = $("#xy-content-box").outerHeight();
+    // var nDivHight = 405;
+    $("#xy-content-box").scroll(function() {
+        nScrollHight = $(this)[0].scrollHeight;
+        nScrollTop = $(this)[0].scrollTop;
+        if (nScrollTop + nDivHight >= nScrollHight) {
+            // alert("滚动条到底部了");
+            document.getElementById("xy-yes").style.backgroundColor = "#09F";
+            document.getElementById("xy-yes").style.border = "1px solid #09F";
+            document.getElementById("xy-yes").style.color = "#fff";
+            document.getElementById("xy-yes").onclick = function() {
+                jQuery(".xy-bg").hide();
+                jQuery("#agreeRadio").prop("checked", true)
+            }
+        }
+
+    });
+});
+</script>
+
+</html>

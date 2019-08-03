@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>出售中的商品-$!{config.title}- Powered by Druglots</title>
+    <meta name="keywords" content="$!config.keywords" />
+    <meta name="description" content="$!config.description" />
+    <meta name="generator" content="wemall 2.0" />
+    <meta name="author" content="www.wemall.com">
+    <meta name="copyright" content="wemall Inc. All Rights Reserved">
+    <link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+    <link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet" />
+    <link href="$!webPath/resources/style/common/css/overlay.css" type="text/css" rel="stylesheet" />
+    <script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+    <script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+    <script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+    <script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+</head>
+
+<body>
+    $!httpInclude.include("/top.htm")
+    <div class="main">
+        $!httpInclude.include("/seller/nav_head.htm")
+        <div class="user_center">
+            <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+                <tr>
+                    $!httpInclude.include("/seller/nav.htm?op=goods")
+                    <td id="centerbg" valign="top">
+                        <div class="buyer_position">
+                            <div class="buyer_p_box"><a href="$!webPath/seller/index.htm">卖家中心</a> > <span>出售中的商品</span></div>
+                        </div>
+                        <form action="$!webPath/seller/goods.htm" method="post" name="ListForm" id="ListForm">
+                            <div class="productmain">
+                                <div class="pdctitle blue2">出售中的商品<span class="classname">
+                                        <input name="mulitId" type="hidden" id="mulitId" />
+                                    </span></div>
+                                <div class="alldel">
+                                    <div class="alldel_r"><span class="alldelsel"> 商品分类&nbsp;&nbsp;
+                                            <select name="user_class_id" class="user_class_id grandpa">
+                                                <option selected="">请选择</option>
+                                                #foreach($obj in $objs)
+                                                #if($obj.gc.parent.parent!="")
+                                                <option value="$!obj.gc.parent.parent.id">$!obj.gc.parent.parent.className</option>
+                                                #end
+                                                #end
+                                            </select>
+                                            <select name="user_class_id" class="user_class_id father">
+                                                <option selected="">请选择</option>
+                                                #foreach($obj in $objs)
+                                                #if($obj.gc.parent.parent!="")
+                                                #if($obj.gc.parent!="")
+                                                <option value="$!obj.gc.parent.id">$!obj.gc.parent.className</option>
+                                                #end
+                                                #end
+                                                #end
+                                            </select>
+                                            <select name="user_class_id" class="user_class_id son">
+                                                <option selected="">请选择</option>
+                                                #foreach($obj in $objs)
+                                                <option value="$!obj.gc.id">$!obj.gc.className</option>
+                                                #end
+                                            </select>
+                                        </span>
+                                        <!-- #foreach($obj in $objs)
+                                        #if($obj.gc.parent.parent!="")
+                                        <div class="grandpa">$!obj.gc.parent.parent.className</div>
+                                        #if($obj.gc.parent!="")
+                                        <div class="father">$!obj.gc.parent.className</div>
+                                        #end
+                                        #end
+                                        <div class="son">$!obj.gc.className</div>
+                                        #end -->
+                                        <span class="alldelsear">　商品名称
+                                            <input name="goods_name" type="text" id="goods_name" />
+                                        </span><span class="alldelbtn">
+                                            <input name="" type="button" value="搜索" style="cursor:pointer;" onclick="search();" />
+                                        </span></div>
+                                    <div class="alldel_l"> <span class="alldel_la">
+                                            <input name="all" type="checkbox" id="all" value="" onclick="selectAll(this)" />
+                                        </span><span class="alldel_lb"><label for="all">全选</label></span><span class="alldel_ld"><a class="button_common" href="javascript:void(0);" onclick="cmd('$!webPath/seller/goods_sale.htm','')">下架</a></span> </div>
+                                </div>
+                                <div class="operation">
+                                    <table width="990" border="0" cellspacing="0" cellpadding="0" id="opertable">
+                                        <thead>
+                                            <tr id="opertitle">
+                                                <td class="proname" width="220">商品名称</td>
+                                                <td width="217" class="proclassify">商品分类</td>
+                                                <td width="130" class="promoney">价格</td>
+                                                <td width="51" class="prorec">推荐</td>
+                                                <td width="240" align="center">操作</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="select-tbody">
+                                            #foreach($obj in $objs)
+                                            <tr class="opertr">
+                                                <td class="proname" valign="middle"><span class="checkpro">
+                                                        <input type="checkbox" value="$!obj.id" />
+                                                        #if($!obj.goods_main_photo)
+                                                        #set($img="$!webPath/$!{obj.goods_main_photo.path}/$!{obj.goods_main_photo.name}")
+                                                        #else
+                                                        #set($img="$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+                                                        #end
+                                                    </span><span class="imgpro"><img src="$!img" width="60" height="63" /></span><span class="nameproduct"><a href="$!webPath/goods_$!{obj.id}.htm" target="_blank">$!obj.goods_name</a></span></td>
+                                                <td class="proclassify">#if($!obj.gc)$!storeTools.generic_goods_class_info($!obj.gc)#end</td>
+                                                <td class="promoney">$!obj.store_price</td>
+                                                <td class="prorec"><img src="$!webPath/resources/style/system/front/default/images/usercenter/$!{obj.goods_recommend}.jpg" width="16" height="14" /></td>
+                                                <td class="operajt">
+                                                    <!-- <span class="edit"><a href="$!webPath/seller/goods_edit.htm?id=$!obj.id" target="_blank">编辑</a></span> --><span class="out"><a href="$!webPath/seller/goods_sale.htm?mulitId=$!obj.id">下架</a></span><!-- <span class="del"><a href="javascript:if(confirm('删除后不可恢复?'))window.location.href='$!webPath/seller/goods_del.htm?mulitId=$!obj.id'">删除</a></span> -->
+                                                </td>
+                                            </tr>
+                                            #end
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="alldel">
+                                    <div class="userfenye">$!gotoPageHTML</div>
+                                    <!--   <div class="alldel_l"> <span class="alldel_la">
+                <input name="all1" type="checkbox" id="all1" onclick="selectAll(this)" value="" />
+              </span><span class="alldel_lb"><label for="all">全选</label></span><span class="alldel_ld"><a class="button_common" href="javascript:void(0);" onclick="cmd('$!webPath/seller/goods_sale.htm','')">下架</a></span> </div> -->
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        $!httpInclude.include("/footer.htm")
+    </div>
+</body>
+<script>
+window.onload = function() {
+    $(".user_class_id").each(function(i, n) {
+        var options = "";
+        $(n).find("option").each(function(j, m) {
+            if (options.indexOf($(m)[0].outerHTML) == -1) {
+                options += $(m)[0].outerHTML;
+            }
+        });
+        $(n).html(options);
+    });
+    //
+    // var F1 = document.getElementsByClassName("user_class_id");
+    // for (var n = 0; n < F1.length; n++) {
+    //     var i = 0
+    //     while (i < F1[n].options.length) {
+    //         var j = i + 1;
+    //         while (j < F1[n].options.length) {
+    //             if (F1[n].options[i].text == F1[n].options[j].text) {
+    //                 F1[n].options[j] = null;
+    //             } else {
+    //                 j++;
+    //             }
+    //         }
+    //         i++;
+    //     }
+    // }
+
+
+}
+
+
+//点击搜索事件绑定
+function search() {
+    // 声明变量
+    var filter, tr, tds, flag = true;
+    var grandpa = $(".grandpa option:selected")
+    var father = $(".father option:selected")
+    var son = $(".son option:selected")
+    var gIndex = $(".grandpa").get(0).selectedIndex;
+    var fIndex = $(".father").get(0).selectedIndex;
+    var sIndex = $(".son").get(0).selectedIndex;
+
+    filter = $("#goods_name").val().toUpperCase();
+    tr = $("#select-tbody tr")
+    for (var a = 0; a < tr.length; a++) {
+        var tds = $("#select-tbody tr:eq(" + a + ") td:eq(1)");
+        var tdsf = $("#select-tbody tr:eq(" + a + ") td:eq(0)");
+        for (var i = 0; i < tds.length; i++) {
+            var thval = tds.text();
+            thval = thval.split(">")
+            var thvalf = tdsf.text();
+            if (filter == "") {
+                if (thval[1].toUpperCase().indexOf(grandpa.text()) != -1 && thval[2].toUpperCase().indexOf(father.text()) != -1 && thval[3].toUpperCase().indexOf(son.text()) != -1) { //不存在时返回-1   !=-1就是存在
+                    $("#select-tbody tr:eq(" + a + ")").fadeIn();
+                    flag = false;
+                    return false;
+                } else if (thval[1].toUpperCase().indexOf(grandpa.text()) != -1 && thval[2].toUpperCase().indexOf(father.text()) != -1 && sIndex == 0) {
+                    $("#select-tbody tr:eq(" + a + ")").fadeIn();
+                    flag = false;
+                } else if (thval[1].toUpperCase().indexOf(grandpa.text()) != -1 && fIndex == 0 && sIndex == 0) {
+                    $("#select-tbody tr:eq(" + a + ")").fadeIn();
+                    flag = false;
+                    break;
+                } else {
+                    $("#select-tbody tr:eq(" + a + ")").fadeOut(0);
+                }
+            } else if (filter != "" && gIndex != 0) {
+                if (thvalf.toUpperCase().indexOf(filter) != -1) { //不存在时返回-1   !=-1就是存在
+                    $("#select-tbody tr:eq(" + a + ")").fadeIn();
+                    flag = false;
+                    break;
+                } else {
+                    $("#select-tbody tr:eq(" + a + ")").fadeOut(0);
+                }
+            } else {
+                {
+                    if (thval[1].toUpperCase().indexOf(grandpa.text()) != -1 && thval[2].toUpperCase().indexOf(father.text()) != -1 && thval[3].toUpperCase().indexOf(son.text()) != -1 && thvalf.toUpperCase().indexOf(filter) != -1) { //不存在时返回-1   !=-1就是存在
+                        $("#select-tbody tr:eq(" + a + ")").fadeIn();
+                        flag = false;
+                        break;
+                    } else if (thval[1].toUpperCase().indexOf(grandpa.text()) != -1 && thval[2].toUpperCase().indexOf(father.text()) != -1 && sIndex == 0) {
+                        $("#select-tbody tr:eq(" + a + ")").fadeIn();
+                        flag = false;
+                        break;
+                    } else if (thval[1].toUpperCase().indexOf(grandpa.text()) != -1 && fIndex == 0 && sIndex == 0) {
+                        $("#select-tbody tr:eq(" + a + ")").fadeIn();
+                        flag = false;
+                        break;
+                    } else if (thvalf.toUpperCase().indexOf(filter) != -1 && gIndex == 0 && fIndex == 0 && sIndex == 0) {
+                        $("#select-tbody tr:eq(" + a + ")").fadeIn();
+                        flag = false;
+                        break;
+                    } else {
+                        $("#select-tbody tr:eq(" + a + ")").fadeOut(0);
+                    }
+                }
+            }
+        }
+    }
+    //if(input.value!="" && input.value != null){//控制模糊搜索时 是否允许空格搜索
+    if (flag) {
+        alert("查询不到相关信息")
+    } else {
+
+    }
+
+}
+</script>
+
+</html>

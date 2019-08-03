@@ -1,0 +1,141 @@
+<link href="$!webPath/resources/style/common/css/window.css" type="text/css" rel="stylesheet" />
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+<style type="text/css">
+.box_table {
+    margin-top: 18px;
+}
+
+.spanS {
+    width: 100px;
+    display: inline-block;
+    margin-right: 12px;
+    text-align: right;
+}
+
+.spanS1 {
+    margin-right: 20px;
+}
+
+#userName {
+    margin-left: 11px;
+    margin-right: 18px;
+}
+
+#phonecode {
+    margin-right: 18px;
+    text-indent: 6px;
+}
+
+#middle {
+    margin: 8px 0;
+}
+
+.por {
+    position: relative;
+}
+
+#chck {
+    position: absolute;
+    left:400px;
+    top: 8px;
+    color:red;
+}
+
+#btn {
+    padding:0 12px;
+}
+</style>
+<script>
+    function switch_reason(){
+  var ck=jQuery("#reason_other").attr("checked");
+  if(ck=="checked"){
+    jQuery("#other_reason").show();
+  }else{
+  jQuery("#other_reason").hide();
+  }
+}
+
+jQuery("#order_cancel .white_content").css("width","560px");
+var timer = null;
+  jQuery("#btn").click(function(){
+        clearInterval(timer);
+        var time = 59;
+        timer = setInterval(function(){
+            if(time<=0){
+                jQuery("#btn").val("点击重新发送");
+                jQuery("#btn").attr("disabled",false)
+            }else{
+                jQuery("#btn").attr("disabled",true)
+                jQuery("#btn").val("剩余时间"+(time)+"秒");
+                time--;
+            }
+        },1000)
+       jQuery.ajax({
+ 	    type:'POST',
+ 		url:'$!webPath/faxiaoxi.htm',
+ 		data:{"userName":"$!obj.user.mobile","templatecode":"SMS_160860859"},
+ 		success:function(data){
+ 		console.log("2");
+ 		        }
+ 		   })
+  });
+
+    jQuery("#shenme").click(function(){
+    var phonecode =jQuery("#phonecode").val();
+       jQuery.ajax({
+ 	    type:'POST',
+ 		url:'$!webPath/checkSave.htm',
+ 		data:{"phonecode":phonecode},
+ 		success:function(data){
+ 		if(data==1){
+ 		 jQuery("#theForm").submit();
+ 		}
+ 		if(data==2){
+ 		jQuery("#chck").html("验证码不能为空");
+ 		}
+ 		if(data==3){
+ 		jQuery("#chck").html("验证码错误");
+ 		}
+ 		        }
+ 		   })
+  });
+</script>
+<form action="$!webPath/buyer/order_cofirm_save.htm" method="post" id="theForm">
+    <table style="float:left;" width="500" border="0" cellspacing="0" cellpadding="0" class="box_table" style="word-wrap: break-word; word-break: break-all;">
+        #if($!totalprice)
+        <tr>
+            <td width="100%" align="left" valign="top" style="text-align:center">您批量选择<span style="color:#393;">$!count</span>个订单，总金额<span style="color:#393;">$!totalprice</span>元</td>
+        </tr>
+        #else
+      
+        <tr>
+            <td width="100%" align="left" valign="top" style="text-align:center">您是否确已经收到以下订单的货品?</td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">
+                <div id="middle">
+                    <span>订单号：</span>
+                     <span style="color:#393;">$!obj.order_id</span>
+                </div>
+            </td>
+        </tr>
+        #end
+        <tr>
+            <td width="95" class="login_nameu login_user_input input_size"><span class="spanS spanS1">手机号：</span><span id="userName">$!obj.user.mobile</span><input class="checkCode" type="button" id="btn" value="免费获取验证码" /></td>
+        </tr>
+        <tr>
+            <td width="95" class="login_nameu login_user_input input_size por"><span class="spanS">手机号验证码：</span><input name="phonecode" type="text" id="phonecode" placeholder="输入短信验证码" /><span id="chck"></span></td>
+        </tr>
+        <tr>
+            <td width="200" align="left" valign="top">
+                <div style="display:block;width:500px;overflow: hidden;margin-left:12px;margin-top:12px;margin-bottom:14px;text-align:center"><span style="color:#F00">注意：</span><span style="color:#999; font-weight:normal;">一经确认收货，即代表该订单真实有效，请谨慎操作！</span></div>
+            </td>
+        </tr>
+        <tr>
+            <td align="center"><span class="inputbtn">
+                    <input type="button" id="shenme" value="确认" style="cursor:pointer;padding:5px 18px;background:#09F;outline: none;border:0;border-radius:4px;color:#fff;" />
+                    <input name="currentPage" type="hidden" id="currentPage" value="$!currentPage" />
+                </span></td>
+        </tr>
+    </table>
+</form>

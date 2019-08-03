@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>买家赊销管理-$!{config.title}-Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+<meta name="copyright" content="wemall Inc. All Rights Reserved">
+<link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet" />
+<link  href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css" type=text/css rel=stylesheet>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+<style>
+	 #yyyy td {text-align: center; font-size:15px;}
+	 #zzzz td {text-align: center;font-size:13px;}
+    .apply-button {margin:3px; padding: 6px 10px; background-color: #90B6E3; color: #fff; border: 1px solid #7ab3eb; outline: none; border-radius: 4px;
+        font-weight: 400;}
+    .apply-button:hover {background-color: #72a0e3;}
+    .apply-button:active {background-color: #6186c0;}
+    .forbidden-button {margin:3px;padding: 6px 10px; background-color: #d4d5e3; border: 1px solid #b5c0d5; outline: none; border-radius: 4px;
+        font-weight: 400; color: #575757; cursor: not-allowed;}
+</style>
+</head>
+<body>
+$!httpInclude.include("/top.htm")
+<div class="main">
+  $!httpInclude.include("/buyer/head.htm")
+  <div class="user_center">
+    <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+      <tr>
+        $!httpInclude.include("/buyer/account_nav.htm?op=Charge")
+        <td id="centerbg" valign="top">
+        <div class="buyer_position"><div class="buyer_p_box"><a href="$!webPath/buyer/account.htm">我的账户</a> > <span>赊销管理</span></div></div>
+        <div class="productmain">
+            <div class="ordernav">
+              <ul class="orderul">
+                <li class="this"><a href='$!webPath/buyer/charge_sales_manage.htm' >赊销管理列表</a></li>
+                <li><a href='$!webPath/buyer/build_charge_sales_info.htm' >建立赊销信息</a></li>
+                <!-- <li><a href='$!webPath/buyer/charge_sales_refund.htm' >填写还款信息</a></li> -->
+              </ul>
+            </div>
+            <div class="ordercon">
+              <div class="addnav">
+              	<table width="100%" border="0" cellspacing="0" cellpadding="0" id="bigbox" onclick="applyBtn()">
+			      <tr style="background-color: #2A7AD2; height: 35px;" id="yyyy">
+			        <td width="12%" style="color: white;">店铺名称</td>
+			        <td width="10%" style="color: white;">总额度</td>
+			        <td colspan="2" style="color: white;"width="11%">剩余额度</td>
+			            <td colspan="2" style="color: white;"width="11%">已用额度</td>
+			        <td width="10%" style="color: white;">申请时长</td>
+			        <td width="10%" style="color: white;">审核状态</td>
+			        <td width="12%" style="color: white;">月结算日</td>
+			        <td width="12%" style="color: white;">原因</td>
+			        <td style="color: white;">操作</td>
+			      </tr>
+			      #foreach($zl in $zwlist)<tr id="zzzz">
+			       
+			      	<td width="12%">$!{zl.storeName}</td>
+			      	<td width="15%">$!{zl.buyerCombination}</td>
+			      
+			      	 <td colspan="2" width="11%">$!{zl.buyerRemainingUndrawn}</td>
+			      	#if($!zl.zstatus!=3)
+			      <td colspan="2" id='cnm$!zl.id' width="11%" >0
+			      	 </td>
+			      	#end 
+			      	#if($!zl.zstatus==3)
+			       <td colspan="2" id='cnm$!zl.id' width="11%" data-ze='$!zl.buyerCombination' data-yy='$!zl.buyerRemainingUndrawn'>
+			      	 </td>
+			      	 <script>
+			      	var a =  $('#cnm$!zl.id').data('ze') - $('#cnm$!zl.id').data('yy')
+			      	$('#cnm$!zl.id').text(a)
+			      	#end
+			      	 
+			      	
+			      	 </script>
+			      	<td width="12%">$!{zl.apTime}年</td>
+			      	#if($!zl.zstatus==1)
+			      	<td width="12%">未申请</td>
+			      	#end
+			      	#if($!zl.zstatus==2)
+			      	<td width="12%">已申请</td>
+			      	#end
+			      	#if($!zl.zstatus==3)
+			      	<td width="12%">申请成功</td>
+			      	#end
+			      	#if($!zl.zstatus==4)
+			      	<td width="12%">已被驳回</td>
+			      	#end
+			      	<td width="14%">每月$!{zl.repaymentDate}号</td>
+			      	#if($!zl.zstatus==1)
+			      	<td width="12%">无</td>
+			      	#end
+			      	#if($!zl.zstatus==2)
+			      	<td width="12%">无</td>
+			      	#end
+			      	#if($!zl.zstatus==3)
+			      	<td width="12%">无</td>
+			      	#end
+			      	#if($!zl.zstatus==4)
+			      	<td width="12%">$!{zl.refReason}</td>
+			      	#end
+			      	
+			      	<!-- <td width="11%">$!{zl.deleteStatus}</td> -->
+			      	#if($!zl.zstatus==1)
+			      	    <td>
+                            <input class="apply-button"
+                                   data-type="1"
+                                   data-storeid="$!zl.storeId"
+                                   type="button" value="点击申请" />
+                        </td>
+			      	#end
+			      	#if($!zl.zstatus==2)
+			      	    <td>
+                            <input class="forbidden-button" data-type="2" type="button" value="审核中" style="width:78px;height:32px;" disabled />
+                        </td>
+			      	#end
+			      	#if($!zl.zstatus==3)
+			      	    <td>
+                            <a href="$!webPath/buyer/charge_sales_history.htm?storeId=$!zl.storeId"><input class="apply-button" data-type="2" type="button" value="赊销记录" style="width:78px;height:32px;"/></a>
+                        </td>
+			      	#end
+			      	#if($!zl.zstatus==4)
+			      	    <td>
+                            <input title="驳回理由：$!zl.refReason,可再次点击申请。" class="apply-button" data-type="1" data-storeid="$!zl.storeId" type="button" value="再次申请" style="width:78px;height:32px;" />
+                        </td>
+			      	#end
+			      </tr>#end
+    			</table>
+              </div>
+            </div>
+          </div></td>
+      </tr>
+    </table>
+  </div>
+   $!httpInclude.include("/footer.htm")
+</div>
+<script>
+	function applyBtn(event) {
+        let e = event || window.event;
+        let currentDom = e.target || e.srcElement;
+        if (currentDom.localName === "input") {
+            let dataVal = currentDom.dataset.type;
+            let storeId = currentDom.dataset.storeid;
+            if (dataVal === "1") {
+                jQuery.ajax({
+                    url: '$!webPath/zwupdzstatus.htm',
+                    type: 'post',
+                    data: {
+                        "storeId": storeId,    
+                    },
+                    success(args) {
+                            alert("已发送赊销申请！");
+                            $(currentDom).parent().empty()
+                                .append('<input class="forbidden-button" data-type="2" type="button" value="审核中" style="width:75px;height:31px;" disabled />');
+                    },
+                });
+            }
+        }
+    }
+</script>
+</body>
+</html>

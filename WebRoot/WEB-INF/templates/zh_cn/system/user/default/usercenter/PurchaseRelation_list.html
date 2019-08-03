@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>采购关系-$!{config.title}-Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+<meta name="copyright" content="wemall Inc. All Rights Reserved">
+<link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet"/>
+<link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet"/>
+<link  href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css" type=text/css rel=stylesheet>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+
+<script>
+function shenqing(a){
+	var storeid=$(a).parent().parent().children("td:first-child").text();
+	var ywyid=$(a).parent().parent().children("td:nth-child(2)").text();
+	//var ywyid=$(a).parent().parent().children("td:nth-child(3)").children().children("option:selected").val();
+	console.log();
+	//location.href="$!webPath/buyer/addPurchaseRelation.htm?storeId="+storeid+"&invitationcodeid="+ywyid;
+	    jQuery.ajax({
+		type:'POST',
+		url:'$!webPath/buyer/addPurchaseRelation.htm',
+		data:{"storeId":storeid,"invitationcodeid":ywyid},
+		success:function(data){
+			confirm("申请成功！");
+			location.href="$!webPath/buyer/PurchaseRelation_list.htm?state=wodezhanghu";
+		}
+		})
+}
+</script>
+
+</head>
+<body>
+$!httpInclude.include("/top.htm")
+<div class="main">
+  $!httpInclude.include("/buyer/head.htm")
+  <div class="user_center">
+    <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+      <tr>
+        $!httpInclude.include("/buyer/account_nav.htm?op=Purchase")
+        <td id="centerbg" valign="top">
+        <div class="buyer_position"><div class="buyer_p_box"><a href="$!webPath/buyer/account.htm">我的账户</a> > <span>采购关系</span></div></div>
+        <div class="productmain">
+            <div class="ordernav">
+              <ul class="orderul">
+              	<li><a href='$!webPath/buyer/initialPurchaseRelation.htm' >建立采购关系</a></li>
+                <li class="this"><a href='$!webPath/buyer/PurchaseRelation_list.htm?state=wodezhanghu'>采购关系列表</a></li>
+              </ul>
+            </div>
+            <div class="ordercon">
+              <div class="addnav">
+                <form action="$!webPath/buyer/addPurchaseRelation.htm" method="post" name="theForm" id="theForm">
+                <div class="operation">
+                <table width="990" border="0" cellspacing="0" cellpadding="0" id="opertable" >
+
+                  <!-- 买家     -->
+                  <tr id="opertitle">
+                      <td width="10%" align="center">店铺名称</td>
+                      <!-- <td width="10%" align="center">营业执照</td>
+                      <td width="10%" align="center">药品经营许可证</td>
+                      <td width="10%" align="center">gsp证书</td>
+                      <td width="10%" align="center">采购委托书</td> -->
+                      <td width="10%" align="center">审核时间</td>
+                      <td width="10%" align="center">原因</td>
+                      <td width="10%" align="center">审核状态</td>
+                       <td width="10%" align="center">详情</td>
+                      <!-- <td width="10%" align="center">操作</td> -->
+                     <!--  <td width="10%" align="center">解除关系</td> -->
+                  </tr>
+				   #foreach($obj in $objs)
+				    #if($!obj.auditStatus!=5)
+                     <tr><td align="center" style="display:none;">$!obj.storeId</td>
+                     <td align="center" style="display:none;">$!obj.invitationcodeid</td>
+                      <td width="10%" align="center">$!obj.storeName</td>
+                      <!-- <td width="10%" align="center">$!obj.storeBusinessLicense</td>
+                      <td width="10%" align="center">$!obj.storeDrugLicense</td>
+                      <td width="10%" align="center">$!obj.storeGSPCertificate</td>
+                      <td width="10%" align="center">$!obj.storePurchaseOrders</td> -->
+                      <td width="10%" align="center">$!date.format('yyyy-MM-dd',$!obj.auditAddTime)</td>
+                      #if($!obj.auditStatus==2)
+                      	<td width="10%" align="center">$!obj.zhcause</td>
+                      #else
+                      	<td width="10%" align="center"></td>
+                      #end
+
+                      <td width="10%" align="center">
+                          #if($!obj.auditStatus==0)
+                          	审核中
+                          #end
+                          #if($!obj.auditStatus==1)
+                          	审核通过
+                          #end
+                          #if($!obj.auditStatus==2)
+                          	<!-- <a href="$!webPath/buyer/addPurchaseRelation.htm?storeId=$!obj.storeId&invitationcodeid=$!obj.invitationcodeid"><input type="button" value="申请建立采购关系"/></a>
+                           -->
+                           	<p style="margin-bottom:10px;">已驳回</p>
+                           <input name="" type="button" onclick="shenqing(this);" value="重新申请" style="cursor:pointer;"/>
+                          #end
+                      </td>
+                      <!-- <td width="10%" align="center">
+                      	 #if($!obj.auditStatus==1)
+                          	<a href="$!webPath/buyer/PurchaseRelation_review.htm?id=$!obj.id&auditStatus=3&shopkeeperId=$!obj.buyerName" style="color:#51B11C">复核通过</a><br/><br/>
+                          	<a href="$!webPath/buyer/PurchaseRelation_review.htm?id=$!obj.id&auditStatus=4&shopkeeperId=$!obj.buyerName" style="color:red">复核不通过</a>
+                         #end
+                      </td> -->
+                      #if($!obj.auditStatus==1)
+                       <td width="10%" align="center"><a href="$!webPath/seller/queryProcuAuthentication2.htm?userId=$!obj.shopkeeperId" style="color:red">查   看</a></td>
+                      #else
+                      <td width="10%" ></td>
+                      #end
+
+
+                     <!--  <td width="10%" align="center"><a href="$!webPath/buyer/PurchaseRelation_shan.htm?id=$!obj.id">点击解除</a></td> -->
+                    </tr>
+                     #end
+                   #end
+                </table>
+              </div>
+                  </table>
+                </form>
+              </div>
+            </div>
+          </div></td>
+      </tr>
+    </table>
+  </div>
+   $!httpInclude.include("/footer.htm")
+</div>
+</body>
+</html>

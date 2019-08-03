@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>金额设置 - Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+<meta name="copyright" content="wemall Inc. All Rights Reserved">
+<link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/common/css/overlay.css" type="text/css" rel="stylesheet" />
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script>
+	jQuery(function(){
+		var pro = jQuery("#pro")
+		var submit_btn = jQuery("#submit_btn")
+	if(pro.val() !==""){
+		submit_btn.val("修改")
+	}
+	})
+
+
+</script>
+</head>
+<body>
+$!httpInclude.include("/top.htm")
+<div class="main">$!httpInclude.include("/seller/nav_head.htm")
+  <div class="user_center">
+    <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+      <tr> $!httpInclude.include("/seller/nav.htm?op=province")
+        <td id="centerbg" valign="top"><div class="buyer_position">
+            <div class="buyer_p_box"><a href="$!webPath/seller/index.htm">卖家中心</a> > <span>物流运费设置</span></div>
+          </div>
+          <div class="productmain">
+            <div class="ordernav">
+              <ul class="orderul">
+                <li class="this"><span class="position">省内外购买金额</span></li>
+              </ul>
+            </div>
+            <form action="$!webPath/seller/province.htm" method="post" id="ListForm">
+            <br></br>
+                                      省内，满 <input type="text" name="province" value="$!user.province" id="pro"/> 元起配包邮 <br></br>
+                                      省外，满 <input type="text" name="outprovince" value="$!user.outprovince" /> 元起配包邮<br></br>
+                   <input type="submit"   value="提交"  id="submit_btn"/>
+            </form>
+          </div></td>
+      </tr>
+    </table>
+  </div>
+  $!httpInclude.include("/footer.htm") </div>
+</body>
+</html>

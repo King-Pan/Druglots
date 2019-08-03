@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>客户额度编辑 - Powered by Druglots</title>
+    <meta name="keywords" content="$!config.keywords" />
+    <meta name="description" content="$!config.description" />
+    <meta name="generator" content="wemall 2.0" />
+    <meta name="author" content="www.wemall.com">
+    <meta name="copyright" content="wemall Inc. All Rights Reserved">
+    <link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+    <link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet" />
+    <script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+    <script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+    <script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+    <script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+    <script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+    <script>
+        /* function savesubmit(){
+  var buyerCreditsNew=document.getElementById("buyerCredits").value;//买家额度
+  var storeSurplus=document.getElementById("storeSurplus").value;//店铺余额
+  if(storeSurplus<buyerCreditsNew){
+    alert("授予客户额度不能大于店铺的剩余额度！");
+  return false;
+  }
+  return true;
+} */
+</script>
+</head>
+
+<body>
+    $!httpInclude.include("/top.htm")
+    <div class="main">
+        $!httpInclude.include("/buyer/head.htm")
+        <div class="user_center">
+            <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+                <tr>
+                    $!httpInclude.include("/buyer/account_nav.htm?op=Charge")
+                    <td id="centerbg" valign="top">
+                        <div class="buyer_position">
+                            <div class="buyer_p_box"><a href="$!webPath/seller/index.htm">卖家中心</a> > <span>赊销管理</span></div>
+                        </div>
+                        <div class="productmain">
+                            <div class="ordernav">
+                                <ul class="orderul">
+                                    <li><a href='$!webPath/buyer/charge_sales_manage.htm'>赊销管理列表</a></li>
+                                    <li class="this"><a href='$!webPath/buyer/build_charge_sales_info.htm'>建立赊销信息</a></li>
+                                </ul>
+                            </div>
+                            <form action="$!webPath/subcharge.htm" method="post" onSubmit="return inputNull(this)"  id="theForm">
+                                <div class="ordercon">
+                                    <div class="setshop">
+                                        <table width="705" border="0" cellspacing="0" cellpadding="0" class="setshoptable">
+                                            <tr>
+                                                <td width="98" align="right">&nbsp;店铺名称：</td>
+                                                <td width="607" style="padding-left:30px;">
+                                                    <div class="layui-form-item">
+                                                        <!-- <label class="layui-form-label">用户等级:</label> -->
+                                                        <div class="layui-input-inline">
+                                                            <select name="storeId" id="opt">
+                                                                <option>请选择...</option>
+                                                                #foreach($p in $proship)
+                                                                <option value="$!{p.storeId}">$!{p.storeName}</option>
+                                                                #end
+                                                            </select>
+                                                            &nbsp;<span id="info_error2">店铺名称不能为空</span>
+                                                        </div>
+                                                        <input name="storeName" type="hidden" value="789" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="98" align="right">&nbsp;申请时长：</td>
+                                                <td width="607" style="padding-left:30px;">
+                                                    <input type="number" name="apTime" id="monthClean"  onkeyup="if(value<1)value=''" />年&nbsp;<span id="info_error3">申请时长不能为空</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="98" align="right">&nbsp;申请额度：</td>
+                                                <td width="607" style="padding-left:30px;">
+                                                    <input type="number" name="buyerCombination" id="buyerCombination" onkeyup="if(value<1)value=''" />&nbsp;<span id="info_error4">申请额度不能为空</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="98" align="right">&nbsp;</td>
+                                                <td style="padding-left:30px;"><span class="setsub">
+                                                        <input name="" type="submit" value="提交" style="cursor:pointer;"  id="anniu" />
+                                                    </span></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        $!httpInclude.include("/footer.htm")
+    </div>
+    <script type="text/javascript">
+    $("#info_error").hide();
+    $("#info_error").css("color", "red")
+    $("#info_error2").hide();
+    $("#info_error2").css("color", "red")
+    $("#info_error3").hide();
+    $("#info_error3").css("color", "red")
+    $("#info_error4").hide();
+    $("#info_error4").css("color", "red")
+
+
+    function inputNull(form) {
+        var h  = $("#opt").get(0).selectedIndex;
+        var h1  = $("#monthClean").val();
+        var h2  = $("#buyerCombination").val();
+        if(h==0){
+            $("#info_error2").show();
+        }else{
+            $("#info_error2").hide();
+        }
+
+        if(!h1){
+            $("#info_error3").show();
+        }else {
+            $("#info_error3").hide();
+        }
+        if(!h2){
+            $("#info_error4").show();
+        }else {
+            $("#info_error4").hide();
+        }
+        for (i = 0; i < form.length; i++) {
+            if (form.elements[i].value == "" || form.elements[i].selectedIndex==0) {
+                $("#info_error").show();
+                form.elements[i].focus();
+                return false;
+            } else {
+                $("#info_error").hide();
+            }
+        }
+    }
+
+   function hehehe(){
+   //表单验证
+  jQuery("#theForm").validate({
+    ignore: "",
+     rules: {
+
+            apTime:{
+             required:true
+            },
+            },
+     messages: {
+            apTime:{
+                required: "申请时长不能为空",
+              }
+              }
+  });
+         document.getElementById('anniu').setAttribute('type','submit');
+    }
+    </script>
+</body>
+
+</html>

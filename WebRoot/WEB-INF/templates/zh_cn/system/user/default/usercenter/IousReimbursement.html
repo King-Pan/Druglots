@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>白条还款-$!{config.title}-Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+<meta name="copyright" content="wemall Inc. All Rights Reserved">
+<link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet" />
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+
+</head>
+<body>
+$!httpInclude.include("/top.htm")
+<div class="main">
+  $!httpInclude.include("/buyer/head.htm")
+  <div class="user_center">
+    <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+      <tr>
+        $!httpInclude.include("/buyer/account_nav.htm?op=IousReimbursement")
+        <td id="centerbg" valign="top">
+        <div class="buyer_position"><div class="buyer_p_box"><a href="$!webPath/buyer/account.htm">我的账户</a> > <span>特米白条</span></div></div>
+        <div class="productmain">
+
+            <div class="ordernav">
+              <ul class="orderul">
+              	<li><a href='$!webPath/buyer/TemiIous.htm' >全部消费记录 </a></li>
+                <li><a href="$!webPath/buyer/TemiIous.htm?consumptionType=借款">借款记录 </a></li>
+                <li><a href="$!webPath/buyer/TemiIous.htm?consumptionType=还款">还款记录 </a></li>
+                <li class="this"><a href="$!webPath/buyer/IousReimbursement.htm">还款 </a></li>
+              </ul>
+            </div>
+
+            <div class="ordercon">
+              <div class="addnav">
+			  <form action="#" method="post" name="theForm" id="theForm">
+                <table width="705" border="0" cellspacing="0" cellpadding="0" class="addnavtable">
+                  <tr>
+                    <td width="80" align="right" valign="top" class="modifysp"><span>您的总额度：</span><span><strong class="red" style="font-size:14px;">*</strong></span></td>
+                    <td  class="px10"><span class="setinput">
+                          10000.00
+                      </span></td>
+                  </tr>
+                  <tr>
+                    <td width="120" align="right" valign="top" class="modifysp"><span>当月需还款金额：</span><span><strong class="red" style="font-size:14px;">*</strong></span></td>
+                    <td  class="px10"><span class="setinput" style="font-size:16px;color:red;font-weight:bold;">
+                                6000.00
+                      </span></td>
+                  </tr>
+                  <tr>
+                    <td width="200" align="right" valign="top" class="modifysp"></td>
+                    <td  class="px10">
+                      <a href="#"><input name="" type="button"  value="全部还款" style="width:80px;cursor:pointer;"/> </a>
+
+
+                      <a href="#"><input name="" type="button"  value="分期还款" style="width:80px;cursor:pointer;"/> </a></td>
+
+                  </tr>
+                </table>
+				</form>
+              </div>
+            </div>
+          </div></td>
+      </tr>
+    </table>
+  </div>
+   $!httpInclude.include("/footer.htm")
+</div>
+</body>
+</html>

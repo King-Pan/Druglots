@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>赊销账期及额度 - Powered by Druglots</title>
+    <meta name="keywords" content="$!config.keywords" />
+    <meta name="description" content="$!config.description" />
+    <meta name="generator" content="wemall 2.0" />
+    <meta name="author" content="www.wemall.com">
+    <meta name="copyright" content="wemall Inc. All Rights Reserved">
+    <link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+    <link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet" />
+    <link href="$!webPath/resources/style/common/css/overlay.css" type="text/css" rel="stylesheet" />
+    <script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+    <script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+</head>
+<style>
+    #opertitle{
+    text-align:center;
+}
+
+#isBank p,#isDel p{
+    text-align: center;
+}
+
+#sub-box{
+    text-align: center;
+}
+
+#sub-box button:hover{
+    cursor:pointer;
+}
+</style>
+
+<body>
+    $!httpInclude.include("/top.htm")
+    <div class="main"> $!httpInclude.include("/seller/nav_head.htm")
+        <div class="user_center">
+            <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+                <tr> $!httpInclude.include("/seller/nav.htm?op=quota_Management")
+                    <td id="centerbg" valign="top">
+                        <div class="buyer_position">
+                            <div class="buyer_p_box"><a href="$!webPath/seller/index.htm">卖家中心</a> > <span>赊销管理</span></div>
+                        </div>
+                        <div class="productmain">
+                            <div class="ordernav">
+                                <ul class="orderul">
+                                    #if($!storstatus == 1)
+                                    <li><a href="$!webPath/seller/is_charge_sales.htm">开通赊销</a></li>
+                                    #end
+                                    <li class="this"><a href="$!webPath/seller/charge_sales_wallet.htm">赊销钱包</a></li>
+                                    <li><a href="$!webPath/seller/my_charge_sales.htm">我的赊销</a></li>
+                                    <li><a href="$!webPath/seller/charge_sales_check.htm">赊销审核</a></li>
+                                    <li><a href="$!webPath/seller/addUpdate_customerCredit.htm?type=save">赊销授额</a></li>
+                                    <li  id="ssdd"><a href="$!webPath/seller/charge_sales_order.htm?twoStatus=1">赊销订单</a></li>
+                                </ul>
+                            </div>
+                            <div class="ordercon">
+                                <div class="addnav">
+                                    <br /><br />
+                                    <div class="zf-description">
+                                        <p>赊销钱包是面向开展赊销交易的买卖双方，用于赊销还款和回款的电子支付工具。</p>
+                                        <p style="color:#ff5d1d">温馨提示：买卖双方均需开通赊销钱包功能，才能正常开展赊销交易。</p>
+                                    </div>
+                                    <div class="all-bank">
+                                        <div class="bank-box">
+                                            <div class="bankCard">
+                                                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1560776011064&di=b10ba8ab75c6837b04d50b52fe04706a&imgtype=0&src=http%3A%2F%2Fi3.sinaimg.cn%2Fty%2F2014%2F1119%2FS129957T1416368582491.jpg" alt="" />
+                                                <span>614546465464654651</span>
+                                            </div>
+                                            <a class="delBtn" href="javascript:;">删除</a>
+                                        </div>
+                                        <div class="bank-box">
+                                            <div class="bankCard">
+                                                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1560776011064&di=b10ba8ab75c6837b04d50b52fe04706a&imgtype=0&src=http%3A%2F%2Fi3.sinaimg.cn%2Fty%2F2014%2F1119%2FS129957T1416368582491.jpg" alt="" />
+                                                <span>614546465464654652</span>
+                                            </div>
+                                            <a class="delBtn" href="javascript:;">删除</a>
+                                        </div>
+                                        <div class="bank-box">
+                                            <div class="bankCard">
+                                                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1560776011064&di=b10ba8ab75c6837b04d50b52fe04706a&imgtype=0&src=http%3A%2F%2Fi3.sinaimg.cn%2Fty%2F2014%2F1119%2FS129957T1416368582491.jpg" alt="" />
+                                                <span>614546465464654653</span>
+                                            </div>
+                                            <a class="delBtn" href="javascript:;">删除</a>
+                                        </div>
+                                    </div>
+                                    <a href="$!webPath/seller/charge_sales_wallet_add.htm" class="setsub" style="margin-left:460px;">
+                                        <input type="button" id="zw_but" value="新增银行账户" style="cursor:pointer;" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        $!httpInclude.include("/footer.htm")
+    </div>
+    <!-- 弹窗未绑定银行卡 -->
+    <div id="tc-box" style="top:250px">
+        <h1 onclick="closeTc()">x</h1>
+        <div>
+            <div id="isBank">
+                <div class="seInput seInput2 clearfix">
+                    <p>
+                        您暂未绑定任何银行卡!
+                    </p>
+                </div>
+                <div id="sub-box">
+                    <button class="bank-sub bdrBtn" onclick="closeTc()">以后再说</button>
+                    <a href="$!webPath/seller/charge_sales_wallet_add.htm" class="bank-sub bgcBtn">现在绑定</a>
+                </div>
+            </div>
+            <div id="isDel">
+                <div class="seInput seInput2 clearfix">
+                    <p>
+                        您确定删除该银行卡包吗？
+                    </p>
+                </div>
+                <div id="sub-box">
+                    <button class="bank-sub bdrBtn" onclick="closeTc()">取消</button>
+                    <a href="javascript:;" class="bank-sub bgcBtn isSure">确定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+jQuery("#ssdd").click(function() {
+    localStorage.removeItem('Ordervalue')
+    jQuery("#orderTab li").removeClass('this')
+    jQuery("#dz-box").show().siblings().hide();
+
+})
+
+function closeTc() {
+    jQuery("#tc-box").hide();
+    jQuery("#isBank").hide().siblings().hide();
+}
+
+function openTc(e) {
+    jQuery("#tc-box").show();
+    jQuery("#"+e).show().siblings().hide();
+}
+
+openTc('isBank');
+//
+var index;
+jQuery(".delBtn").click(function(event) {
+    openTc('isDel');
+    index = jQuery(this).parent().index()
+});
+
+jQuery(".isSure").click(function(event) {
+   jQuery(".bank-box").eq(index).remove();
+   closeTc();
+});
+</script>
+
+</html>

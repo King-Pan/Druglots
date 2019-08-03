@@ -1,0 +1,1054 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>买家赊销管理-$!{config.title}-Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+	<meta name="copyright" content="wemall Inc. All Rights Reserved">
+		<link
+			href="$!webPath/resources/style/system/front/default/css/public.css"
+			type="text/css" rel="stylesheet" />
+		<link
+			href="$!webPath/resources/style/system/front/default/css/user.css"
+			type="text/css" rel="stylesheet" />
+		<link href="$!webPath/resources/js/theme/default/laydate.css"
+			type="text/css" rel="stylesheet" />
+		<script src="$!webPath/resources/js/laydate.js"></script>
+		<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+		<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+</head>
+<style>
+#test1, #test2, #test3, #test4, #test5, #test6, #test7, #test8, #test9,
+	#test10, #test11, #test12, #test13, #test14, #test15, #test16 {
+	width: 190px;
+}
+
+#ycz-box, #wcz-box, #yhk-box, #dcz-box, #yyq-box {
+	display: none;
+}
+/* // 赊销订单 */
+.order_tab_nav {
+	margin: 24px 0 36px 20px;
+}
+
+.order_tab_nav li.this {
+	background-color: #09F;
+	color: #fff;
+}
+
+.order_tab_nav  li {
+	float: left;
+	padding: 8px 32px;
+	border-radius: 20px;
+	margin-right: 18px;
+	border: 1px #ccc solid;
+}
+
+#js-box {
+	display: none;
+}
+
+#orderTab li:hover {
+	cursor: pointer;
+}
+
+#isBank p {
+	text-align: center;
+	font-size: 18px;
+}
+
+#sub-box {
+	text-align: center;
+}
+
+#sub-box button:hover {
+	cursor: pointer;
+}
+
+#orderTab span {
+	font-size: 16px;
+	color: #09F;
+	font-weight: 700;
+}
+
+#orderTab li.this span {
+	color: #fff;
+}
+</style>
+
+<script>
+    $(function() {
+    function number() {
+        var page = $("#currentPage").val();
+        if (page == 1) {
+            for (var i = 0; i < $(".numberClass").length; i++) {
+                $(".numberClass").get(i).innerHTML = i + 1;
+            }
+
+        } else {
+            for (var i = 0; i < $(".numberClass").length; i++) {
+                $(".numberClass").get(i).innerHTML = i + (page - 1) * 12 + 1;
+            }
+        }
+
+    }
+    number();
+});
+</script>
+</head>
+
+<body>
+	$!httpInclude.include("/top.htm")
+	<div class="main">
+		$!httpInclude.include("/buyer/head.htm")
+		<div class="user_center">
+			<table width="1200" border="0" cellspacing="0" cellpadding="0"
+				class="user_table">
+				<tr>
+					$!httpInclude.include("/buyer/account_nav.htm?op=Charge")
+					<td id="centerbg" valign="top">
+						<div class="buyer_position">
+							<div class="buyer_p_box">
+								<a href="$!webPath/buyer/account.htm">我的账户</a> > <span>赊销管理</span>
+								> <span>还款详情</span>
+							</div>
+						</div>
+						<div class="productmain">
+							<div class="ordernav">
+								<ul class="orderul">
+									<li><a
+										href="$!webPath/buyer/buyer_charge_sales_wallet.htm">赊销钱包</a></li>
+									<li><a href="$!webPath/buyer/buyer_my_charge_sales.htm">我的赊销</a></li>
+									<li><a
+										href="$!webPath/buyer/buyer_charge_sales_amount_granted.htm?flag=save">申请赊销</a></li>
+									<li><a href="$!webPath/buyer/buyer_charge_sales_check.htm">赊销审核</a></li>
+									<li class="this" id="ssdd"><a
+										href="$!webPath/buyer/buyer_charge_sales_order.htm?twoStatus=1">赊销订单</a></li>
+								</ul>
+							</div>
+							<div class="ordercon">
+								<ul class="order_tab_nav clearfix" id="orderTab">
+									<a href="$!webPath/buyer/charge_off_order.htm?statusFive=0"
+										value="0">
+										<li value="0">已出账 #if($!yichuzhang) <span>$!yichuzhang</span>
+											#else <span>0</span> #end
+									</li>
+									</a>
+									<a href="$!webPath/buyer/charge_off_order.htm?statusFive=1"
+										value="1" )>
+										<li value="1">未出账 #if($!weichuzhang) <span>$!weichuzhang</span>
+											#else <span>0</span> #end
+									</li>
+									</a>
+									<a href="$!webPath/buyer/charge_off_order.htm?statusFive=2"
+										value="2">
+										<li value="2" id="dcz">待还款 #if($!daihuankuan) <span>$!daihuankuan</span>
+											#else <span>0</span> #end
+									</li>
+									</a>
+									<a href="$!webPath/buyer/charge_off_order.htm?statusFive=3"
+										value="3">
+										<li value="3">已还款 #if($!yihuankuan) <span>$!yihuankuan</span>
+											#else <span>0</span> #end
+									</li>
+									</a>
+									<a href="$!webPath/buyer/charge_off_order.htm?statusFive=4"
+										value="4">
+										<li value="4">已逾期 #if($!yiyuqi) <span>$!yiyuqi</span>
+											#else <span>0</span> #end
+									</li>
+									</a>
+								</ul>
+								<div>
+									<!-- 赊销订单默认开始 -->
+									<div class="addnav" id="sx-box">
+										<form method="post"
+											action="$!webPath/buyer/buyer_charge_sales_order.htm">
+											<div class="seInput seInput2 seInput3 totalPart clearfix">
+												<div class="everyPart">
+													<div class="leftPart">商家名称：</div>
+													<div class="rightPart">
+														<input type="text" name="storeName">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">商家编码：</div>
+													<div class="rightPart">
+														<input type="text" name="" disabled="disabled">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">交易日期：</div>
+													<div class="rightPart">
+														<input type="text" id="test4" name="payTime">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">订单编号：</div>
+													<div class="rightPart">
+														<input type="text" name="order_id">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">订单状态：</div>
+													<div class="rightPart">
+														<select name="order_status" id="buyerId"
+															style="height: 26px; font-size: 14px;">
+															<option value="0">全部</option>
+															<option value="10">待付款</option>
+															<option value="20">已付款</option>
+															<option value="30">已发货</option>
+															<option value="40">已收货</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="btn-box">
+												<input class="apply-button"
+													style='background-color: #09F; border: 1px solid #09F;'
+													type="submit" value="查询" />
+												<button class="apply-button"
+													style='background-color: #fff; border: 1px solid #999; color: #666'
+													type="reset" value="重置">重置</button>
+											</div>
+										</form>
+										<div id="bigbox">
+											<!-- <input class="apply-button" style='background-color:#09F;border:1px solid #09F;' type="button" value="导出" /> -->
+											<div id="tablebox">
+											 <form action="" method="post" name="ListForm" id="ListForm">
+												<table width="100%" border="0" cellspacing="0"
+													cellpadding="0">
+													<tr style="background-color: #2A7AD2; height: 30px;"
+														class="yyyy">
+														<!-- <td style="color: white;"><input type="checkbox"
+															name="" id="" /></td> -->
+														<td style="color: white;">序号</td>
+														<td style="color: white;">商家名称</td>
+														<td style="color: white;">商家编号</td>
+														<td style="color: white;">订单编号</td>
+														<td style="color: white;">订单金额（元）</td>
+														<td style="color: white;">交易日期</td>
+														<td style="color: white;">订单状态</td>
+														<td style="color: white;">操作</td>
+													</tr>
+													#foreach($obj in $objsix)
+													<tr class="zzzz">
+													<!-- 	<td><input type="checkbox" name="" id="" /></td> -->
+													    <td class="numberClass"></td>
+														<td>$!obj.store.store_name</td>
+														<td></td>
+														<td>$!obj.order_id</td>
+														<td>$!obj.totalPrice</td>
+														<td>$!date.format('yyyy-MM-dd',$!obj.payTime$)</td>
+														#if($!obj.of.order_status==0) #set($status="已取消") #end
+														#if($!obj.order_status==10) #set($status="待付款") #end
+														#if($!obj.order_status==15) #set($status="线下支付待审核") #end
+														#if($!obj.order_status==20) #set($status="已付款") #end
+														#if($!obj.order_status==30) #set($status="已发货") #end
+														#if($!obj.order_status==40) #set($status="已收货") #end
+														#if($!obj.order_status==50) #set($status="已完成,已评价") #end
+														#if($!obj.order_status==60) #set($status="已结束") #end
+														<td>$!status</td>
+														<td><a
+															href="$!webPath/buyer/order_view.htm?id=$!obj.id">查看</a></td>
+													</tr>
+													#end
+												</table>
+												
+												<input id="currentPage" name="currentPage" type="hidden"
+													value="$!currentPage" /> <input id="type" name="type"
+													type="hidden" value="$!type" />
+												<div class="alldel">
+													<div class="userfenye">$!gotoPageFormHTML</div>
+												</div>
+												</form>
+											</div>
+										</div>
+									</div>
+									<!-- 赊销订单默认结束 -->
+									<!-- 已出账订单开始 -->
+									<div class="addnav" id="ycz-box">
+										<form method="post"
+											action="$!webPath/buyer/charge_off_order.htm?statusFive=0">
+											<div class="seInput seInput2 seInput3 totalPart clearfix">
+												<div class="everyPart">
+													<div class="leftPart">商家名称：</div>
+													<div class="rightPart">
+														<input type="text" name="storeName">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">商家编码：</div>
+													<div class="rightPart">
+														<input type="text" name="" disabled="disabled">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">订单编号：</div>
+													<div class="rightPart">
+														<input type="text" name="order_id">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">出账日：</div>
+													<div class="rightPart">
+														<input type="text" name="accountDate">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">最后还款日：</div>
+													<div class="rightPart">
+														<input type="text" name="repaymentDate">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">实际还款日：</div>
+													<div class="rightPart">
+														<input type="text" name="actual_date">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">还款状态：</div>
+													<div class="rightPart">
+														<select name="buyerId" id="buyerId"
+															style="height: 26px; font-size: 14px;">
+															<option value="$!buyerId">全部</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="btn-box">
+												<input class="apply-button"
+													style='background-color: #09F; border: 1px solid #09F;'
+													type="submit" value="查询" />
+												<button class="apply-button"
+													style='background-color: #fff; border: 1px solid #999; color: #666'
+													type="reset" value="重置">重置</button>
+											</div>
+										</form>
+										<div id="bigbox">
+											<!-- <input class="apply-button" style='background-color:#09F;border:1px solid #09F;' type="button" value="导出" /> -->
+											<div id="tablebox">
+												<table width="120%" border="0" cellspacing="0"
+													cellpadding="0">
+													<tr style="background-color: #2A7AD2; height: 30px;"
+														class="yyyy">
+														<td style="color: white;"><input type="checkbox"
+															name="" id="" /></td>
+														<td style="color: white;">商家名称</td>
+														<td style="color: white;">商家编号</td>
+														<td style="color: white;">订单编号</td>
+														<td style="color: white;">交易日期</td>
+														<td style="color: white;">出账日</td>
+														<td style="color: white;">最后还款日</td>
+														<td style="color: white;">实际还款日</td>
+														<td style="color: white;">订单金额（元）</td>
+														<td style="color: white;">还款状态</td>
+														<td style="color: white;">操作</td>
+													</tr>
+													#foreach($objs in $objs)
+													<tr class="zzzz">
+														<td><input type="checkbox" name="" id="" /></td>
+														<td>$!objs.store.store_name</td>
+														<td></td>
+														<td>$!objs.order_id</td>
+														<td>$!date.format('yyyy-MM-dd',$!objs.payTime$)</td>
+														<td>$!accountDate</td>
+														<td>$!repaymentDate</td>
+														<td>$!objs.actual_date</td>
+														<td>$!objs.totalPrice</td>
+														<td>还款状态</td>
+														<td><a
+																href="$!webPath/buyer/order_view.htm?id=$!objs.id">查看</a></td>
+													</tr>
+													#end
+												</table>
+												<input id="currentPage" name="currentPage" type="hidden"
+													value="$!currentPage" /> <input id="type" name="type"
+													type="hidden" value="$!type" />
+												<div class="alldel">
+													<div class="userfenye">$!gotoPageFormHTML</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- 已出账订单结束 -->
+									<!-- 未出账订单开始 -->
+									<div class="addnav" id="wcz-box">
+										<form method="post"
+											action="$!webPath/buyer/charge_off_order.htm?statusFive=1">
+											<div class="seInput seInput2 seInput3 totalPart clearfix">
+												<div class="everyPart">
+													<div class="leftPart">商家名称：</div>
+													<div class="rightPart">
+														<input type="text" name="storeName">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">商家编码：</div>
+													<div class="rightPart">
+														<input type="text" name="" disabled="disabled">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">交易日期：</div>
+													<div class="rightPart">
+														<input type="text" id="test5" name="payTime">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">订单编号：</div>
+													<div class="rightPart">
+														<input type="text" name="order_id">
+													</div>
+												</div>
+											</div>
+											<div class="btn-box">
+												<input class="apply-button"
+													style='background-color: #09F; border: 1px solid #09F;'
+													type="submit" value="查询" />
+												<button class="apply-button"
+													style='background-color: #fff; border: 1px solid #999; color: #666'
+													type="reset" value="重置">重置</button>
+											</div>
+										</form>
+										<div id="bigbox">
+											<div id="tablebox">
+											<form action="" method="post" name="ListForm" id="ListForm">
+												<table width="100%" border="0" cellspacing="0"
+													cellpadding="0">
+													<tr style="background-color: #2A7AD2; height: 30px;"
+														class="yyyy">
+														<td style="color: white;"><input type="checkbox"
+															name="" id="" /></td>
+														<td style="color: white;">商家名称</td>
+														<td style="color: white;">商家编号</td>
+														<td style="color: white;">订单编号</td>
+														<td style="color: white;">交易日期</td>
+														<td style="color: white;">订单金额（元）</td>
+														<td style="color: white;">操作</td>
+													</tr>
+													#foreach($objs in $objs)
+													<tr class="zzzz">
+														<td><input type="checkbox" name="" id="" /></td>
+														<td>$!objs.store.store_name</td>
+														<td></td>
+														<td>$!objs.order_id</td>
+														<td>$!date.format('yyyy-MM-dd',$!objs.payTime$)</td>
+														<td>$!objs.totalPrice</td>
+														<td><a
+																href="$!webPath/buyer/order_view.htm?id=$!objs.id">查看</a></td>
+													</tr>
+													#end
+												</table>
+												</form>
+												<input id="currentPage" name="currentPage" type="hidden"
+													value="$!currentPage" /> <input id="type" name="type"
+													type="hidden" value="$!type" />
+												<div class="alldel">
+													<div class="userfenye">$!gotoPageFormHTML</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- 未出账订单结束 -->
+									<!-- 待还款订单开始 -->
+									<div class="addnav" id="dcz-box">
+										<form method="post"
+											action="$!webPath/buyer/charge_off_order.htm?statusFive=2">
+											<div class="seInput seInput2 seInput3 totalPart clearfix">
+												<div class="everyPart">
+													<div class="leftPart">商家名称：</div>
+													<div class="rightPart">
+														<input type="text" name="storeName">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">商家编码：</div>
+													<div class="rightPart">
+														<input type="text" name="" disabled="disabled">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">订单编号：</div>
+													<div class="rightPart">
+														<input type="text" name="order_id">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">最后还款日：</div>
+													<div class="rightPart">
+														<input type="text" name="repaymentDate">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">出账日：</div>
+													<div class="rightPart">
+														<input type="text" name="accountDate">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">交易日期：</div>
+													<div class="rightPart">
+														<input type="text" id="test7" name="payTime">
+													</div>
+												</div>
+											</div>
+											<div class="btn-box">
+												<input class="apply-button"
+													style='background-color: #09F; border: 1px solid #09F;'
+													type="submit" value="查询" />
+												<button class="apply-button"
+													style='background-color: #fff; border: 1px solid #999; color: #666'
+													type="reset" value="重置">重置</button>
+											</div>
+										</form>
+										<div id="bigbox">
+											<!-- <input class="apply-button" style='background-color:#09F;border:1px solid #09F;' type="button" value="导出" /> -->
+											<div id="tablebox">
+												<table width="100%" border="0" cellspacing="0"
+													cellpadding="0">
+													<tr style="background-color: #2A7AD2; height: 30px;"
+														class="yyyy">
+														<td style="color: white;"><input type="checkbox"
+															name="" id="" /></td>
+														<td style="color: white;">商家名称</td>
+														<td style="color: white;">商家编号</td>
+														<td style="color: white;">订单编号</td>
+														<td style="color: white;">交易日期</td>
+														<td style="color: white;">出账日</td>
+														<td style="color: white;">最后还款日</td>
+														<td style="color: white;">还款金额（元）</td>
+														<td style="color: white;">操作</td>
+													</tr>
+													#foreach($obj in $objs)
+													<tr class="zzzz">
+														<td><input type="checkbox" name="" id="" /></td>
+														<td>$!obj.store.store_name</td>
+														<td></td>
+														<td>$!obj.order_id</td>
+														<td>$!date.format('yyyy-MM-dd',$!obj.payTime$)</td>
+														<td>$!accountDate</td>
+														<td>$!repaymentDate</td>
+														<td>$!obj.totalPrice</td>
+														<td><a
+															href="$!webPath/buyer/order_view.htm?id=$!obj.id">查看</a>&nbsp;&nbsp;<a
+														    href="javascript:;" onclick="openTc()">还款</a></td>
+												</tr>
+													#end
+												</table>
+												<input id="currentPage" name="currentPage" type="hidden"
+													value="$!currentPage" /> <input id="type" name="type"
+													type="hidden" value="$!type" />
+												<div class="alldel">
+													<div class="userfenye">$!gotoPageFormHTML</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- 待还款订单结束 -->
+									<!-- 已还款订单开始 -->
+									<div class="addnav" id="yhk-box">
+										<form method="post"
+											action="$!webPath/buyer/charge_off_order.htm?statusFive=3">
+											<div class="seInput seInput2 seInput3 totalPart clearfix">
+												<div class="everyPart">
+													<div class="leftPart">商家名称：</div>
+													<div class="rightPart">
+														<input type="text" name="storeName">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">商家编码：</div>
+													<div class="rightPart">
+														<input type="text" name="" disabled="disabled">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">订单编号：</div>
+													<div class="rightPart">
+														<input type="text" name="order_id">
+													</div>
+												</div>
+												<!-- <div class="everyPart">
+													<div class="leftPart">出账日：</div>
+													<div class="rightPart">
+														<input type="text">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">最后还款日：</div>
+													<div class="rightPart">
+														<input type="text">
+													</div>
+												</div> -->
+												<div class="everyPart">
+													<div class="leftPart">实际还款日：</div>
+													<div class="rightPart">
+														<input type="text" id="test8" name="actual_date">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">交易日期：</div>
+													<div class="rightPart">
+														<input type="text" id="test9" name="payTime">
+													</div>
+												</div>
+											</div>
+											<div class="btn-box">
+												<input class="apply-button"
+													style='background-color: #09F; border: 1px solid #09F;'
+													type="submit" value="查询" />
+												<button class="apply-button"
+													style='background-color: #fff; border: 1px solid #999; color: #666'
+													type="reset" value="重置">重置</button>
+											</div>
+										</form>
+										<div id="bigbox">
+											<!-- <input class="apply-button" style='background-color:#09F;border:1px solid #09F;' type="button" value="导出" /> -->
+											<div id="tablebox">
+												<table width="120%" border="0" cellspacing="0"
+													cellpadding="0">
+													<tr style="background-color: #2A7AD2; height: 30px;"
+														class="yyyy">
+														<td style="color: white;"><input type="checkbox"
+															name="" id="" /></td>
+														<td style="color: white;">商家名称</td>
+														<td style="color: white;">商家编号</td>
+														<td style="color: white;">订单编号</td>
+														<td style="color: white;">交易日期</td>
+														<td style="color: white;">出账日</td>
+														<td style="color: white;">最后还款日</td>
+														<td style="color: white;">实际还款日</td>
+														<td style="color: white;">订单金额（元）</td>
+														<td style="color: white;">还款方式</td>
+														<td style="color: white;">还款编号</td>
+														<td style="color: white;">操作</td>
+													</tr>
+													#foreach($obj in $objs)
+													<tr class="zzzz">
+														<td><input type="checkbox" name="" id="" /></td>
+														<td>$!obj.store.store_name</td>
+														<td></td>
+														<td>$!obj.order_id</td>
+														<td>$!date.format('yyyy-MM-dd',$!obj.payTime$)</td>
+														<td>$!accountDate</td>
+														<td>$!repaymentDate</td>
+														<td>$!date.format('yyyy-MM-dd',$!obj.actual_date)</td>
+														<td>$!obj.totalPrice</td>
+														<td>--</td>
+														<td>$!obj.number</td>
+														<td>	<a href="$!webPath/buyer/order_view.htm?id=$!obj.id">查看</a></td>
+													</tr>
+													#end
+												</table>
+											</div>
+										</div>
+									</div>
+									<!-- 已还款订单结束 -->
+									<!-- 已逾期订单开始 -->
+									<div class="addnav" id="yyq-box">
+										<form method="post"
+											action="$!webPath/buyer/charge_off_order.htm?statusFive=4">
+											<div class="seInput seInput2 seInput3 totalPart clearfix">
+												<div class="everyPart">
+													<div class="leftPart">商家名称：</div>
+													<div class="rightPart">
+														<input type="text" name="storeName">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">商家编码：</div>
+													<div class="rightPart">
+														<input type="text" name="" disabled="disabled">
+													</div>
+												</div>
+
+												<div class="everyPart">
+													<div class="leftPart">订单编号：</div>
+													<div class="rightPart">
+														<input type="text" name="order_id">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">出账日：</div>
+													<div class="rightPart">
+														<input type="text" name="accountDate">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">最后还款日：</div>
+													<div class="rightPart">
+														<input type="text" name="repaymentDate">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">实际还款日：</div>
+													<div class="rightPart">
+														<input type="text" name="actual_date">
+													</div>
+												</div>
+												<div class="everyPart">
+													<div class="leftPart">交易日期：</div>
+													<div class="rightPart">
+														<input type="text" name="payTime" id="test10">
+													</div>
+												</div>
+											</div>
+											<div class="btn-box">
+												<input class="apply-button"
+													style='background-color: #09F; border: 1px solid #09F;'
+													type="submit" value="查询" />
+												<button class="apply-button"
+													style='background-color: #fff; border: 1px solid #999; color: #666'
+													type="reset" value="重置">重置</button>
+											</div>
+										</form>
+										<div id="bigbox">
+											<!-- <input class="apply-button" style='background-color:#09F;border:1px solid #09F;' type="button" value="导出" /> -->
+											<div id="tablebox">
+												<table width="150%" border="0" cellspacing="0"
+													cellpadding="0">
+													<tr style="background-color: #2A7AD2; height: 30px;"
+														class="yyyy">
+														<td style="color: white;"><input type="checkbox"
+															name="" id="" /></td>
+														<td style="color: white;">商家名称</td>
+														<td style="color: white;">商家编号</td>
+														<td style="color: white;">订单编号</td>
+														<td style="color: white;">交易日期</td>
+														<td style="color: white;">出账日</td>
+														<td style="color: white;">最后还款日</td>
+														<td style="color: white;">应还金额（元）</td>
+														<td style="color: white;">订单金额（元）</td>
+														<td style="color: white;">逾期时长（天）</td>
+														<td style="color: white;">逾期计息（%）</td>
+														<td style="color: white;">总罚息（元）</td>
+														<td style="color: white;">操作</td>
+													</tr>
+													#foreach($objs in $objs)
+													<tr class="zzzz">
+														<td><input type="checkbox" name="" id="" /></td>
+														<td>$!objs.store.store_name</td>
+														<td></td>
+														<td>$!objs.order_id</td>
+														<td>$!date.format('yyyy-MM-dd',$!objs.payTime)</td>
+														<td>$!accountDate</td>
+														<td>$!repaymentDate</td>
+														<td id="backdue$!objs.id"></td>
+														<td>$!objs.totalPrice</td>
+														<td>$!objs.days</td>
+														<td>$!interest%</td>
+														<td id="overdue$!objs.id"></td>
+														<script>
+                                                            function numMulti(num1, num2,num3) {
+                                                            var baseNum = 0;
+                                                            try {
+                                                                baseNum += num1.toString().split(".")[1].length;
+                                                            } catch (e) {
+                                                            }
+                                                            try {
+                                                                baseNum += num2.toString().split(".")[1].length;
+                                                            } catch (e) {
+                                                            }
+                                                            try {
+                                                                baseNum += num3.toString().split(".")[1].length;
+                                                            } catch (e) {
+                                                            }
+                                                            return Number(num1.toString().replace(".", ""))
+                                                                    * Number(num2.toString().replace(".", ""))
+                                                                    * Number(num3.toString().replace(".", ""))
+                                                                    / Math.pow(10, baseNum);
+                                                        };
+                                                        var value = numMulti($!objs.totalPrice,$!interest,$!overdueTime)
+                                                        jQuery("#overdue$!objs.id").text(value);
+                                                        jQuery("#backdue$!objs.id").text(value+$!objs.totalPrice);
+                                                        </script>
+														<td><a
+																href="$!webPath/buyer/order_view.htm?id=$!objs.id">查看</a></td>
+													</tr>
+													#end
+												</table>
+												<input id="currentPage" name="currentPage" type="hidden"
+													value="$!currentPage" /> <input id="type" name="type"
+													type="hidden" value="$!type" />
+												<div class="alldel">
+													<div class="userfenye">$!gotoPageFormHTML</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- 已逾期订单结束 -->
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		$!httpInclude.include("/footer.htm")
+	</div>
+	<!-- 弹窗还款 -->
+	<div id="tc-box" style="top: 250px">
+		<h1 onclick="closeTc()">x</h1>
+		<div id="backMoney">
+			<div class="seInput seInput2 clearfix">
+				<div class="fl-part">
+					<p>
+						<span>订单金额：</span>
+					</p>
+					<p>
+						<span>逾期时长：</span>
+					</p>
+					<p>
+						<span>授额金额：</span>
+					</p>
+					<p>
+						<span>还款金额：</span>
+					</p>
+					<p>
+						<span>还款方式：</span>
+					</p>
+					<p>
+						<span>交易密码：</span>
+					</p>
+				</div>
+				<div class="fr-part">
+					<p>
+						<span>￥6000.00</span>
+					</p>
+					<p>
+						<span>2天</span>
+					</p>
+					<p>
+						<span>￥12.00</span>
+					</p>
+					<p>
+						<span>￥600.00</span>
+					</p>
+					<p>
+						<span> <select name="">
+								<option value="0">请选择</option>
+								<option value="1">中信银行</option>
+						</select>
+						</span>
+					</p>
+					<p>
+						<span><input type="text" name=""></span><span
+							class="textOne"></span>
+					</p>
+				</div>
+			</div>
+			<button class="ht-sub" onclick="">确定还款</button>
+		</div>
+	</div>
+</body>
+<script>
+function UrlSearch() {
+    var name, value;
+    var str = location.href; //取得整个地址栏
+    var num = str.indexOf("?")
+    str = str.substr(num + 1); //取得所有参数   stringvar.substr(start [, length ]
+
+    var arr = str.split("&"); //各个参数放到数组里
+    for (var i = 0; i < arr.length; i++) {
+        num = arr[i].indexOf("=");
+        if (num > 0) {
+            name = arr[i].substring(0, num);
+            value = arr[i].substr(num + 1);
+            this[name] = value;
+        }
+    }
+    return value
+}
+
+
+
+
+//执行一个laydate实例
+laydate.render({
+    elem: '#test1' //指定元素
+        ,
+    range: true
+});
+//执行一个laydate实例
+laydate.render({
+    elem: '#test2' //指定元素
+        ,
+    range: true
+});
+
+//执行一个laydate实例
+laydate.render({
+    elem: '#test3' //指定元素
+        ,
+    range: true
+});
+
+//执行一个laydate实例
+laydate.render({
+    elem: '#test4' //指定元素
+        ,
+    range: true
+});
+
+//执行一个laydate实例
+laydate.render({
+    elem: '#test5' //指定元素
+        ,
+    range: true
+});
+
+laydate.render({
+    elem: '#test6' //指定元素
+        ,
+    range: true
+});
+
+laydate.render({
+    elem: '#test7' //指定元素
+        ,
+    range: true
+});
+
+laydate.render({
+    elem: '#test8' //指定元素
+        ,
+    range: true
+});
+
+laydate.render({
+    elem: '#test9' //指定元素
+        ,
+    range: true
+});
+
+laydate.render({
+    elem: '#test10' //指定元素
+        ,
+    range: true
+});
+
+laydate.render({
+    elem: '#test11' //指定元素
+        ,
+    range: true
+});
+
+laydate.render({
+    elem: '#test12' //指定元素
+        ,
+    range: true
+});
+
+laydate.render({
+    elem: '#test13' //指定元素
+        ,
+    range: true
+});
+
+laydate.render({
+    elem: '#test14' //指定元素
+        ,
+    range: true
+});
+
+laydate.render({
+    elem: '#test15' //指定元素
+        ,
+    range: true
+});
+
+laydate.render({
+    elem: '#test16' //指定元素
+        ,
+    range: true
+});
+
+
+jQuery("#ssdd").click(function() {
+    localStorage.removeItem('value')
+    jQuery("#orderTab li").removeClass('this')
+    jQuery("#dz-box").show().siblings().hide();
+
+})
+
+
+jQuery(document).ready(function($) {
+
+    var index = localStorage.getItem("value")
+
+    if (index == 0) {
+        jQuery("#ycz-box").show().siblings().hide();
+        jQuery("#orderTab li").eq(index).addClass('this').siblings().removeClass('this')
+    } else if (index == 1) {
+        jQuery("#wcz-box").show().siblings().hide();
+        jQuery("#orderTab li").eq(index).addClass('this').siblings().removeClass('this')
+    } else if (index == 2) {
+        jQuery("#dcz-box").show().siblings().hide();
+        jQuery("#orderTab li").eq(index).addClass('this').siblings().removeClass('this')
+    } else if (index == 3) {
+        jQuery("#yhk-box").show().siblings().hide();
+        jQuery("#orderTab li").eq(index).addClass('this').siblings().removeClass('this')
+    } else if (index == 4) {
+        jQuery("#yyq-box").show().siblings().hide();
+        jQuery("#orderTab li").eq(index).addClass('this').siblings().removeClass('this')
+    }
+    var value = UrlSearch();
+    if (value == "this") {
+        jQuery("#dcz-box").show().siblings().hide();
+        jQuery("#dcz").addClass('this')
+    }
+
+});
+
+jQuery("#orderTab").click(function(event) {
+    //如果提供了事件对象，则这是一个非IE浏览器
+    if (event && event.stopPropagation) {
+        //因此它支持W3C的stopPropagation()方法
+        event.stopPropagation();
+    } else {
+        //否则，我们需要使用IE的方式来取消事件冒泡
+        window.event.cancelBubble = true;
+    }
+    if (event.target.nodeName == "LI") {
+        jQuery(event.target).addClass('this')
+        jQuery(event.target).siblings("li").removeClass('this')
+        if (event.target.getAttribute("value") == "0") {
+            localStorage.setItem("value", "0")
+            jQuery("#ycz-box").show().siblings().hide();
+        } else if (event.target.getAttribute("value") == "1") {
+            localStorage.setItem("value", "1")
+            jQuery("#wcz-box").show().siblings().hide();
+        } else if (event.target.getAttribute("value") == "2") {
+            localStorage.setItem("value", "2")
+            jQuery("#dcz-box").show().siblings().hide();
+        } else if (event.target.getAttribute("value") == "3") {
+            localStorage.setItem("value", "3")
+            jQuery("#yhk-box").show().siblings().hide();
+        } else if (event.target.getAttribute("value") == "4") {
+            localStorage.setItem("value", "4")
+            jQuery("#yyq-box").show().siblings().hide();
+        }
+    } else if (event.target.nodeName == "SPAN") {
+        jQuery(event.target).parents().addClass('this')
+        localStorage.setItem("value", jQuery(event.target).parents().attr("value"))
+    }
+});
+
+function closeTc() {
+    jQuery("#tc-box").hide();
+    jQuery("#backMoney").hide();
+}
+
+function openTc() {
+    jQuery("#tc-box").show();
+    jQuery("#backMoney").show();
+}
+</script>
+
+</html>

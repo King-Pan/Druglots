@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>$!config.title - Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+	<meta name="copyright" content="wemall Inc. All Rights Reserved">
+		<link
+			href="$!webPath/resources/style/system/front/default/css/public.css"
+			type="text/css" rel="stylesheet" />
+		<link
+			href="$!webPath/resources/style/system/front/default/css/goods.css"
+			type="text/css" rel="stylesheet" />
+		<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+		<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+<script>
+jQuery(document).ready(function(){
+ // 用户输入验证
+ jQuery.validator.addMethod("verify",function(value,element){
+	  var re = /^[0-9a-zA-Z]*$/;
+        if(re.test(jQuery("#userName").val())){
+			return true;
+		  }
+		  else {
+		    return false;
+			  }
+});
+ jQuery("#theForm").validate({
+     errorPlacement:function(error, element) {
+	   element.parent().parent("td").next("td").html("");
+       error.appendTo(element.parent().parent("td").next("td"));
+      },
+	  rules:{
+	    userName:{
+		  required:true,
+		  verify:true,
+          remote:{
+		    url: "$!webPath/verify_user.htm",     //后台处理程序
+            type: "post",               //数据发送方式
+            dataType: "json",           //接受数据格式
+            data: {                     //要传递的数据
+                  "userName": function(){return jQuery("#userName").val();}
+		     }
+			}
+		},
+        password:{
+		  required:true,
+		  minlength:6,
+		  maxlength:20
+		},
+		repassword:{
+		  required:true,
+		  equalTo:"#password"
+		}#if($!config.securityCodeRegister),
+		code:{
+		  required:true,
+		  remote:{
+		    url: "$!webPath/verify_code.htm",     //后台处理程序
+            type: "post",               //数据发送方式
+            dataType: "json",           //接受数据格式
+            data: {                     //要传递的数据
+                  "code": function(){return jQuery("#code").val();}
+		     }
+		  }
+		}
+		#end
+	  },
+	  messages:{
+	    userName:{
+		  required:"用户名不能为空",
+		  verify:"不可使用特殊字符",
+		  remote:"用户名不存在"
+		},
+        password:{
+		  required:"密码不能为空",
+		  minlength:"密码不能小于{0}个字符",
+		  maxlength:"密码不能大于{0}个字符"
+		},
+		repassword:{
+		  required:"重复密码不能为空",
+		  equalTo:"两次输入密码不一致"
+		}#if($!config.securityCodeRegister),
+		code:{
+		  required:"验证码不能为空",
+		  remote:"验证码不正确"
+		}
+		#end
+	  }
+	});
+});
+</script>
+
+<style type="text/css">
+.checkCode {
+  cursor: pointer;
+  border: 1px solid black;
+  text-align: center;
+  line-height: 26px;
+  width: 115px;
+  height: 35px;
+}
+</style>
+<script type="text/javascript">
+  var sleep = 60, interval = null;
+  window.onload = function ()
+  {
+    var btn = document.getElementById ('btn');
+    btn.onclick = function ()
+    {
+    	var phone = document.getElementById("userName").value;
+		if(!(/^1[34578]\d{9}$/.test(phone))){
+			alert("电话号码输入有误！");
+			return false;
+		}
+		//return true;
+    	 var a=theForm.userName.value;
+    	 jQuery.ajax({
+ 		    type:'POST',
+ 		    url:'$!webPath/xiaoxi.htm',
+ 		    data:{"userName":a,"templatecode":"SMS_160856187","storename":""},
+ 		    success:function(data){
+ 		             console.log("2");
+ 		          }
+ 		})
+
+      if (!interval)
+      {
+        this.style.backgroundColor = 'rgb(243, 182, 182)';
+        this.disabled = "disabled";
+        this.style.cursor = "wait";
+        this.value = "重新发送 (" + sleep-- + ")";
+        interval = setInterval (function ()
+        {
+          if (sleep == 0)
+          {
+            if (!!interval)
+            {
+              clearInterval (interval);
+              interval = null;
+              sleep = 30;
+              btn.style.cursor = "pointer";
+              btn.removeAttribute ('disabled');
+              btn.value = "免费获取验证码";
+              btn.style.backgroundColor = '';
+            }
+            return false;
+          }
+          btn.value = "重新发送 (" + sleep-- + ")";
+        }, 1000);
+      }
+    }
+  }
+</script>
+</head>
+<body>
+	$!httpInclude.include("/top.htm")
+	<div class="main">
+		$!httpInclude.include("/head.htm") $!httpInclude.include("/nav1.htm")
+		<div class="index">
+			<div class="position">
+				当前位置：<a href="$!wbPath">首页</a> > <span>忘记密码</span>
+			</div>
+			<div class="index2">
+				<div class="login_user">
+					<div class="login_user_big">
+						<h1>
+							忘记密码<span>FIND PASSWORD</span>
+						</h1>
+						<div class="login_user_bottom"
+							style="margin-left: auto; margin-right: auto">
+							<div class="login_user_img"></div>
+							<form action="$!webPath/find_pws.htm" method="post"
+								name="theForm" id="theForm">
+								<table width="500" border="0" cellspacing="0" cellpadding="0"
+									class="user_zc_table">
+									<tr>
+										<td width="95" class="login_nameu">手机号：</td>
+										<td width="200"><span class="login_user_input input_size">
+												<input name="userName" type="text" id="userName" />
+										</span></td>
+
+										<td><input class="checkCode" type="button" id="btn"
+											value="免费获取验证码" /></td>
+									</tr>
+									<tr>
+										<td width="95" class="login_nameu">短信验证码：</td>
+										<td width="200"><span class="login_user_input input_size">
+												<input name="code" type="text" id="code" />
+										</span></td>
+										 <td class="login_nameu2">输入短信验证码</td>
+
+									</tr>
+									<tr>
+										<td class="login_nameu">新密码：</td>
+										<td><span class="login_user_input input_size"> <input
+												name="password" type="password" id="password" />
+										</span></td>
+										<td class="login_nameu2">登录密码,6位以上字母数组组合，不区分大小写</td>
+									</tr>
+									<tr>
+										<td class="login_nameu">确认新密码：</td>
+										<td><span class="login_user_input input_size"> <input
+												name="repassword" type="password" id="repassword" />
+										</span></td>
+									<td class="login_nameu2">再次输入您的密码</td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+										<td><span class="login_user_find"> <input
+												name="save" id="save" type="submit" value="确认提交"
+												style="cursor: pointer;" />
+										</span></td>
+									</tr>
+								</table>
+							</form>
+							<!--       <form action="$!webPath/find_pws.htm" method="post" id="theForm">
+            <table width="360" border="0" cellspacing="0" cellpadding="0" class="login_user_table">
+              <tr>
+                <td width="60" class="login_nameu">用户名：</td>
+                <td><span class="login_user_input input_size">
+                  <input name="userName" type="text" id="userName" />
+                  </span></td>
+              </tr>
+              <tr>
+                <td class="login_nameu">邮箱：</td>
+                <td><span class="login_user_input input_size">
+                  <input name="email" type="text" id="email" />
+                  </span></td>
+              </tr>
+              <tr>
+                <td class="login_nameu">验证码：</td>
+                <td><span class="login_user_input input_size2">
+                  <input name="code" type="text" id="code" style="text-transform:uppercase;" />
+                  </span><span class="yzm"><a href="javascript:void(0);"><img src="$!imageWebServer/verify.htm" name="code_img" width="59" height="27" id="code_img" style="cursor:pointer;" onclick="refreshCode();" /></a></span></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td><span class="login_user_find">
+                  <input name="input3" type="submit" value="提交找回" style="cursor:pointer;"/>
+                  </span></td>
+              </tr>
+            </table>
+            </form> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		$!httpInclude.include("/footer.htm")
+	</div>
+</body>
+</html>

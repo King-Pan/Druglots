@@ -1,0 +1,28 @@
+<div class="menu-bd-panel">
+  <div class="gwc">
+    #if($!cart.size()>0) 
+    <h1>采购单商品总价：¥<span id="cart_goods_price_top">$!{total_price}</span></h1>
+    #foreach($gc in $cart)
+    <div class="shopp_ingtop" id="$!gc.id">
+    #if($!gc.goods.goods_status == 1)
+     <div class="black-bg"></div>
+    #end
+      <div class="shopimg"><a href="$!webPath/goods_$!{gc.goods.id}.htm" target="_blank"><img src="$!imageWebServer/$!gc.goods.goods_main_photo.path/$!{gc.goods.goods_main_photo.name}" width="40" height="40" /></a></div>
+      <div><span class="shopl"><a href="$!webPath/goods_$!{gc.goods.id}.htm" target="_blank">$!CommUtil.substring("$!gc.goods.goods_name",12)#if($!gc.cart_type=="combin")<span style="color:#F00;float:right;">[组合]</span>#end</a></span><span style="color:#F60; padding-left:15px;">¥$!{gc.price}×$!{gc.count}</span></div>
+      <div><span class="shopl_del">
+        #if($!gc.goods.goods_status == 1)
+            	<span style="color:#bbb">此商品已失效，不可购买</span>
+        #end
+         <a href="javascript:void(0);" onclick="cart_remove('$!gc.id','$!gc.goods.goods_store.id');">删除</a>
+         </span>
+         </div>
+    </div>
+    #end
+    #else
+    采购单暂时为空，赶紧挑选自己喜欢的商品去
+    #end
+     #if($!cart.size()>0)
+    <div class="shopbtn"><a href="$!webPath/goods_cart1.htm">查看我的采购单</a></div>
+    #end
+  </div>
+</div>

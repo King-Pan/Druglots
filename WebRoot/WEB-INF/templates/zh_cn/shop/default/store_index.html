@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>$!store.store_name - Powered by Druglots</title>
+<meta name="keywords" content="$!store.store_seo_keywords" />
+<meta name="description" content="$!store.store_seo_description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+<meta name="copyright" content="wemall Inc. All Rights Reserved">
+<link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/shop/$!{store.template}/css/default.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/common/css/overlay.css" type="text/css" rel="stylesheet" />
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+  <script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.lazyload.js"></script>
+<script src="$!webPath/resources/js/jcarousellite_1.0.1.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+#set($store_second_url="$!webPath")
+
+
+<!-- -->
+#if($!second_domain_view)
+  #set($store_second_url="http://$!{store.store_second_domain}.$!{domainPath}")
+#end
+
+
+<script>
+var index=1;
+jQuery(document).ready(function(){
+  jQuery(".smallgoods .goodsimgs img").lazyload({effect:"fadeIn",width:178,height:170});
+  jQuery(".bigshopimg .img1").addClass("this");
+  //
+  jQuery(".bigshopimg").jCarouselLite({
+	 btnGo:[".img1",".img2",".img3",".img4",".img5"],
+	 auto: 3000,     
+	 speed: 600,
+	 vertical:false,
+	 visible:1,
+	 afterEnd:function(a){
+		 index++
+	  if($('#spanid').children().length==2){
+		 if(index==3){
+			 index=1
+		 }
+	  }
+		 if($('#spanid').children().length==3){
+			 if(index==4){
+				 index=1
+			 }
+		  }
+		 if($('#spanid').children().length==4){
+			 if(index==5){
+				 index=1
+			 }
+		  }
+		 if($('#spanid').children().length==5){
+			 if(index==6){
+				 index=1
+			 }
+		  }
+	  #if($!{store.slides.size().size()}>0)
+	  if(index>$!{store.slides.size()})index=1;
+	  #else
+	  if(index>5)index=1;
+	  #end
+	  jQuery(".bigshopimg a").removeClass("this");
+	  jQuery(".bigshopimg .img"+index).addClass("this");
+	  jQuery(".bigshopimg span .img"+index).addClass("this");
+	 }
+  });
+});
+</script>
+<style>
+	.apply-button {margin-left:10px;padding: 4px 8px;border: 1px solid #23DA85; outline: none; border-radius: 4px;font-weight: 400;width:155px;cursor: pointer;}
+
+	.clear-float::after {content: ""; display: block; clear: both;}
+	#wrap {position: fixed; z-index: 10000; top: 0; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 0, .4); display: none;}
+	#wrap .zw-position {position: relative; width: 100%; height: 100%;}
+	#wrap .zw-position .zw-content {position: absolute; top: 100px; left: calc(50% - 130px); background-color: #fff; border-radius: 8px;}
+	#wrap .zw-position .zw-content .zw-head {padding: 10px; border-bottom: 1px solid #dedede;}
+	#wrap .zw-position .zw-content .zw-head div.zw-text {font-weight: 700; font-size: 18px; color: #90B6E3; float: left;}
+	#wrap .zw-position .zw-content .zw-head div.zw-delete {margin: -11px -3px 0 0; font-weight: bolder; float: right; cursor: pointer; color: #f00;
+		user-select: none;}
+	#wrap .zw-position .zw-content .zw-head div.zw-delete:hover {color: #df0000;}
+	#wrap .zw-position .zw-content .zw-body {padding: 20px 10px; border-bottom: 1px solid #dedede;}
+	#wrap .zw-position .zw-content .zw-body label {font-weight: 500; color: #616161;}
+	#wrap .zw-position .zw-content .zw-body input.zw-back {padding: 5px 10px; border: 1px solid #ccc; border-radius: 4px; min-width: 200px;
+		color: #555; height: 20px;}
+	#wrap .zw-position .zw-content .zw-footer {padding: 15px 10px 10px 10px; height: 30px;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position {position: relative; width: 100%; height: 100%;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn {position: absolute; right: 0;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button {width: 60px; height: 30px;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button {width: 60px; height: 30px; outline: none; border-radius: 4px;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button.zw-cancel {background-color: #dedede; border: 1px solid #a8a8a8; color: #666;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button.zw-cancel:hover {background-color: #cecece;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button.zw-cancel:active {background-color: #a9a9a9;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn .zw-confirm {width: 60px; height: 30px; outline: none; border-radius: 4px;width: 60px; height: 30px;background-color: #5bc0de; border: 1px solid #46b8da; color: #fff;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn .zw-confirm:hover {background-color: #31b0d5;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn .zw-confirm:active {background-color: #269abc;}
+</style>
+</head>
+<body>
+$!httpInclude.include("/top.htm")
+$!httpInclude.include("/store_head.htm?store_id=$!{store.id}")
+  #set($banner="$!webPath/resources/style/shop/$!{store.template}/images/banner.jpg")
+  #if($!store.store_banner)
+    #set($banner="$!webPath/$!store.store_banner.path/$!store.store_banner.name")
+  #end
+<!-- <div class="banner_width">
+  <div class="shopbanner"><img src="$!banner" width="1200px" /></div>
+</div> -->
+<div class="nav_width">
+  <div class="main">
+   <div class="nav_bg">
+    <div class="shopnav">
+      $!httpInclude.include("/store_nav.htm?id=$!store.id")
+      <script>
+     jQuery(".shopnavul li").each(function(){
+	     var nav_id=jQuery(this).attr("id");
+         if(nav_id=="$!{nav_id}"){
+		   jQuery(this).addClass("this");
+		 }else jQuery(this).removeClass("this");
+	 });
+    </script>
+      <div class="shopnavs"></div>
+    </div>
+    </div>
+  </div>
+  <div class="navbotm"></div>
+</div>
+<div class="main">
+  <div class="shop">
+    <div class="shop_index"> $!httpInclude.include("/store_left.htm?id=$!store.id")
+      <div class="shopindex_right">
+         <div class="bigshopimg"> 
+          <ul class="shopslider">
+          <li><a href="$!webPath/buyer/charge_sales_info.htm?zwstoreId=$!store.id" target="_blank"><img src="$!imageWebServer/resources/style/common/images/slide1.jpg" width="797" height="393" /></a></li>
+            <li><a href="$!webPath/buyer/IousCertification.htm?userName=$!user.userName" target="_blank"><img src="$!imageWebServer/resources/style/common/images/slide2.jpg" width="797" height="393" /></a></li>
+            #if($store.slides.size()>0)
+            #foreach($slide in $store.slides)
+            #if($slide.acc.name!="")
+            #if($!{velocityCount}<=3)
+            <li><a href="$!slide.url?zwstoreId=$!store.id" target="_blank"><img src="$!imageWebServer/$!slide.acc.path/$!slide.acc.name" width="797" height="393" /></a></li>
+            #end
+            #end
+            #end
+            #end
+          </ul>
+          <span style="z-index:3;" id='spanid'><a href="javascript:void(0);" class="img1">1</a><a href="javascript:void(0);" class="img2">2</a> #if($store.slides.size()>0)#foreach($slide in $store.slides)#if($slide.acc.name!="")#if($!{velocityCount}<=3)#set($velocityCount=2+$velocityCount)<a href="javascript:void(0);" class="img$!{velocityCount}">$!{velocityCount}</a>#end#end#end#end</span>
+        <!--   <ul class="shopslider">
+            <li><a href="$!webPath/buyer/charge_sales_info.htm?zwstoreId=$!store.id" target="_blank"><img src="$!imageWebServer/resources/style/common/images/slide1.jpg" width="797" height="393" /></a></li>
+            <li><a href="$!webPath/buyer/IousCertification.htm?userName=$!user.userName" target="_blank"><img src="$!imageWebServer/resources/style/common/images/slide2.jpg" width="797" height="393" /></a></li>
+          </ul>
+          <span style="z-index:3;"><a href="javascript:void(0);" class="img1">1</a><a href="javascript:void(0);" class="img2">2</a><a href="javascript:void(0);" class="img3">3</a><a href="javascript:void(0);" class="img4">4</a></span> -->  </div>
+        <div class="regoods">
+          <h1><a href="$!webPath/goods_list.htm?store_id=$!{store.id}&recommend=true">更多</a><span>推荐商品</span></h1>
+          <div class="smallgoods"> #foreach($goods in $goods_recommend)
+            #if($!goods.goods_main_photo)
+            #set($img="$!imageWebServer/$!{goods.goods_main_photo.path}/$!{goods.goods_main_photo.name}")
+            #else
+            #set($img="$!imageWebServer/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+            #end
+               #set($goods_url="$!webPath/goods_$!{goods.id}.htm")
+               #if($!config.second_domain_open)
+                 #set($goods_url="http://$!{goods.goods_store.store_second_domain}.$!{domainPath}/goods_$!{goods.id}.htm")
+               #end
+            <ul>
+              <li class="goodsimgs"><span class="goods_sp_span">
+                <p><a href="$!goods_url" target="_blank"><img src="$!imageWebServer/resources/style/common/images/loader.gif" original="$!img" onerror="this.src='$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}';" width="28" height="28"/></a></p>
+                </span></li>
+              #if($!zwjson.contains("$!store.store_name") && $user.userName!="" || $!storeId == $!userId)
+              <li class="goodslook"><a href="$!goods_url" target="_blank" class="look">查看详情</a><strong>¥$!goods.store_price</strong></li>
+              #else
+              <li class="goodslook"><strong>¥建立采购可见</strong></li>
+              #end
+              <li class="goodsnames"><a href="$!goods_url" target="_blank">$!CommUtil.substring("$!goods.goods_name",28)</a></li>
+              <li class="recentgoodsok">最近成交<strong>$!goods.goods_salenum</strong>笔</li>
+              #if(!$!user)
+<input class=" collection apply-button"   dialog_uri="$!webPath/user_dialog_login.htm" dialog_title="会员登录" dialog_width="450" dialog_height="100" dialog_id="user_login" type="button" value="请登录" style="margin-top:5px; border-radius:4px;  margin-left:2px; width:175px; cursor:pointer; height: 30px; background-color: #23DA85; border-color:#23DA85;color:white;"/>
+              #end
+            </ul>
+            #end </div>
+        </div>
+        <div class="regoods">
+          <h1><a href="$!webPath/goods_list.htm?store_id=$!{store.id}">更多</a><span>新品上市</span></h1>
+          <div class="smallgoods">
+          #foreach($goods in $goods_new)
+            #if($!goods.goods_main_photo)
+            #set($img="$!imageWebServer/$!{goods.goods_main_photo.path}/$!{goods.goods_main_photo.name}")
+            #else
+            #set($img="$!imageWebServer/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+            #end
+               #set($goods_url="$!webPath/goods_$!{goods.id}.htm")
+               #if($!config.second_domain_open)
+                 #set($goods_url="http://$!{goods.goods_store.store_second_domain}.$!{domainPath}/goods_$!{goods.id}.htm")
+               #end
+            <ul>
+              <li class="goodsimgs"><span class="goods_sp_span">
+                <p><a href="$!goods_url" target="_blank"><img src="$!imageWebServer/resources/style/common/images/loader.gif" original="$!img" onerror="this.src='$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}';" width="28" height="28"/></a></p>
+                </span></li>
+              #if($!zwjson.contains("$!store.store_name") && $user.userName!="" || $!storeId == $!userId)
+              <li class="goodslook"><a href="$!goods_url" target="_blank" class="look">查看详情</a><strong>¥$!goods.store_price</strong></li>
+              #else
+              <li class="goodslook"><strong>¥建立采购可见</strong></li>
+              #end
+              <li class="goodsnames"><a href="$!goods_url" target="_blank">$!CommUtil.substring("$!goods.goods_name",28)</a></li>
+              <li class="recentgoodsok">最近成交<strong>$!goods.goods_salenum</strong>笔</li>
+              #if(!$!user)
+              <input class=" collection apply-button"   dialog_uri="$!webPath/user_dialog_login.htm" dialog_title="会员登录" dialog_width="450" dialog_height="100" dialog_id="user_login" type="button" value="请登录" style="margin-top:5px; border-radius:4px;  margin-left:2px; width:175px; cursor:pointer; height: 30px; background-color: #23DA85; border-color:#23DA85;color:white;"/>
+              #end
+
+            </ul>
+            #end </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  $!httpInclude.include("/footer.htm") </div>
+ <!--  <div id="wrap">
+	<div class="zw-position">
+		<div class="zw-content">
+			<div class="zw-head clear-float">
+				<div class="zw-text">请登录</div>
+				<div class="zw-delete" onclick="cancelBtn()">x</div>
+			</div>
+			<div class="zw-body">
+				<div class="zw-inner">
+					<div class="err-info" style="color: #f00; padding-left: 100px; margin-bottom: 5px; font-size: 14px;"></div>
+					<input type="hidden" name="data-id">
+					<label for="go-back">账号： </label>
+					<input class="zw-back" type="text" name="username" id="username"><br />
+					<label for="go-back">密码： </label>
+					<input class="zw-back" type="password" name="password" id="password">
+					<script>
+                 function refreshCode(){
+	                 jQuery("#code_img").attr("src","$!webPath/verify.htm?d"+new Date().getTime());
+                 }
+                </script>
+					<li class="login_usercode"><b>验证码：</b>
+                  <input name="code" type="text" id="code"  autocomplete="off" style="text-transform:uppercase;" class="usecode" />
+                  <span class="login_codeimg"
+                  #if($!config.securityCodeType=='voice')style="display:none;"#end>
+                  <img style="cursor:pointer;" src="$!webPath/verify.htm" id="code_img" onclick="refreshCode();" width="59" height="27"/></span>
+                  <a #if($!config.securityCodeType=='voice')style="display:none;"#end href="javascript:void(0);" onclick="refreshCode();" class="usenosee">看不清换一张</a>
+                  #if($!config.securityCodeType=="voice")
+                  <a href="javascript:void(0);" onclick="readCode('player')" title="朗读验证码"> <img src="$!imageWebServer/resources/style/common/images/speaker.gif" border="0" /></a><span id="player"></span>
+                  #end<span class="login_error_sp" style="display:none"></span>
+                  </li>
+				</div>
+			</div>
+			<div class="zw-footer">
+				<div class="zw-btn-position">
+					<div class="zw-btn">
+						<button class="zw-cancel" onclick="cancelBtn()">取消</button>
+						<input name="" type="button" class="zw-confirm" value="登录"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	let trDom = null;
+	function cancelBtn() {
+		jQuery('#wrap').css('display', 'none');
+		jQuery('.err-info:eq(0)').html('');
+		jQuery("input[name=username]").val("");
+		jQuery("input[name=password]").val("");
+
+	}
+	function backBtn(self) {
+		jQuery('#wrap').css('display', 'block');
+		trDom = jQuery(self).parent().parent();
+	}
+	   function reBack() {
+		let inputDom = jQuery("input[name=username]");
+		let storeId = jQuery("input[name=storeId]").val();
+		let refReason = inputDom.val().trim();
+	}
+</script> -->
+</body>
+</html>

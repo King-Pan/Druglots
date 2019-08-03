@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>赊销账期及额度 - Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+<meta name="copyright" content="wemall Inc. All Rights Reserved">
+<link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/common/css/overlay.css" type="text/css" rel="stylesheet" />
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+
+</head>
+<style>
+ #opertitle{
+    text-align:center;
+}
+
+</style>
+<body>
+$!httpInclude.include("/top.htm")
+<div class="main"> $!httpInclude.include("/seller/nav_head.htm")
+  <div class="user_center">
+    <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+      <tr> $!httpInclude.include("/seller/nav.htm?op=quota_Management")
+        <td id="centerbg" valign="top">
+         <div class="buyer_position"><div class="buyer_p_box"><a href="$!webPath/seller/index.htm">卖家中心</a> > <span>赊销管理</span></div></div>
+        <div class="productmain">
+            <div class="ordernav">
+              <ul class="orderul">
+                <li><a href="$!webPath/seller/is_charge_sales.htm">是否开启赊销</a></li>
+                <li><a href="$!webPath/seller/charge_sales_check.htm">赊销审核</a></li>
+                <li><a href="$!webPath/seller/addUpdate_customerCredit.htm?type=save">客户赊销额度编辑</a></li>
+                <li><a href="$!webPath/seller/query_customerCredit.htm">查询客户赊销额度</a></li>
+              </ul>
+            </div>
+            <div class="ordercon">
+
+              <div class="addnav">
+                <form action="#" method="post" name="theForm" id="theForm">
+                  <input type="hidden" name="storeId" id="storeId" value="$!creditLlineManagement.storeId"/>
+                  <input type="hidden" name="sellerId" id="sellerId" value="$!creditLlineManagement.sellerId"/>
+
+                </form>
+              </div>
+            </div>
+          </div></td>
+      </tr>
+    </table>
+  </div>
+  $!httpInclude.include("/footer.htm")
+</div>
+</body>
+</html>

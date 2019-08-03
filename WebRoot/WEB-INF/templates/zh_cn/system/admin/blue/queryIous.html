@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+
+</head>
+<body>
+<form action="$!webPath/admin/ious_save.htm" method="post" enctype="multipart/form-data" name="theForm" id="theForm">
+  <input name="id" id="id" type="hidden" value="$!{authentication.id}"/>
+  <input name="op_title" type="hidden" id="op_title" value="白条资料管理" />
+  <div class="cont">
+    <h1 class="seth1">白条资料管理</h1>
+    <div class="settab"> <span class="tab-one"></span> <span class="tabs"><a href="$!webPath/admin/ious_list.htm">白条资料列表</a> | <a href="javascript:void(0);" class="this" id="site_base">详情</a>  </span></div>
+    <div class="setcont" id="base">
+      <ul class="set1">
+        <li><span class="webname">用户名称：&nbsp;&nbsp;&nbsp;&nbsp;  
+                 	<input name="un" type="text"  id="userName" value="$!{authentication.userName}" />
+           </span>
+         </li>
+      </ul>
+      	<td><a id="xz" id="xz" id="xz" download="$!authentication.userName营业执照" href="$!webPath/upload/wyInFile/$!authentication.newAuthenticationDate/$!{authentication.businessLicense} ">
+					营业执照下载</a></td>
+		<td><a id="xz" id="xz" id="xz" download="$!authentication.userName经营许可证" href="$!webPath/upload/wyInFile/$!authentication.newAuthenticationDate/$!{authentication.drugLicense} ">
+					经营许可证下载</a></td>
+		<td><a id="xz" id="xz" id="xz" download="$!authentication.userName GSP证" href="$!webPath/upload/wyInFile/$!authentication.newAuthenticationDate/$!{authentication.gSPCertificate} ">
+					GSP证下载</a></td>
+		<td><a id="xz" id="xz" id="xz" download="$!authentication.userName手持身份证照" href="$!webPath/upload/wyInFile/$!authentication.newAuthenticationDate/$!{authentication.purchaseOrders} ">
+					手持身份证下载</a></td>
+		<td><a id="xz" id="xz" id="xz" download="$!authentication.userName身份证正面" href="$!webPath/upload/wyInFile/$!authentication.newAuthenticationDate/$!{authentication.iDcard} ">
+					身份证正面下载</a></td>
+		<td><a id="xz" id="xz" id="xz" download="$!authentication.userName身份证反面" href="$!webPath/upload/wyInFile/$!authentication.newAuthenticationDate/$!{authentication.handIDcard} ">
+					身份证反面下载</a></td>
+		  <ul class="set1">
+        <li><span class="webname">企业名称：&nbsp;&nbsp;&nbsp;&nbsp;
+          	<input name="enterpriseName" type="text" disabled="true" id="enterprisename" value="$!{authentication.enterpriseName}" />
+           </span>
+         </li>
+      </ul>	
+      <ul class="set1">
+        <li><span class="webname">营业执照注册号：&nbsp;&nbsp;&nbsp;&nbsp;
+          	<input name="businesRegsNumber" type="text" disabled="true" id="businesRegsNumber" value="$!{authentication.businesRegsNumber}" />
+           </span>
+         </li>
+      </ul>
+      <ul class="set1">
+        <li><span class="webname">所在地区：&nbsp;&nbsp;&nbsp;&nbsp;
+          	<input name="areaId" type="text" disabled="true" id="areaId" value="$!{authentication.areaId}" />
+           </span>
+         </li>
+      </ul>	
+       <ul class="set1">
+        <li><span class="webname">详细地址：&nbsp;&nbsp;&nbsp;&nbsp;
+          	<input name="detailedStreet" type="text" disabled="true" id="detailedStreet" value="$!{authentication.detailedStreet}" />
+           </span>
+         </li>
+      </ul>				
+      
+      <ul class="set1">
+        <li>
+        	<img id="fd" src="$!webPath/upload/wyInFile/$!authentication.newAuthenticationDate/$!authentication.businessLicense" width="150" height="150"  />
+        	<br/>
+        <span class="webname">营业执照号码:&nbsp;&nbsp;&nbsp;&nbsp;
+        		<input name="businessLicense" type="text" disabled="true" id="businessLicense" value="$!{authentication.businessNumber}"/>
+        	</span>
+        </li>
+        <li>
+        <span class="webname">营业执照有效期：&nbsp;&nbsp;&nbsp;&nbsp;
+        		<input name="endBusinessDate" type="text" disabled="true" id="endBusinessDate" value="$!{authentication.endBusinessDate}"/>
+        	</span>
+        </li>
+      </ul>
+ 	  <ul class="set1">
+        <li>
+        <img id="fd" src="$!webPath/upload/wyInFile/$!authentication.newAuthenticationDate/$!{authentication.drugLicense}" width="150" height="150"  />
+        	<br/>
+        <span class="webname">经营许可证号:&nbsp;&nbsp;&nbsp;&nbsp;
+          	<input name="drugNumber" type="text" disabled="true" id="drugNumber" value="$!{authentication.drugNumber}"/>
+           </span>
+        </li>
+        <li><span class="webname">许可证有效期:&nbsp;&nbsp;&nbsp;&nbsp;
+          	<input name="endDrugDate" type="text" disabled="true" id="endDrugDate" value="$!{authentication.endDrugDate}"/>
+           </span>
+        </li>
+      </ul>
+      <ul class="set1">
+        <li>
+         <img id="fd" src="$!webPath/upload/wyInFile/$!authentication.newAuthenticationDate/$!{authentication.gSPCertificate}" width="150" height="150"  />
+        	<br/>
+        <span class="webname">gsp证书号码:&nbsp;&nbsp;&nbsp;&nbsp;
+          	 <input name="gSPNumber" type="text" disabled="true" id="gSPNumber" value="$!{authentication.gSPNumber}"/>
+           </span>
+        </li>
+        <li>
+          <img id="fd" src="$!webPath/upload/wyInFile/$!authentication.newAuthenticationDate/$!{authentication.purchaseOrders}" width="150" height="150"  />
+        	<br/>
+        <span class="webname">gsp证书有效期:&nbsp;&nbsp;&nbsp;&nbsp;
+          	 <input name="endGSPDate" type="text" disabled="true" id="endGSPDate" value="$!{authentication.endGSPDate}"/>
+           </span>
+        </li>
+      </ul>
+      <ul class="set1">
+        <li>
+           <img id="fd" src="$!webPath/upload/wyInFile/$!authentication.newAuthenticationDate/$!{authentication.purchaseOrders}" width="150" height="150"  />
+        	<br/>
+        	
+        <span class="webname">手持身份证&nbsp;&nbsp;&nbsp;&nbsp;
+        <br/>
+          	<input type="hidden" name="purchaseNumber" type="text" disabled="true" id="purchaseNumber" value="$!{authentication.purchaseNumber}"/>
+           </span>
+           <br/>
+           <img id="fd" src="$!webPath/upload/wyInFile/$!authentication.newAuthenticationDate/$!{authentication.iDcard}" width="150" height="150"  />
+          <br/> <span class="webname">身份证正面&nbsp;&nbsp;&nbsp;&nbsp; </span><br/>
+        	<br/>
+         <img id="fd" src="$!webPath/upload/wyInFile/$!authentication.newAuthenticationDate/$!{authentication.handIDcard}" width="150" height="150"  />
+        	<br/><span class="webname">身份证反面&nbsp;&nbsp;&nbsp;&nbsp; </span>
+        	<br/>
+           
+           
+        </li>
+        
+        
+     <!--    <li type="hidden"><span class="webname">采购委托书号码：&nbsp;&nbsp;&nbsp;&nbsp;  -->
+          	<input type="hidden" name="endPurchaseDate" type="text" disabled="true" id="endPurchaseDate" value="$!{authentication.endPurchaseDate}"/>
+      <!--      </span> -->
+     <!--    </li> -->
+      </ul>
+      <ul class="set1">
+        <li><span class="webname">身份证号码：&nbsp;&nbsp;&nbsp;&nbsp;
+           		<input name="iDcardNumber" type="text" disabled="true" id="iDcardNumber" value="$!{authentication.iDcardNumber}"/>
+            </span>
+         </li>
+         <li><span class="webname">身份证有效期：&nbsp;&nbsp;&nbsp;&nbsp;
+           		<input name="endIDcardDate" type="text" disabled="true" id="endIDcardDate" value="$!{authentication.endIDcardDate}"/>
+            </span>
+         </li>
+      </ul>
+      <ul class="set1">
+        <li><span class="webname">认证时间 ：&nbsp;&nbsp;&nbsp;&nbsp;
+           		<input name="newAuthenticationDate" type="text" disabled="true" id="newAuthenticationDate" value="$!{authentication.newAuthenticationDate}"/>
+            </span>
+         </li>
+      </ul>
+      <ul class="set1">
+         <li><span class="webname">税号：&nbsp;&nbsp;&nbsp;&nbsp;
+           		<input name="dutyParagraph" type="text" disabled="true" id="dutyParagraph" value="$!{authentication.dutyParagraph}"/>
+            </span>
+         </li>
+      </ul>
+      <ul class="set1">
+         <li><span class="webname">对公账号：&nbsp;&nbsp;&nbsp;&nbsp;
+           		<input name="publicAccount" type="text" disabled="true" id="publicAccount" value="$!{authentication.publicAccount}"/>
+            </span>
+         </li>
+      </ul>
+      <ul class="set1">
+         <li><span class="webname">商家类型：&nbsp;&nbsp;&nbsp;&nbsp;
+         		#if($!authentication.features==1)
+         			#set($features="买家")
+         		#end 
+         		#if($!authentication.features==2)
+         			#set($features="卖家")
+         		#end 
+         		<input name="features" type="text" disabled="true" id="features" value="$!features"/>
+            </span>
+         </li>
+      </ul>
+       <ul class="set1">
+         <li><span class="webname">审核状态：&nbsp;&nbsp;&nbsp;&nbsp;
+         		#if($!authentication.temiiOpeningStatus==2)
+         			<input name="features" type="text" disabled="true" id="features" value="审核成功"/>
+         		#end
+         		#if($!authentication.temiiOpeningStatus==0 || $!authentication.temiiOpeningStatus==1 || $!authentication.temiiOpeningStatus==3)
+         		
+         		#if($!authentication.temiiOpeningStatus==0)
+         			#set($temiiOpeningStatus="审核中")
+         		#end
+         		#if($!authentication.temiiOpeningStatus==3)
+         			#set($temiiOpeningStatus="审核失败")
+         		#end  
+         		#if($!authentication.temiiOpeningStatus==1)
+         			#set($temiiOpeningStatus="未开通")
+         		#end
+         		
+         		<select name="temiiOpeningStatus" id="temiiOpeningStatus">
+         			<option value="$!authentication.temiiOpeningStatus" selected ="selected">$temiiOpeningStatus</option>
+         		    <option value="2">审核通过</option>
+         		    <option value="3">审核不通过</option>
+         		</select>
+         		#end
+            </span>
+         </li>
+      </ul>
+    </div>
+     
+  </div>
+  <div class="submit">
+    <input type=submit value="保存" style="cursor:pointer;"/>
+  </div>
+</form>
+</body>
+</html>

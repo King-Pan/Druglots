@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>买家赊销管理-$!{config.title}-Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+	<meta name="copyright" content="wemall Inc. All Rights Reserved">
+		<link
+			href="$!webPath/resources/style/system/front/default/css/public.css"
+			type="text/css" rel="stylesheet" />
+		<link
+			href="$!webPath/resources/style/system/front/default/css/user.css"
+			type="text/css" rel="stylesheet" />
+		<link href="$!webPath/resources/js/theme/default/laydate.css"
+			type="text/css" rel="stylesheet" />
+		<script src="$!webPath/resources/js/laydate.js"></script>
+		<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+		<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+</head>
+<script>
+    $(function() {
+    function number() {
+        var page = $("#currentPage").val();
+        if (page == 1) {
+            for (var i = 0; i < $(".numberClass").length; i++) {
+                $(".numberClass").get(i).innerHTML = i + 1;
+            }
+
+        } else {
+            for (var i = 0; i < $(".numberClass").length; i++) {
+                $(".numberClass").get(i).innerHTML = i + (page - 1) * 12 + 1;
+            }
+        }
+
+    }
+    number();
+});
+</script>
+<style>
+#test1, #test2 {
+	width: 176px;
+}
+</style>
+
+<body>
+	$!httpInclude.include("/top.htm")
+	<div class="main">
+		$!httpInclude.include("/buyer/head.htm")
+		<div class="user_center">
+			<table width="1200" border="0" cellspacing="0" cellpadding="0"
+				class="user_table">
+				<tr>
+					$!httpInclude.include("/buyer/account_nav.htm?op=Charge")
+					<td id="centerbg" valign="top">
+						<div class="buyer_position">
+							<div class="buyer_p_box">
+								<a href="$!webPath/buyer/account.htm">我的账户</a> > <span>赊销管理</span>
+								> <span>还款详情</span>
+							</div>
+						</div>
+						<div class="productmain">
+							<div class="ordernav">
+								<ul class="orderul">
+									<li><a
+										href="$!webPath/buyer/buyer_charge_sales_wallet.htm">赊销钱包</a></li>
+									<li class="this"><a
+										href="$!webPath/buyer/buyer_my_charge_sales.htm">我的赊销</a></li>
+									<li><a
+										href="$!webPath/buyer/buyer_charge_sales_amount_granted.htm?flag=save"">申请赊销</a></li>
+									<li><a href="$!webPath/buyer/buyer_charge_sales_check.htm">赊销审核</a></li>
+									<li><a
+										href="$!webPath/buyer/buyer_charge_sales_order.htm?twoStatus=1">赊销订单</a></li>
+								</ul>
+							</div>
+							<div class="ordercon">
+								<div class="addnav">
+									<div class="fl-f-d">
+										<ul>
+											<li style="width: 40%">
+												<p>
+													<span>商家名称：</span>
+													<!-- <span>商家编码：</span> -->
+													<span>授额期限：</span> <span>应还金额：</span> <!-- <span>业务员：</span> -->
+												</p>
+												<p>
+													<span>$!store.storeName</span>
+													<!-- <span style="disable">$store.sellerId</span> -->
+													<span>$!date.format('yyyy-MM-dd',$!store.startTime)
+														至 $!date.format('yyyy-MM-dd',$!store.monthClean)</span> <span
+														id="backdue$!store.id"></span>
+													<script>
+												      	jQuery("#backdue$!store.id").text($store.buyerCombination - $store.buyerRemainingUndrawn+$!totalday);
+											      	</script>
+
+
+													<!-- <span>周周 18451096556</span> -->
+												</p>
+											</li>
+											<li>
+												<p>
+													<span>总额度：</span> <span>已用额度：</span> <span>剩余额度：</span>
+												</p>
+												<p>
+													<span>$store.buyerCombination元</span> <span
+														id="back$!store.id"></span>
+													<script>
+												      	jQuery("#back$!store.id").text($store.buyerCombination - $store.buyerRemainingUndrawn);
+											      	    </script>
+													<span>$store.buyerRemainingUndrawn元</span>
+
+												</p>
+											</li>
+											<li>
+												<p>
+													<span>出账日：</span> <span>最后还款日：</span> <span>授额状态：</span>
+													<!-- <span><input class="apply-button" style='background-color:#09F;border:1px solid #09F;' type="button" value="还款" /></span> -->
+												</p>
+												<p>
+													<span>每月$store.accountDate日</span> <span>每月$store.repaymentDate日</span>
+													#if($!store.limitState == 1) <span>进行中</span>
+													#elseif($!store.limitState == 2) <span>已到期</span>
+													#elseif($!store.limitState == 3) <span>已冻结</span> #else <span>未开通</span>
+													#end
+												</p>
+											</li>
+											<div class="btn-box">
+												<input class="apply-button"
+													style='background-color: #09F; border: 1px solid #09F; margin-right: 48px; margin-top: 24px;'
+													type="button" value="还款" onclick="openTc()" />
+											</div>
+										</ul>
+
+									</div>
+									<form action="$!webPath/buyer/buyer_my_charge_sales_detail.htm"
+										method="post">
+										<div class="seInput seInput2 seInput3 totalPart clearfix">
+											<div class="everyPart">
+												<div class="leftPart">
+													<span>还款编号：</span>
+												</div>
+												<div class="rightPart">
+													<input type="text" name="number"> <input
+														type="hidden" name="storeId" value="$!store.storeId">
+												</div>
+											</div>
+											<div class="everyPart">
+												<div class="leftPart">
+													<span>还款状态：</span>
+												</div>
+												<div class="rightPart">
+													<select name="payBack" id="buyerId"
+														style="height: 26px; font-size: 14px;">
+														<option value="0">全部</option>
+														<option value="1">待还款</option>
+														<option value="2">已还款</option>
+														<option value="3">已逾期</option>
+													</select>
+												</div>
+											</div>
+
+											<div class="everyPart">
+												<div class="leftPart">
+													<span>实际还款时间：</span>
+												</div>
+												<div class="rightPart">
+													<input type="text" id="actual" name="actual">
+												</div>
+											</div>
+
+										</div>
+										<div class="btn-box">
+											<input class="apply-button"
+												style='background-color: #09F; border: 1px solid #09F;'
+												type="submit" value="查询" />
+											<button class="apply-button"
+												style='background-color: #fff; border: 1px solid #999; color: #666'
+												type="reset" value="重置">重置</button>
+										</div>
+									</form>
+									<div id="bigbox">
+										<!-- <input class="apply-button" style='background-color:#09F;border:1px solid #09F;' type="button" value="导出" /> -->
+										<div id="tablebox">
+											<form action="" method="post" name="ListForm" id="ListForm">
+												<table width="100%" border="0" cellspacing="0"
+													cellpadding="0">
+													<tr style="background-color: #2A7AD2; height: 30px;"
+														class="yyyy">
+														<td style="color: white;">序号</td>
+														<td style="color: white;">还款编号</td>
+														<td style="color: white;">预计还款日期</td>
+														<td style="color: white;">实际还款日期</td>
+														<td style="color: white;">逾期时长（天）</td>
+														<td style="color: white;">总罚息（元）</td>
+														<td style="color: white;">还款金额（元）</td>
+														<td style="color: white;">还款状态</td>
+													</tr>
+													#foreach($objs in $objs)
+													<tr class="zzzz">
+													    <td class="numberClass"></td>
+														<td>$!objs.number</td>
+														<td>$!repaymentDate</td> #if($!objs.actual_date)
+														<td>$!objs.actual_date</td> #else
+														<td>--</td> #end
+														<td>$!objs.days</td>
+														<td id="backdue$!objs.id"></td>
+														<td id="overdue$!objs.id"></td> #if($!objs.pay_status ==
+														1)
+														<td>待还款</td> #elseif($!objs.pay_status == 2)
+														<td>已还款</td> #else
+														<td>已逾期</td> #end
+														<script>
+                                                 function numMulti(num1, num2,num3) {
+                                                     var baseNum = 0;
+                                                     try {
+                                                         baseNum += num1.toString().split(".")[1].length;
+                                                     } catch (e) {
+                                                     }
+                                                     try {
+                                                         baseNum += num2.toString().split(".")[1].length;
+                                                     } catch (e) {
+                                                     }
+                                                     try {
+                                                         baseNum += num3.toString().split(".")[1].length;
+                                                     } catch (e) {
+                                                     }
+                                                     return Number(num1.toString().replace(".", ""))
+                                                             * Number(num2.toString().replace(".", ""))
+                                                             * Number(num3.toString().replace(".", ""))
+                                                             / Math.pow(10, baseNum);
+                                                 };
+                                                 var value = numMulti($!objs.totalPrice,$!store.interest,$!objs.days)
+                                                 jQuery("#backdue$!objs.id").text(value);
+                                                 jQuery("#overdue$!objs.id").text(value+$!objs.totalPrice);
+                                                 </script>
+													</tr>
+													#end
+												</table>
+												<input id="currentPage" name="currentPage" type="hidden"
+													value="$!currentPage" /> <input id="type" name="type"
+													type="hidden" value="$!type" />
+												<div class="alldel">
+													<div class="userfenye">$!gotoPageFormHTML</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		$!httpInclude.include("/footer.htm")
+	</div>
+	<!-- 弹窗还款 -->
+	<!-- <div id="black-bg"> -->
+	<div id="tc-box" style="top: 244px;">
+		<h1 onclick="closeTc()">x</h1>
+		<div id="backMoney">
+			<div class="seInput seInput2 clearfix">
+				<div class="fl-part">
+					<p>
+						<span>订单金额：</span>
+					</p>
+					<p>
+						<span>逾期时长：</span>
+					</p>
+					<p>
+						<span>授额金额：</span>
+					</p>
+					<p>
+						<span>还款金额：</span>
+					</p>
+					<p>
+						<span>还款方式：</span>
+					</p>
+					<p>
+						<span>交易密码：</span>
+					</p>
+				</div>
+				<div class="fr-part">
+					<p>
+						<span>￥6000.00</span>
+					</p>
+					<p>
+						<span>2天</span>
+					</p>
+					<p>
+						<span>￥12.00</span>
+					</p>
+					<p>
+						<span>￥600.00</span>
+					</p>
+					<p>
+						<span> <select name="">
+								<option value="0">请选择</option>
+								<option value="1">中信银行</option>
+						</select>
+						</span>
+					</p>
+					<p>
+						<span><input type="text" name=""></span><span
+							class="textOne"></span>
+					</p>
+				</div>
+			</div>
+			<button class="ht-sub" onclick="">确定还款</button>
+		</div>
+	</div>
+</body>
+<script>
+//执行一个laydate实例
+laydate.render({
+    elem: '#test1' //指定元素
+        ,
+    range: true
+});
+laydate.render({
+    elem: '#test2' //指定元素
+        ,
+    range: true
+});
+
+function closeTc() {
+    jQuery("#tc-box").hide();
+    jQuery("#backMoney").hide();
+}
+
+function openTc() {
+    jQuery("#tc-box").show();
+    jQuery("#backMoney").show();
+}
+</script>
+
+</html>

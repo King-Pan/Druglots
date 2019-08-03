@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>赊销账期及额度 - Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+	<meta name="copyright" content="wemall Inc. All Rights Reserved">
+		<link
+			href="$!webPath/resources/style/system/front/default/css/public.css"
+			type="text/css" rel="stylesheet" />
+		<link
+			href="$!webPath/resources/style/system/front/default/css/user.css"
+			type="text/css" rel="stylesheet" />
+		<link href="$!webPath/resources/js/theme/default/laydate.css"
+			type="text/css" rel="stylesheet" />
+		<script src="$!webPath/resources/js/laydate.js"></script>
+		<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+		<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+</head>
+<script>
+	$(function() {
+		function number() {
+			var page = $("#currentPage").val();
+			if (page == 1) {
+				for (var i = 0; i < $(".numberClass").length; i++) {
+					$(".numberClass").get(i).innerHTML = i + 1;
+				}
+
+			} else {
+				for (var i = 0; i < $(".numberClass").length; i++) {
+					$(".numberClass").get(i).innerHTML = i + (page - 1) * 12
+							+ 1;
+				}
+			}
+
+		}
+		number();
+	});
+</script>
+<style>
+#test1 {
+	width: 190px;
+}
+</style>
+
+<body>
+	$!httpInclude.include("/top.htm")
+	<div class="main">
+		$!httpInclude.include("/seller/nav_head.htm")
+		<div class="user_center">
+			<table width="1200" border="0" cellspacing="0" cellpadding="0"
+				class="user_table">
+				<tr>
+					$!httpInclude.include("/seller/nav.htm?op=quota_Management")
+					<td id="centerbg" valign="top">
+						<div class="buyer_position">
+							<div class="buyer_p_box">
+								<a href="$!webPath/seller/index.htm">卖家中心</a> > <span>赊销管理</span>
+								> <span>我的赊销</span>
+							</div>
+						</div>
+						<div class="productmain">
+							<div class="ordernav">
+								<ul class="orderul">
+									#if($!storstatus == 0)
+									<li><a href="$!webPath/seller/is_charge_sales.htm">开通赊销</a></li>
+									#end
+									<li><a href="$!webPath/seller/charge_sales_wallet.htm">赊销钱包</a></li>
+									<li class="this"><a
+										href="$!webPath/seller/my_charge_sales.htm">我的赊销</a></li>
+									<li><a href="$!webPath/seller/charge_sales_check.htm">赊销审核</a></li>
+									<li><a
+										href="$!webPath/seller/addUpdate_customerCredit.htm?type=save">赊销授额</a></li>
+									<li id="ssdd"><a
+										href="$!webPath/seller/charge_sales_order.htm?twoStatus=1">赊销订单</a></li>
+								</ul>
+							</div>
+							<div class="ordercon">
+								<div class="addnav">
+									<div class="fl-f">
+										<ul>
+											<li>
+												<p>总金额</p> 
+												#if($!total)
+												<p>￥$!total.00</p> 
+												#else
+												<p>￥0.00</p> 
+												#end
+											</li>
+											<li>
+												<p>待回款</p> #if($!shenyu)
+												<p>￥$!shenyu.00</p> #else
+												<p>￥0.00</p> #end
+											</li>
+											<li>
+												<p>已回款</p>
+												<p>￥0.00</p>
+											</li>
+											<li>
+												<p>待对账款</p> #if($!totalprice)
+												<p>￥$!totalprice</p> #else
+												<p>￥0.00</p> #end
+												<p>
+													<a
+														href="$!webPath/seller/charge_sales_order.htm?twoStatus=1"
+														style="color: #0771DF">去对账&gt;&gt;</a>
+												</p>
+											</li>
+										</ul>
+									</div>
+									<form action="$!webPath/seller/my_charge_sales.htm"
+										method="post">
+										<div class="seInput seInput2 seInput3 totalPart clearfix">
+											<div class="everyPart">
+												<div class="leftPart">客户名称：</div>
+												<div class="rightPart">
+													<input type="text" name="enterpriseName">
+												</div>
+											</div>
+											<div class="everyPart">
+												<div class="leftPart">客户编码：</div>
+												<div class="rightPart">
+													<input type="text" name="" disabled="disabled">
+												</div>
+											</div>
+											<div class="everyPart">
+												<div class="leftPart">授额期限：</div>
+												<div class="rightPart">
+													<input type="text" id="test1" name="startTime">
+												</div>
+											</div>
+											<div class="everyPart">
+												<div class="leftPart">授额状态：</div>
+												<div class="rightPart">
+													<select name="limitState" id="buyerId"
+														style="height: 26px; font-size: 14px;">
+														<option value="0">全部</option>
+														<option value="1">进行中</option>
+														<option value="2">已到期</option>
+														<option value="3">已冻结</option>
+														<option value="4">未开通</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="btn-box">
+											<input class="apply-button"
+												style='background-color: #09F; border: 1px solid #09F;'
+												type="submit" value="查询" />
+											<button class="apply-button"
+												style='background-color: #fff; border: 1px solid #999; color: #666'
+												type="reset" value="重置">重置</button>
+										</div>
+									</form>
+									<div id="bigbox">
+										<input class="apply-button"
+											style='background-color: #09F; border: 1px solid #09F;'
+											type="button" value="导出" onclick="importExecl()" />
+										<div id="tablebox">
+											<form action="" method="post" name="ListForm" id="ListForm">
+												<table width="150%" border="0" cellspacing="0"
+													cellpadding="0">
+													<tr style="background-color: #2A7AD2; height: 30px;"
+														class="yyyy">
+														<td style="display: none;">id</td>
+														<td style="display: none;">客户id</td>
+														<td style="color: white;">序号</td>
+														<td style="color: white;">客户名称</td>
+														<td style="color: white;">客户编码</td>
+														<td style="color: white;">授额期限</td>
+														<td style="color: white;">订单数（笔）</td>
+														<td style="color: white;">总额度(元)</td>
+														<td style="color: white;">出账日</td>
+														<td style="color: white;">最后还款日</td>
+														<td style="color: white;">逾期计息（%）</td>
+														<td style="color: white;">授额状态</td>
+														<td style="color: white;">操作</td>
+													</tr>
+													#foreach($objss in $objs)
+													<tr class="zzzz">
+														#if($!objss.auth)
+														<td style="display: none;">$!objss.id</td>
+														<td style="display: none;">$!objss.buyerId</td>
+														<td style="display: none;"></td>
+														<td class="numberClass"></td>
+														<td>$!objss.auth</td>
+														<td></td> #if($!objss.startTime && $!objss.monthClean)
+														<td>$!date.format('yyyy-MM-dd',$!objss.startTime) 至
+															$!date.format('yyyy-MM-dd',$!objss.monthClean)</td> #else
+														<td>--</td> #end
+														<td>$!objss.orderCount</td> 
+														#if($!objss.buyamout)
+														<td>$!objss.buyamout</td> 
+														#else
+														<td>--</td> 
+														#end 
+														#if($!objss.accountDate==0)
+														<td>--</td> 
+														#else
+														<td>每月$!objss.accountDate日</td> 
+														#end
+														#if($!objss.repaymentDate == 0)
+														<td>--</td> #else
+														<td>每月$!objss.repaymentDate日</td> #end #if($!objss.interest
+														== 0)
+														<td>--</td> #else
+														<td>$!objss.interest%</td> #end #if($!objss.limitState ==
+														1)
+														<td>进行中</td> #elseif($!objss.limitState == 2)
+														<td>已到期</td> #elseif($!objss.limitState == 3)
+														<td>已冻结</td> #elseif($!objss.limitState == 4)
+														<td>待授额</td> #else
+														<td>未开通</td> #end
+														<td><a
+															href="$!webPath/seller/my_charge_sales_detail.htm?storeId=$objss.storeId&buyerId=$!objss.buyerId">查看</a>
+															<!-- 总额度有值的话  就是修改   没有就是保存 --> #if($!objss.buyamout) <!-- 进行中跟已冻结的不显示授额按钮 -->
+															#if($!objss.limitState == 1 || $!objss.limitState == 3)</td>
+														#else
+														<a
+															href="$!webPath/seller/addUpdate_customerCredit.htm?type=update&id=$!objss.sxid">授额</a>
+														</td> #end #else
+														<a
+															href="$!webPath/seller/addUpdate_customerCredit.htm?type=save">授额</a>
+														</td> #end
+													</tr>
+													#end
+													<tr class="zzzz">
+														#if($!objss.authString)
+														<td style="display: none;">$!objss.id</td>
+														<td style="display: none;">$!objss.buyerId</td>
+														<td class="numberClass"></td>
+														<td>$!objss.id$!objss.authString</td>
+														<td></td> #if($!objss.startTime && $!objss.monthClean)
+														<td>$!date.format('yyyy-MM-dd',$!objss.startTime) 至
+															$!date.format('yyyy-MM-dd',$!objss.monthClean)</td> #else
+														<td>--</td> #end
+														<td>$!objss.orderCount</td> #if($!objss.buyerCombination)
+														<td>$!objss.buyerCombination</td> #else
+														<td>--</td> #end #if($!objss.accountDate==0)
+														<td>--</td> #else
+														<td>$!objss.accountDate</td> #end
+														#if($!objss.repaymentDate == 0)
+														<td>--</td> #else
+														<td>$!objss.repaymentDate</td> #end #if($!objss.interest
+														== 0)
+														<td>--</td> #else
+														<td>$!objss.interest%</td> #end #if($!objss.limitState ==
+														1)
+														<td>进行中</td> #elseif($!objss.limitState == 2)
+														<td>已到期</td> #elseif($!objss.limitState == 3)
+														<td>已冻结</td> #else
+														<td>未开通</td> #end
+														<td><a
+															href="$!webPath/seller/my_charge_sales_detail.htm">查看</a>
+															#if($!objss.buyerCombination) <!-- 总额度有值的话  就是修改   没有就是保存 -->
+															<a
+															href="$!webPath/seller/addUpdate_customerCredit.htm?type=update&id=$!objss.id">授额</a></td>
+														#else
+														<a
+															href="$!webPath/seller/addUpdate_customerCredit.htm?type=save">授额</a>
+														</td> #end
+													</tr>
+													#end #end
+												</table>
+												<input id="currentPage" name="currentPage" type="hidden"
+													value="$!currentPage" /> <input id="type" name="type"
+													type="hidden" value="$!type" />
+												<div class="alldel">
+													<div class="userfenye">$!gotoPageFormHTML</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+			</form>
+		</div>
+		$!httpInclude.include("/footer.htm")
+	</div>
+</body>
+<script type="text/javascript">
+	//执行一个laydate实例
+	laydate.render({
+		elem : '#test1' //指定元素
+		,
+		range : true
+	});
+
+	jQuery("#ssdd").click(function() {
+		localStorage.removeItem('Ordervalue')
+		jQuery("#orderTab li").removeClass('this')
+		jQuery("#dz-box").show().siblings().hide();
+
+	})
+
+	function importExecl() {
+		window.location.href = "$!webPath/seller/export.htm"
+	}
+</script>
+
+</html>

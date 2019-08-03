@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>客户管理  -  Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+<meta name="copyright" content="wemall Inc. All Rights Reserved">
+<link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet" />
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+
+   <script>
+   function save_form(){
+  jQuery("#theForm").submit();
+}
+   </script>
+</head>
+<body>
+$!httpInclude.include("/top.htm")
+<div class="main">
+  $!httpInclude.include("/seller/nav_head.htm")
+  <div class="user_center">
+    <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+      <tr>
+         $!httpInclude.include("/seller/nav.htm?op=client_management")
+        <td id="centerbg" valign="top">
+<div class="buyer_position"><div class="buyer_p_box"><a href="$!webPath/seller/index.htm">卖家中心</a> > <span>客户管理</span></div></div>
+        <div class="productmain">
+            <div class="ordernav">
+              <ul class="orderul">
+                <li><a href="$!webPath/seller/client_management.htm">首营资料信息</a></li>
+                <li><a href="$!webPath/seller/queryCustomerData.htm">客户药房信息</a></li>
+                <li class="this"><a href="$!webPath/seller/DataImport.htm">药房资料导入</a></li>
+                <li><a href="$!webPath/seller/relatedAccount.htm?seek=1">关联客户经理信息</a></li>
+              </ul>
+            </div>
+            <form action="$!webPath/seller/PharmacyDataupLoad.htm" method="post" enctype="multipart/form-data" id="theForm">
+            <div class="ordercon">
+              <div class="setshop">
+                <table width="705" border="0" cellspacing="0" cellpadding="0" class="setshoptable">
+                  <tr>
+                    <td width="98" align="right" valign="top">药房资料信息导入：</td>
+                    <td width="607" style="padding-left:30px;">
+                      <ul class="setlogo">
+                        <li>
+                           <input name="yaofangziliao" type="file" id="yaofangziliao" size="30" />
+                           <span style="color:red;font-size:14px;">*&nbsp;请选择.csv文件</span>
+                        </li>
+                      </ul>
+                      </td>
+                  </tr>
+                  <tr>
+                    <td width="98" align="right">&nbsp;</td>
+                    <td style="padding-left:30px;"><span class="setsub">
+                      <input name="btn" type="button"  value="导入"  onclick="save_form();" style="cursor:pointer;"/>
+                      </span></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            </form>
+          </div></td>
+      </tr>
+    </table>
+  </div>
+$!httpInclude.include("/footer.htm")
+</div>
+</body>
+</html>

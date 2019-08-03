@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+#macro ( genericTree $somelist ) 
+#foreach ( $some in $somelist )
+<option value="$!some.id">
+#if($!some.level>0)
+#foreach($count in [0..$!some.level])&nbsp;#end #end $!some.className</option>
+#genericTree($some.childs) 
+#end 
+#end
+</head>
+<link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+<script>
+jQuery(document).ready(function(){
+ jQuery.validator.addMethod("verify",function(value,element){
+	  var re = /^[0-9a-zA-Z]*$/;
+        if(re.test(jQuery("#phone").val())){			
+			return true;
+		  } 
+		  else {
+		    return false;
+			  }		  
+});								
+  jQuery("#theForm").validate({
+    rules:{
+	  PurchasersName:{
+	    required :true,
+	  },
+	  attention:{
+	    required :true,
+	 },
+	  areaId:{
+	    required :true,
+	 }, 
+	 betterAddress:{
+	    required :true,
+	 }
+	 },
+	messages:{
+	  PurchasersName:{required:"企业名不能为空"},
+	  attention:{required:"姓名不能为空"},
+	  areaId:{required:"地址不能为空"},
+	  betterAddress:{required:"详细地址不能为空"}
+	}
+  });
+  	
+	//获取下级地区信息
+ 	  jQuery("select[id^=areas_]").click(function(){						   
+			var areaMark = jQuery(this).attr("areaMark");
+			var parent_id = jQuery("#areas_"+areaMark).val();									   
+			jQuery.post("$!webPath/buyer/account_getAreaChilds.htm",{
+						"parent_id":parent_id,
+						"areaMark":areaMark
+						},function(data){
+							console.log(data);
+							if(areaMark=="province"){
+							jQuery("#areaId").html("<option>请选择...</option>");
+							jQuery("#areas_city").html("<option>请选择...</option>"+data);
+								}
+							if(areaMark=="city"){
+							jQuery("#areaId").html("<option>请选择...</option>"+data);
+								}	
+							},"text");										       
+	  });
+
+
+});
+</script>
+<script>
+function saveForm(){
+var register=JSON.stringify({PurchasersName:$("#PurchasersName").val(),attention:$("#attention").val(),phone:$("#phone").val(),province:$("#areas_province").find("option:selected").text(),city:$("#areas_city").find("option:selected").text(),area:$("#areaId").find("option:selected").text(),betterAddress:$("#betterAddress").val()});
+   jQuery.ajax({
+		            type:'POST',
+		            url:'$!webPath/admin/insert_one.htm',
+		            async: false,
+		            data:{"register":register},
+		            success:function(data){
+		            if(data==1){
+		            alert("新增失败");
+		            }else{
+		            alert("新增成功");
+		            }
+		            }
+		        })
+}
+</script>
+<body>
+<div class="cont">
+  <h1 class="seth1">预注册会员管理</h1>
+  <div class="settab"><span class="tab-one"></span>
+      <span class="tabs">
+       <a href="$!webPath/admin/register_list.htm">excle批量导入会员</a> |
+       <a href="$!webPath/admin/register_add.htms" #if(!$!edit)class="this"#end>新增</a>
+	   #if($!edit)
+	   <a href="javascript:void(0);" class="this">编辑</a>
+	   #end	  </span>
+      
+      <span class="tab-two"></span></div>
+ <form name="theForm" id="theForm" method="post">
+  <div class="setcont">
+    <!--鼠标经过样式-->
+    <ul class="set1">
+      <li><strong class="orange fontsize20">*</strong>企业名</li>
+      <li><span class="webname">
+        <input name="PurchasersName" type="text" id="PurchasersName"  size="40" />
+      </span></li>
+    </ul>
+      <ul class="set1">
+      <li>注册人姓名</li>
+      <li><span class="webname">
+        <input name="attention" type="text" id="attention" size="40" autocomplete="off" />
+      </span><span id="nothis"><strong class="q"></strong><strong class="w">企业拥有人真实姓名</strong><strong class="c"></strong></span></li>
+    </ul>
+    <ul class="set1">
+      <li>电话</li>
+      <li><span class="webname">
+        <input name="phone" type="text" id="phone"  size="40" />
+      </span></li>
+    </ul>
+	<ul class="set1">
+      <li><strong class="orange fontsize20">*</strong>地址</li>
+      <li>
+      <span class="openstxt" id="SSQ">
+                       <select id="areas_province" areaMark="province">
+                       <option>请选择...</option>
+                       #foreach($area in $areas)
+                       <option value="$!area.id">$!area.areaName</option>
+                       #end
+                       </select>
+                       
+                       <select id="areas_city" areaMark="city">
+                       <option value="">请选择...</option>
+                       </select>
+                        <select id="areaId" name="areaId"> 
+                       <option value="">请选择...</option>
+                       </select>
+                        </span>
+      </li>
+	</ul>
+	<ul class="set1">
+      <li>详细地址</li>
+	   <li><span class="webname">
+      <input name="betterAddress" type="text" id="betterAddress"/>
+	   </span>
+	   </li>
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	</ul>
+    </div>
+  </form>
+  <div class="submit">
+    <input name="save" type="button" value="提交" onclick="saveForm()" />
+  </div>
+</div>
+</body>
+</html>

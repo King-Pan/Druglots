@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>客户额度编辑  -  Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+<meta name="copyright" content="wemall Inc. All Rights Reserved">
+<link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/js/theme/default/laydate.css" type="text/css" rel="stylesheet" />
+    <script src="$!webPath/resources/js/laydate.js"></script>
+<style>
+#backTime, #backTime2 ,#backTime3,#backTime4 {
+  color: red;
+}
+
+
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{
+        -webkit-appearance:textfield;
+  }
+  input[type="number"]{
+        -moz-appearance:textfield;
+  }
+</style>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+<script>
+/* function savesubmit(){
+  var buyerCreditsNew=document.getElementById("buyerCredits").value;//买家额度
+  var storeSurplus=document.getElementById("storeSurplus").value;//店铺余额
+  if(storeSurplus<buyerCreditsNew){
+    alert("授予客户额度不能大于店铺的剩余额度！");
+  return false;
+  }
+  return true;
+} */
+
+
+
+</script>
+</head>
+<body>
+$!httpInclude.include("/top.htm")
+<div class="main">
+  $!httpInclude.include("/seller/nav_head.htm")
+  <div class="user_center">
+    <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+      <tr>
+         $!httpInclude.include("/seller/nav.htm?op=client_quota_Management")
+        <td id="centerbg" valign="top">
+<div class="buyer_position"><div class="buyer_p_box"><a href="$!webPath/seller/index.htm">卖家中心</a> > <span>赊销管理</span></div></div>
+        <div class="productmain">
+            <div class="ordernav">
+              <ul class="orderul">
+               #if($!storstatus == 0)
+                <li><a href="$!webPath/seller/is_charge_sales.htm">开通赊销</a></li>
+               #end
+                <li><a href="$!webPath/seller/charge_sales_wallet.htm">赊销钱包</a></li>
+                <li><a href="$!webPath/seller/my_charge_sales.htm">我的赊销</a></li>
+                <li><a href="$!webPath/seller/charge_sales_check.htm">赊销审核</a></li>
+                <li class="this"><a href="$!webPath/seller/addUpdate_customerCredit.htm?type=save">赊销授额</a></li>
+                <li id="ssdd"><a href="$!webPath/seller/charge_sales_order.htm?twoStatus=1">赊销订单</a></li>
+              </ul>
+            </div>
+            #if($!type=='save')
+            <form action="$!webPath/seller/save_customerCredit.htm?type=save" method="post" onSubmit="return inputNull(this)" enctype="multipart/form-data" id="theForm">
+            #end
+            #if($!type=='update')
+            <!-- <form action="$!webPath/save_customerCredit?type=update" method="post" onsubmit="return savesubmit()" enctype="multipart/form-data" id="theForm"> -->
+            <form action="$!webPath/seller/save_customerCredit.htm?type=update" method="post" onSubmit="return inputNull(this)" enctype="multipart/form-data" id="theForm">
+            #end
+            <div style="margin-top:36px">
+            <div class="seInput seInput2 clearfix">
+                <div class="fl-part">
+                    <p><span>客户名称：</span></p>
+                    <p><span>客户编码：</span></p>
+                    <p><span>授额期限<span style="color:red">*</span>：</span></p>
+                    <p><span>赊销额度<span style="color:red">*</span>：</span></p>
+                    <p><span>出账日<span style="color:red">*</span>：</span></p>
+                    <p><span>最后还款日<span style="color:red">*</span>：</span></p>
+                    <p><span>逾期日息：</span></p>
+                    <p><span>上传合同：</span></p>
+                </div>
+                <div class="fr-part">
+                    <p><span>
+                        <select name="buyerId" id="buyerId">
+                        	#if($!type=='update')
+      							<option value="$!buyerCreditLimit.buyerId">$!buyerCreditLimit.authString</option>
+                        	#end
+                        	#if($!type=='save')
+                        			<option value="请选择">		--请选择终端用户--		</option>
+                        		#foreach($!authen in $!authenticationst)
+      								<option value="$!authen.userId">$!authen.enterpriseName</option>
+      							#end
+                        	#end
+                        </select>
+                    </span></p>
+                    <p><span><input type="text" name="" disabled="disabled"></span></p>
+                      <!-- 授额期限 -->
+                     #if($!type=='update')
+                    		<p><span><input type="text" name="startTime" id="test1" value="$!time"></span></p>
+                    #end
+                    #if($!type=='save')
+                           <p><span><input type="text"  id="test1" name="startTime"></span></p>
+                    #end
+                    
+                    <!-- 赊销额度 -->
+                    #if($!type=='update')
+      						<p><span><input name="buyerCredits" type="text" id="buyerCredits" value="$!buyerCreditLimit.buyerCombination"/></span></p>
+                    #end
+                    #if($!type=='save')
+                           <p><span><input type="text" name="buyerCredits"></span><span class="textOne2">元</span></p>
+                    #end
+                    <!--出账日 -->
+                    #if($!type=='update')
+      						<p><span><input name="accountDate" type="text" id="accountDate" value="$!buyerCreditLimit.accountDate"/></span></p>
+                    #end
+                    #if($!type=='save')
+                           <p><span><input type="text" name="accountDate"></span><span class="textOne2">日</span></p>
+                    #end
+                    
+                    <!-- 最后还款日 -->
+                    #if($!type=='update')
+      						<p><span><input name="repaymentDate" type="text" id="repaymentDate" value="$!buyerCreditLimit.repaymentDate"/></span></p>
+                    #end
+                    #if($!type=='save')
+                    		<p><span><input type="text" name="repaymentDate"></span><span class="textOne2">日</span></p>
+                    #end
+                    
+                    
+                    <!-- 逾期计息 -->
+                     #if($!type=='update')
+                    <p><span><input type="text" name="interest" value="$!buyerCreditLimit.interest"></span><span class="textOne2">%</span></p>
+                    #end
+                     #if($!type=='save')
+                    <p><span><input type="text" name="interest"></span><span class="textOne2">%</span></p>
+                    #end
+                    
+                    <p><span><input type="file" name="fileUrl"></span></p>
+                </div>
+            </div>
+            <button class="ht-sub"   type="submit" id="anniu"  value="提交" >提交</button>
+        </div>
+            </form>
+          </div></td>
+      </tr>
+    </table>
+  </div>
+$!httpInclude.include("/footer.htm")
+</div>
+<script >
+// $("#everymonth").keyup(function(event) {
+//   var value = $(this).val();
+//     if(value>28 || value<1){
+//       $(this).val("28")
+//     }
+// });
+//执行一个laydate实例
+laydate.render({
+    elem: '#test1' //指定元素
+        ,
+    range: true
+});
+
+jQuery("#ssdd").click(function() {
+    localStorage.removeItem('Ordervalue')
+    jQuery("#orderTab li").removeClass('this')
+    jQuery("#dz-box").show().siblings().hide();
+
+})
+
+$("#info_error").hide();
+    $("#info_error").css("color", "red")
+    $("#backTime").hide();
+    $("#backTime2").hide();
+    $("#backTime3").hide();
+    $("#backTime4").hide();
+    function inputNull(form) {
+      if($(".monthClean").val()==""){
+        $("#backTime").show();
+      }else{
+        $("#backTime").hide();
+      }
+      if( $("#buyerId").val()==""){
+        $("#backTime2").show();
+      }else{
+        $("#backTime2").hide();
+
+      }
+
+      if( $("#everymonth").val()==""){
+        $("#backTime3").show();
+      }else{
+        $("#backTime3").hide();
+
+      }
+      // if( $("#interest").val()==""){
+      //   $("#backTime4").show();
+      // }else{
+      //   $("#backTime4").hide();
+
+      // }
+        // for (i = 0; i < form.length; i++) {
+        //     if (form.elements[i].value == "") {
+        //         $("#info_error").show();
+        //         form.elements[i].focus();
+        //         return false;
+        //     } else {
+        //         $("#info_error").hide();
+        //     }
+        // }
+    }
+
+
+   function hh(){
+          jQuery("#theForm").validate({
+  ignore: "",
+     rules: {
+          buyerCredits:{
+           required:true,
+         number:true,
+         // range:[50,1000000]
+         min:1
+      },
+      interest:{
+      required:false,
+      number:true,
+      range:[0.01,100000]
+      },
+       buyerId:{
+       required:true
+      },
+      startTime:{
+       required:true
+      },
+      repaymentDate:{
+       required:true,
+       range:[1,28]
+      },
+      },
+     messages: {
+          buyerCredits:{
+            required:"授予客户额度不能为空",
+            number:"授予客户额度只能是数字格式",
+            // range:"授予客户额度只能在50-1000000之间"
+            min:"请填写有效额度"
+         },
+        startTime:{
+          required: "",
+        },
+         buyerId:{
+          required: "",
+        },
+        repaymentDate:{
+          required: "还款时间不能为空",
+          range:"请填写1-28号"
+        },
+        interest:{
+        required: "",
+        number:"计息只能是数字格式",
+        range:"计息只能在0.01-100000之间"
+        }
+        }
+  });
+          document.getElementById('anniu').setAttribute('type','submit');
+   }
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script charset="utf-8" src="$!webPath/resources/editor/kindeditor.js"></script>
+<script charset="utf-8" src="$!webPath/resources/editor/lang/zh_CN.js"></script>
+<script>
+function savesubmit(){
+	var storeId=document.getElementById("storeId"); 
+	if(storeId.value==""){
+		alert("请选择店铺！");
+	return false;
+	}
+	return true;
+}
+</script>
+</head>
+<body>
+<div class="cont">
+  <h1 class="seth1">赊销额度设置</h1>
+  <div class="settab"><span class="tab-one"></span> <span class="tabs"> <a href="$!webPath/admin/queryCreditLimit.htm">管理</a> | <a href="$!webPath/admin/addUpdateCreditLimit.htm?id=id" #if(!$!edit)class="this"#end>新增</a> #if($!edit) <a href="javascript:void(0);" class="this">编辑</a> #end </span> <span class="tab-two"></span></div>
+   #if($creditLlineManagement)
+  <form name="theForm" id="theForm" action="$!webPath/admin/CreditLimit_save.htm?type=update" onsubmit="return savesubmit()" method="post" >
+   #end 
+   #if($objs)
+  <form name="theForm" id="theForm" action="$!webPath/admin/CreditLimit_save.htm?type=save" onsubmit="return savesubmit()" method="post" >
+   #end 
+    <div class="setcont">
+      <ul class="set1">
+        <li><strong class="orange fontsize20">*</strong>店铺名称</li>
+        <li><span class="webname">
+          <select id="storeId" name="storeId" areaMark="province">
+            #if($creditLlineManagement)
+            	 <option value="$!creditLlineManagement.id">$!creditLlineManagement.storeName</option>
+            #end 
+            #if($objs)
+           		 <option value="">请选择...</option>
+            	 #foreach($obj in $objs)
+            		<option value="$!obj.id">$!obj.store_name</option>
+            	 #end
+            #end 
+          </select>
+          </span></li>
+      </ul>
+      <ul class="set1">
+        <li><strong class="orange fontsize20">*</strong>赊销总额度</li>
+        <li><span class="webname">
+        	#if($creditLlineManagement)
+            	 <input name="storeCredits" type="text" id="storeCredits" value="$!creditLlineManagement.storeCredits" size="40"/>
+            #end 
+            #if($objs)
+           		 <input name="storeCredits" type="text" id="storeCredits" value="10000" size="40"/>
+            #end 
+          </span></li>
+      </ul>
+      <div class="submit">
+   		 <input name="save" type="submit" value="提交"/>
+  	  </div>
+    </div>
+  </form>
+  
+</div>
+</body>
+</html>

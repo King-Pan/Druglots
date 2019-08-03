@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>查询客户赊销额度 - Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+<meta name="copyright" content="wemall Inc. All Rights Reserved">
+<link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/common/css/overlay.css" type="text/css" rel="stylesheet" />
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+</head>
+<script>
+ $(function(){
+     function number(){
+     var page=$("#currentPage").val();
+     if(page == 1){
+      for(var i=0;i< $(".numberClass").length;i++){
+	      $(".numberClass").get(i).innerHTML = i+1;
+          }
+
+     }else{
+     for(var i=0;i< $(".numberClass").length;i++){
+	      $(".numberClass").get(i).innerHTML = i+(page-1)*12+1;
+          }
+     }
+
+     }
+     number();
+});
+</script>
+<style>
+ #opertitle{
+    text-align:center;
+}
+
+</style>
+<body>
+$!httpInclude.include("/top.htm")
+<div class="main"> $!httpInclude.include("/seller/nav_head.htm")
+  <div class="user_center">
+    <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+      <tr> $!httpInclude.include("/seller/nav.htm?op=quota_Management")
+        <td id="centerbg" valign="top">
+         <div class="buyer_position"><div class="buyer_p_box"><a href="$!webPath/seller/index.htm">卖家中心</a> > <span>赊销管理</span></div></div>
+        <div class="productmain">
+            <div class="ordernav">
+              <ul class="orderul">
+<!--                 <li><a href="$!webPath/seller/is_charge_sales.htm">是否开启赊销</a></li>
+ -->                <li><a href="$!webPath/seller/charge_sales_check.htm">赊销审核</a></li>
+                <li><a href="$!webPath/seller/addUpdate_customerCredit.htm?type=save">客户赊销额度编辑</a></li>
+                <li class="this"><a href="$!webPath/seller/query_customerCredit.htm">查询客户赊销额度</a></li>
+              </ul>
+            </div>
+            <div class="ordercon">
+              <form method="post" name="ListForm" id="ListForm" action="">
+                <div class="operation">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0" id="opertable" >
+                    <tr id="opertitle">
+                      <td style="display:none;">id</td>
+                      <td style="display:none;">客户id</td>
+                      <td width="8%">序号</td>
+                      <td width="16%">客户名称</td>
+                      <td width="8%">客户总额度</td>
+                      <td width="8%">客户剩余额度</td>
+                      <td width="15%">还款时间</td>
+                      <td width="8%">开始时间</td>
+                      <td width="8%">结束时间</td>
+                      <td width="16%">计息</td>
+                      <!-- <td width="16%">操作</td> -->
+                    </tr>
+                     #foreach($obj in $objs)
+                    <tr id="opertitle">
+                       <td style="display:none;">$!obj.id</td>
+                       <td style="display:none;">$!obj.buyerId</td>
+                       <td width="8%" class="numberClass"></td>
+                       <td width="16%">$!obj.authString</td>
+                       <td width="8%">$!obj.buyerCombination</td>
+                       <td width="8%">$!obj.buyerRemainingUndrawn</td>
+                       <fmt:formatDate value="${c.birthday}" pattern="yyyy-MM-dd"/>
+                       <!-- <td width="15%">$!obj.monthClean</td> -->
+                       <td width="15%">每月$!obj.repaymentDate号</td>
+                       <td width="8%">$!date.format('yyyy-MM-dd',$!obj.startTime)</td>
+                       <td width="8%">$!date.format('yyyy-MM-dd',$!obj.monthClean)</td>
+                       <td width="16%">$!obj.interest%</td>
+                     <!--   <td width="10%"><a href="$!webPath/seller/addUpdate_customerCredit.htm?id=$!obj.Id&type=update" style="color:red;">编辑</a></td> -->
+                    </tr>
+                    #end
+                  </table>
+                </div>
+                <input id="currentPage" name="currentPage" type="hidden" value="$!currentPage"/>
+                 <input id="type" name="type" type="hidden" value="$!type"/>
+    			 <div class="alldel">
+                <div  class="userfenye">
+                  $!gotoPageFormHTML</div>
+              </div>
+
+              </form>
+            </div>
+          </div></td>
+      </tr>
+    </table>
+  </div>
+  $!httpInclude.include("/footer.htm")
+</div>
+</body>
+</html>

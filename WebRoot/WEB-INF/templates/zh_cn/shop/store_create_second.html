@@ -1,0 +1,833 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+	<meta name="copyright" content="wemall Inc. All Rights Reserved">
+		<link
+			href="$!webPath/resources/style/system/front/default/css/public.css"
+			type="text/css" rel="stylesheet" />
+		<link
+			href="$!webPath/resources/style/system/front/default/css/goods.css"
+			type="text/css" rel="stylesheet" />
+		<link
+			href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css"
+			type=text/css rel=stylesheet>
+			<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+			<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+			<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+		     
+			<script src="$!webPath/resources/js/zw.verify2.js"></script>
+			<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>
+			<link rel=stylesheet href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+				<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+				<script src="$!webPath/resources/js/jquery.validate.min.js"></script>  
+				<script>
+					jQuery(document).ready(function() {
+
+						jQuery('#fileEndTime1').datepicker({
+							dateFormat : "yy-mm-dd",
+							changeMonth : true,
+							changeYear : true
+						});
+						jQuery('#fileEndTime2').datepicker({
+							dateFormat : "yy-mm-dd",
+							changeMonth : true,
+							changeYear : true
+						});
+						jQuery('#fileEndTime3').datepicker({
+							dateFormat : "yy-mm-dd",
+							changeMonth : true,
+							changeYear : true
+						});
+						jQuery('#fileEndTime4').datepicker({
+							dateFormat : "yy-mm-dd",
+							changeMonth : true,
+							changeYear : true
+						});
+						jQuery('#fileEndTime5').datepicker({
+							dateFormat : "yy-mm-dd",
+							changeMonth : true,
+							changeYear : true
+						});
+						jQuery('#fileEndTime6').datepicker({
+							dateFormat : "yy-mm-dd",
+							changeMonth : true,
+							changeYear : true
+						});
+					});
+
+					jQuery(document)
+							.ready(function() {
+										jQuery("#theForm").validate({
+															errorPlacement : function(
+																	error,
+																	element) {
+																element
+																		.parent()
+																		.parent()
+																		.parent()
+																		.find(
+																				"td:last")
+																		.html(
+																				"");
+																error
+																		.appendTo(element
+																				.parent()
+																				.parent()
+																				.parent()
+																				.find(
+																						"td:last"));
+															},
+															ignore : "",
+															rules : {
+																store_ower : {
+																	required : true
+																},
+																store_name : {
+																	required : true,
+																	maxlength : 20,
+																	remote : {
+																		url : "$!webPath/verify_storename.htm",
+																		type : "get",
+																		dataType : "json",
+																		data : {
+																			"store_name" : function() {
+																				return jQuery(
+																						"#store_name")
+																						.val();
+																			},
+																			"id" : ""
+																		}
+																	}
+																},
+
+																sc_id : {
+																	required : true
+																},
+																store_address : {
+																	required : true
+																},
+																store_zip : {
+																	required : true
+																},
+																store_telphone : {
+																	required : true
+																},
+																area_id : {
+																	required : true
+																},
+																zip : {
+																	number : true,
+																	minlength : 6,
+																	maxlength : 6
+																},
+																telphone : {
+																	required : true
+																},
+																card_file : {
+																	accept : "$!config.imageSuffix"
+																},
+																license_file : {
+																	accept : "$!config.imageSuffix"
+																},
+																agree : {
+																	required : true
+																}
+															},
+															messages : {
+																store_ower : {
+																	required : "店主名不能为空"
+																},
+																store_name : {
+																	required : "店铺名称不能为空",
+																	maxlength : "店铺名最大不能超过20字符",
+																	remote : "店铺名已经存在"
+																},
+																/* 	  sc_id:{required :"店铺分类不能为空"}, */
+																store_address : {
+																	required : "详细地址不能为空"
+																},
+																store_zip : {
+																	required : "邮政编码不能为空"
+																},
+																store_telphone : {
+																	required : "联系电话不能为空"
+																},
+																area_id : {
+																	required : "店铺区域不能为空"
+																},
+																zip : {
+																	number : "邮编只能为数字",
+																	minlength : "只能为6位",
+																	maxlength : "只能为6位"
+																},
+																telphone : {
+																	required : "联系电话不能为空"
+																},
+																card_file : {
+																	accept : "身份证格式不对,只能为$!config.imageSuffix"
+																},
+																license_file : {
+																	accept : "营业执照格式不对,只能为$!config.imageSuffix"
+																},
+																agree : {
+																	required : "请接收开店协议"
+																}
+															}
+														});
+										//
+										jQuery("select")
+												.change(
+														function() {
+															var level = jQuery(
+																	this).attr(
+																	"level");
+															var id = jQuery(
+																	this).val();
+															if (id != "") {
+																jQuery
+																		.post(
+																				"$!webPath/load_area.htm",
+																				{
+																					"pid" : id
+																				},
+																				function(
+																						data) {
+																					jQuery(
+																							"#area"
+																									+ level)
+																							.empty();
+																					jQuery(
+																							"#area"
+																									+ level)
+																							.append(
+																									"<option value=''>请选择</option>");
+																					jQuery
+																							.each(
+																									data,
+																									function(
+																											index,
+																											item) {
+																										jQuery(
+																												"#area"
+																														+ level)
+																												.append(
+																														"<option value='"+item.id+"'>"
+																																+ item.areaName
+																																+ "</option>");
+																										jQuery(
+																												"#area"
+																														+ level)
+																												.show();
+																									});
+																				},
+																				"json");
+															} else {
+																for (var i = level; i <= 3; i++) {
+																	jQuery(
+																			"#area"
+																					+ i)
+																			.empty();
+																	jQuery(
+																			"#area"
+																					+ i)
+																			.hide();
+																}
+															}
+														});
+										//
+										jQuery("#area3").change(function() {
+											var id = jQuery(this).val();
+											jQuery("#area_id").val(id);
+											console.log(id,jQuery("#area_id").val(id))
+										});
+										//	
+									});
+
+					window.onload = function() {
+
+						jQuery('#button')
+								.click(
+										function() {
+											var businesRegsNumber=$("#businesRegsNumber").val();
+											var businessLicense = $("#file1").val();
+											var fileNumber1 = $("#fileNumber1").val();
+											var endBusinessDate = $("#fileEndTime1").val();
+											var drugLicense = $("#file2").val();
+											var drugNumber = $("#fileNumber2").val();
+											var endDrugDate = $("#fileEndTime2").val();
+											var gSPCertificate = $("#file3").val();
+											var gSPNumber = $("#fileNumber3").val();
+											var endGSPDate = $("#fileEndTime3").val();
+											var iDcard = $("#file5").val();
+											var handIDcard = $("#file6").val();
+											var purchaseOrders = $("#file4").val();
+											var iDcardNumber = $("#fileNumber5").val();
+											var endIDcardDate = $("#fileEndTime5").val();
+											var dutyParagraph = $("#dutyid").val();
+											var publicAccount = $("#pu").val();
+
+											var myDate = new Date();
+											var now = myDate.valueOf();
+											var time1 = new Date(endBusinessDate).valueOf();
+											var time2 = new Date(endDrugDate).valueOf();
+											var time3 = new Date(endGSPDate).valueOf();
+											var time4 = new Date(endIDcardDate).valueOf();
+
+											if (now > time1) {
+												alert("营业执照有效截止日期填写过期");
+												return false;
+											}
+											if (now > time2) {
+												alert("药品经营许可证有效截止日期填写过期");
+												return false;
+											}
+											if (now > time3) {
+												alert("GSP证有效截止日期填写过期");
+												return false;
+											}
+											if (now > time4) {
+												alert("身份证有效截止日期填写过期");
+												return false;
+											}
+											if (businesRegsNumber == ""
+												|| businesRegsNumber == null) {
+												alert("营业执照注册号认证信息不完整");
+												return false;
+											}
+											if (businessLicense == ""
+													|| businessLicense == null) {
+												alert("营业执照认证信息不完整");
+												return false;
+											}
+											if (fileNumber1 == ""
+													|| fileNumber1 == null) {
+												alert("营业执照号码认证信息不完整");
+												return false;
+											}
+											if (endBusinessDate == ""
+													|| endBusinessDate == null) {
+												alert("营业执照有效截止日期认证信息不完整");
+												return false;
+											}
+											if (drugLicense == ""
+													|| drugLicense == null) {
+												alert("药品经营许可证认证信息不完整");
+												return false;
+											}
+											if (drugNumber == ""
+													|| drugNumber == null) {
+												alert("药品经营许可证号码认证信息不完整");
+												return false;
+											}
+											if (endDrugDate == ""
+													|| endDrugDate == null) {
+												alert("药品经营许可证有效截止日期认证信息不完整");
+												return false;
+											}
+											if (gSPCertificate == ""
+													|| gSPCertificate == null) {
+												alert("GSP证认证信息不完整");
+												return false;
+											}
+											if (gSPNumber == ""
+													|| gSPNumber == null) {
+												alert("GSP证号码认证信息不完整");
+												return false;
+											}
+											if (endGSPDate == ""
+													|| endGSPDate == null) {
+												alert("GSP证有效截止日期认证信息不完整");
+												return false;
+											}
+
+											if (iDcard == "" || iDcard == null) {
+												alert("上传身份证正面认证信息不完整");
+												return false;
+											}
+											if (handIDcard == ""
+													|| handIDcard == null) {
+												alert("上传身份证反面认证信息不完整");
+												return false;
+											}
+											if (handIDcard == "" || handIDcard == null) {
+												alert("上传身份证反面认证信息不完整");
+												return false;
+											}
+											if (purchaseOrders == "" || purchaseOrders == null) {
+												alert("手持身份证认证信息不完整");
+												return false;
+											}
+											if (iDcardNumber == "" || iDcardNumber == null) {
+												alert("身份证号码认证信息不完整");
+												return false;
+											}
+											if (endIDcardDate == ""
+													|| endIDcardDate == null) {
+												alert("身份证有效截止日期认证信息不完整");
+												return false;
+											}
+											if (dutyParagraph == ""
+													|| dutyParagraph == null) {
+												alert("税号认证信息不完整");
+												return false;
+											}
+											if (publicAccount == ""
+													|| publicAccount == null) {
+												alert("对公账号认证信息不完整");
+												return false;
+											}
+
+										});
+						if ("$!auth.businessLicense" != "") {
+							$(".bsImg")
+									.attr('src',
+											"$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.businessLicense");
+						}
+
+						if ("$!auth.drugLicense" != "") {
+							$(".bsImg2")
+									.attr('src',
+											"$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.drugLicense");
+						}
+
+						if ("$!auth.gSPCertificate" != "") {
+							$(".bsImg3")
+									.attr('src',
+											"$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.gSPCertificate");
+						}
+
+						if ("$!auth.purchaseOrders" != "") {
+							$(".bsImg4")
+									.attr('src',
+											"$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.purchaseOrders");
+						}
+
+						if ("$!auth.iDcard" != "") {
+							$(".bsImg5")
+									.attr('src',
+											"$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.iDcard");
+						}
+
+						if ("$!auth.HandIDcard" != "") {
+							$(".bsImg6")
+									.attr('src',
+											"$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.HandIDcard");
+
+						}
+
+					}
+
+					function show(f) {
+						var str = "";
+						for (var i = 0; i < f.length; i++) {
+							var reader = new FileReader();
+							reader.readAsDataURL(f[i]);
+							reader.onload = function(e) {
+								$(".bsImg").attr('src', e.target.result);
+							}
+						}
+					}
+					function show2(f2) {
+						var str = "";
+						for (var i = 0; i < f2.length; i++) {
+							var reader = new FileReader();
+							reader.readAsDataURL(f2[i]);
+							reader.onload = function(e) {
+								$(".bsImg2").attr('src', e.target.result);
+							}
+						}
+					}
+					function show3(f3) {
+						var str = "";
+						for (var i = 0; i < f3.length; i++) {
+							var reader = new FileReader();
+							reader.readAsDataURL(f3[i]);
+							reader.onload = function(e) {
+								$(".bsImg3").attr('src', e.target.result);
+							}
+						}
+					}
+					function show4(f4) {
+						var str = "";
+						for (var i = 0; i < f4.length; i++) {
+							var reader = new FileReader();
+							reader.readAsDataURL(f4[i]);
+							reader.onload = function(e) {
+								$(".bsImg4").attr('src', e.target.result);
+							}
+						}
+					}
+					function show5(f5) {
+						var str = "";
+						for (var i = 0; i < f5.length; i++) {
+							var reader = new FileReader();
+							reader.readAsDataURL(f5[i]);
+							reader.onload = function(e) {
+								$(".bsImg5").attr('src', e.target.result);
+							}
+						}
+					}
+					function show6(f6) {
+						var str = "";
+						for (var i = 0; i < f6.length; i++) {
+							var reader = new FileReader();
+							reader.readAsDataURL(f6[i]);
+							reader.onload = function(e) {
+								$(".bsImg6").attr('src', e.target.result);
+							}
+						}
+					}
+				</script>
+				<style type="text/css">
+<!--
+.STYLE1 {
+	color: #FF0000
+}
+-->
+</style>
+</head>
+<body>
+	$!httpInclude.include("/top.htm")
+	<div class="main">
+		$!httpInclude.include("/head.htm") $!httpInclude.include("/nav1.htm")
+		<div class="index">
+			<div class="index2">
+				<div class="openshop">
+					<div class="openshopstep">
+						<div class="openstep4"></div>
+						<div class="openstep5"></div>
+						<div class="openstep6"></div>
+					</div>
+					<div class="openshoptb">
+						<div class="openleft">
+							<form action="$!webPath/seller/store_create_finish.htm"
+								method="post" enctype="multipart/form-data" name="theForm"
+								id="theForm">
+								<table width="100%" border="0" cellspacing="0" cellpadding="0"
+									class="opentable">
+								<!-- 	<tr>
+										<td class="opentableleft"><span class="STYLE1">*</span>企业名称：</td>
+										<td><span class="openstxt"> <input
+												name="enterpriseName" type="text" id="enterprisename"
+												value="$!auth.enterpriseName"></span></td>
+									</tr> -->
+
+									<tr>
+										<td width="191" class="opentableleft"><span
+											class="STYLE1">*</span>店主姓名：</td>
+										<td width="346"><span class="openstxt"> <input
+												name="store_ower" type="text" id="store_ower" />
+										</span></td>
+										<td width="363">&nbsp;</td>
+									</tr>
+									<tr>
+										<td class="opentableleft"><span class="STYLE1">*</span>店铺名称：</td>
+										<td><span class="openstxt"> <input
+												name="store_name" type="text" id="store_name" />
+										</span></td>
+									<td width="363">
+											<ol>
+												名称字数最佳在20字以内
+											</ol>
+										</td>
+									</tr>
+									<tr>
+										<td class="opentableleft"><span class="STYLE1">*</span>营业执照注册号：</td>
+										<td><span class="openstxt"> <input
+												name="businesRegsNumber" type="text" id="businesRegsNumber"
+												value="$!auth.businesRegsNumber"></span></td>
+									</tr>
+									<!--              <tr>
+                <td class="opentableleft"><span class="STYLE1">*</span>店铺分类：</td>
+                <td><span class="opensele">
+                  <select name="sc_id" id="sc_id">
+				  <option value="" selected="selected">请选择店铺分类</option>
+                    #foreach($sc in $scs)
+                    <option  value="$!sc.id">$!sc.className</option>
+				      #foreach($sc1 in $sc.childs)
+					    <option value="$!sc1.id">&nbsp;&nbsp;&nbsp;$!sc1.className</option>
+					  #end
+					#end
+                  
+                  </select>
+                </span></td>
+                <td>店铺种类的选择正确有利于店铺在商城快速搜索</td>
+              </tr>  -->
+									<tr>
+										<td class="opentableleft">所在地区：</td>
+										<td><span class="openselead"> <select name="area1"
+												id="area1" level="2">
+													<option value="" selected="selected">请选择地区</option>
+													#foreach($area in $areas)
+													<option value="$!area.id">$!area.areaName</option> #end
+
+											</select> <select name="area2" id="area2" style="display: none;"
+												level="3">
+											</select> <select name="area3" id="area3" style="display: none;"
+												level="4">
+											</select> <input name="area_id" type="hidden" id="area_id" value="" />
+										</span></td>
+										<td>&nbsp;</td>
+									</tr>
+									<tr>
+										<td class="opentableleft">详细地址：</td>
+										<td><span class="openstxt"> <input
+												name="store_address" type="text" id="store_address" />
+										</span></td>
+										<td width="363">
+											<ol>
+												详细街道请保持与GSP证书地址一致
+											</ol>
+										</td>
+									</tr>
+									<tr>
+										<td class="opentableleft">邮政编码：</td>
+										<td><span class="openstxt"> <input
+												name="store_zip" type="text" id="store_zip" />
+										</span></td>
+										<td>&nbsp;</td>
+									</tr>
+									<tr>
+										<td class="opentableleft">联系电话：</td>
+										<td><span class="openstxt"> <input
+												name="store_telphone" type="text" id="store_telphone" />
+										</span></td>
+										<td>&nbsp;</td>
+									</tr>
+									<tr>
+										<td class="opentableleft"><span class="STYLE1">*</span>营业执照：</td>
+										<td><span class="openstxt"> <input name="file1"
+												type="file" id="file1" onchange="show(this.files)">
+													<img src="$!webPath/upload/images/bs.png" alt=""
+													height='70' width='90' class="bsImg"> <img
+														src="$!webPath/upload/images/three.png" alt=""
+														class="imgStyle"></span></td>
+										<td width="363">
+											<ol>
+												说明：
+												<li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+												<li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+												<li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+											</ol>
+										</td>
+									</tr>
+									<tr>
+										<td class="opentableleft"><span class="STYLE1">*</span>营业执照号码：</td>
+										<td><span class="openstxt"> <input
+												name="businessNumber" type="text" id="fileNumber1"
+												value="$!auth.businessNumber"></span></td>
+									</tr>
+									<tr>
+										<td class="opentableleft"><span class="STYLE1">*</span>营业执照有效截止日期：</td>
+										<td><span class="openstxt"> <input
+												name="EndBusinessDate" type="text" readonly
+												id="fileEndTime1" value="$!auth.endBusinessDate"></span></td>
+									</tr>
+									<tr>
+										<td class="opentableleft"><span class="STYLE1">*</span>药品经营许可证：</td>
+										<td><span class="openstxt"> <input name="file2"
+												type="file" id="file2" onchange="show2(this.files)" /> <img
+												src="$!webPath/upload/images/bs.png" height='70' width='90'
+												alt="" class="bsImg2"> <img
+													src="$!webPath/upload/images/gspz.jpg" alt=""
+													class="imgStyle"></span></td>
+										<td><ol>
+												说明
+												<li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+												<li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+												<li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+											</ol></td>
+									</tr>
+									<tr>
+										<td class="opentableleft"><span class="STYLE1">*</span>药品经营许可证号码：</td>
+										<td><span class="openstxt"> <input
+												name="DrugNumber" type="text" id="fileNumber2"
+												value="$!auth.drugNumber"></span></td>
+									</tr>
+									<tr>
+										<td class="opentableleft"><span class="STYLE1">*</span>药品经营许可证有效截止日期：</td>
+										<td><span class="openstxt"> <input
+												name="EndDrugDate" type="text" readonly id="fileEndTime2"
+												value="$!auth.endDrugDate"></span></td>
+									</tr>
+									<tr>
+										<td class="opentableleft"><span class="STYLE1">*</span>GSP证：</td>
+										<td><span class="openstxt"> <input name="file3"
+												type="file" id="file3" onchange="show3(this.files)" /> <img
+												src="$!webPath/upload/images/bs.png" alt="" height='70'
+												width='90' class="bsImg3"> <img
+													src="$!webPath/upload/images/gspz.jpg" alt=""
+													class="imgStyle"></span></td>
+										<td><ol>
+												说明
+												<li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+												<li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+												<li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+											</ol></td>
+									</tr>
+									<tr>
+										<td class="opentableleft"><span class="STYLE1">*</span>GSP证号码：</td>
+										<td><span class="openstxt"> <input
+												name="GSPNumber" type="text" id="fileNumber3"
+												value="$!auth.gSPNumber"></span></td>
+									</tr>
+									<tr>
+										<td class="opentableleft"><span class="STYLE1">*</span>GSP证有效截止日期：</td>
+										<td><span class="openstxt"> <input
+												name="EndGSPDate" type="text" readonly id="fileEndTime3"
+												value="$!auth.endGSPDate"></span></td>
+									</tr>
+									<!--                     <tr>
+                      <td class="opentableleft"><span class="STYLE1">*</span>采购委托书：</td>
+                	  <td><span class="openstxt">
+                 			<input name="file4" type="file" id="file4" onchange="show4(this.files)"/>
+                  			<img src="$!webPath/upload/images/bs.png" alt="" height='70' width='90' class="bsImg4">
+				 			<img src="$!webPath/upload/images/gspz.jpg" alt="" class="imgStyle">
+                		</span>
+                	</td>
+                	<td><ol>说明
+							<li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+							<li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+							<li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+						</ol>
+					</td>
+                    </tr>
+                    <tr>
+                       <td class="opentableleft"><span class="STYLE1">*</span>采购委托书号码：</td> 
+                	  <td><span class="openstxt">
+                 			<input name="PurchaseNumber" type="text" id="fileNumber4" value="$!auth.purchaseNumber">
+                		  </span>
+                	  </td>
+                    </tr> 
+                    <tr>
+                       <td class="opentableleft"><span class="STYLE1">*</span>采购委托书有效截止日期：</td> 
+                	  <td><span class="openstxt">
+                 			<input name="EndPurchaseDate" type="text" readonly id="fileEndTime4" value="$!auth.endPurchaseDate">
+                		  </span>
+                	  </td>
+                    </tr>-->
+
+
+									<tr>
+										<td class="opentableleft"><span class="STYLE1">*</span>上传身份证正面：</td>
+										<td><span class="openstxt"> <input name="file5"
+												type="file" id="file5" onchange="show5(this.files)" /> <img
+												src="$!webPath/upload/images/bs.png" alt="" height='70'
+												width='90' class="bsImg5"> <img
+													src="$!webPath/upload/images/card1.png" alt=""
+													class="imgStyle"></span></td>
+										<td><ol>
+												说明
+												<li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+												<li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+												<li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+											</ol></td>
+									</tr>
+									<tr>
+										<td class="opentableleft"><span class="STYLE1">*</span>上传身份证反面：</td>
+										<td><span class="openstxt"> <input name="file6"
+												type="file" id="file6" onchange="show6(this.files)" /> <img
+												src="$!webPath/upload/images/bs.png" alt="" height='70'
+												width='90' class="bsImg6"> <img
+													src="$!webPath/upload/images/card2.png" alt=""
+													class="imgStyle"></span></td>
+										<td><ol>
+												说明
+												<li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+												<li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+												<li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+											</ol></td>
+									</tr>
+									<tr>
+										<td class="opentableleft"><span class="STYLE1">*</span>手持身份证：</td>
+										<td><span class="openstxt"> <input name="file4"
+												type="file" id="file4" onchange="show4(this.files)" /> <img
+												src="$!webPath/upload/images/bs.png" alt="" height='70'
+												width='90' class="bsImg4"> <img
+													src="$!webPath/upload/images/card3.png" alt=""
+													class="imgStyle"></span></td>
+										<td><ol>
+												说明
+												<li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+												<li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+												<li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+											</ol></td>
+									</tr>
+
+									<!--       <td class="opentableleft"><span class="STYLE1">*</span>采购委托书号码：</td>  -->
+									<span class="openstxt"> <input name="PurchaseNumber"
+										type="hidden" id="fileNumber4" value="1" />
+									</span>
+
+
+
+									<!--              <td class="opentableleft"><span class="STYLE1">*</span>采购委托书有效截止日期：</td>  -->
+									<span class="openstxt"> <input name="EndPurchaseDate"
+										type="hidden" readonly id="fileEndTime4" value="3019-1-28"></span>
+									<tr>
+										<td class="opentableleft"><span class="STYLE1">*</span>身份证号码：</td>
+										<td><span class="openstxt"> <input
+												name="IDcardNumber" type="text" id="fileNumber5"
+												value="$!auth.iDcardNumber"
+												onfocus="if(this.value=='$!auth.iDcardNumber'){this.value='';}"
+												onblur="if(this.value==''){this.value='';}nunber(this.value);"></span>
+										</td>
+										<td><span class="c_red" id="span_username"><font></span></td>
+									</tr>
+									<tr>
+										<td class="opentableleft"><span class="STYLE1">*</span>身份证有效截止日期：</td>
+										<td><span class="openstxt"> <input
+												name="EndIDcardDate" type="text" readonly id="fileEndTime5"
+												value="$!auth.endIDcardDate"></span></td>
+									</tr>
+									<tr>
+										<td class="opentableleft"><span class="STYLE1">*</span>税号：</td>
+										<td><span class="openstxt"> <input
+												name="DutyParagraph" type="text" id="dutyid"
+												value="$!auth.dutyParagraph"></span></td>
+									</tr>
+									<tr>
+										<td class="opentableleft"><span class="STYLE1">*</span>对公账号：</td>
+										<td><span class="openstxt"> <input
+												name="PublicAccount" type="text"
+												value="$!auth.publicAccount" id="pu"></span></td>
+									</tr>
+									<input name="Features" value="2" type="hidden"> </input>
+									<input type="hidden" name="userName" value="$!user.userName"></input>
+
+									<td class="opentableleft">&nbsp;</td>
+									<td><label> <span> <input type="checkbox"
+												name="agree" id="agree" />
+										</span><span class="hui2">我已认真阅读并同意<a
+												href="$!webPath/doc_store.htm" target="_blank" class="red">开店协议</a>中的所有条款
+										</span>
+									</label></td>
+									<td>&nbsp;</td>
+									</tr>
+									<tr>
+										<td class="opentableleft">&nbsp;</td>
+										<td colspan="2"><span class="openshopsub"> <input
+												type="submit" name="button" id="button" value="立即开店"
+												style="cursor: pointer;" />
+										</span> <input name="grade_id" type="hidden" id="grade_id"
+											value="$!grade_id" /> <input name="store_create_session"
+											type="hidden" id="store_create_session"
+											value="$!store_create_session" /></td>
+									</tr>
+								</table>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		$!httpInclude.include("/footer.htm")
+	</div>
+</body>
+</html>

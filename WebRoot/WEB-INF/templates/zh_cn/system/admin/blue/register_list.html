@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+<link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script>
+jQuery(document).ready(function(){
+  jQuery(".memimg").mouseover(function(){
+     jQuery(this).css("cursor","pointer");
+	 jQuery(".mem_detail[id^=user_detail_]").hide();
+     var id=jQuery(this).attr("id");
+	 jQuery("#user_detail_"+id).show();
+  });
+  jQuery(".mem_detail[id^=user_detail_]").mouseleave(function(){
+    jQuery(this).hide();
+  });
+});
+$("#down").click(function(){
+               jQuery.ajax({
+		            type:'POST',
+		            url:'$!webPath/admin/down_excle.htm',
+		            data:{},
+		            success:function(data){
+		            
+		            }
+		        })
+});
+</script>
+<body>
+  <div class="cont">
+    <h1 class="seth1">预注册会员管理</h1>
+    <div class="settab"><span class="tab-one"></span> <span class="tabs"> <a href="$!webPath/admin/register_list.htm"  class="this">excle批量导入会员</a> | <a href="$!webPath/admin/register_add.htm">新增</a> </span> <span class="tab-two"></span></div>
+	<form action="$!webPath/admin/excleImport.htm" method="post" enctype="multipart/form-data">
+    <div class="allmem_search">
+      <ul>
+        <li> <span>
+          excle批量导入
+          </span> <span class="allmen size4">
+          <input name="file" type="file" id="excle" />
+          </span><span class="btn_search">
+          <input name="" type="submit"  value="导入" style="cursor:pointer;" title="导入预注册会员"/>
+          </span> </li>
+      </ul>
+    </div>
+	</form>
+     <div class="operation">
+      <h3>excle模板下载</h3>
+      <p><form action="$!webPath/admin/down_excle.htm" method="post"><input type="submit" id="down" value="下载模板" style="margin-top:10px;margin-left:40px;width:80px;height:30px;border-radius:10px;"/></form></p>
+      <ul>
+        <li>excle模板格式是上传的excle示范格式，格式不正确会导致上传失败的，请仔细核对</li>
+      </ul>
+    </div> 
+	<FORM name="ListForm" id="ListForm"  action="$!webPath/admin/user_list.htm" method="post">
+    <div class="allmem_table">
+      <table width="98%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background: #if($!config.websiteCss=='blue') #2A7AD2 #end 
+      #if($!config.websiteCss=='black')#333 #end; height:30px; color:#FFF">
+          <td width="8%" align="left">&nbsp;</td>
+          <td width="20%" align="left">企业名称</td>
+          <td width="10%" align="center">注册人姓名</td>
+          <td width="15%" align="center">电话</td>
+          <td width="20%" align="center">地址</td>
+          <!-- <td  align="center">操作</td> -->
+        </tr>
+        #foreach($!obj in $objs)
+        #if($!obj!="")
+        <tr>
+          <td  align="left"><input name="id" type="checkbox" id="id" style="width:16px; border:none;" value="$!obj.id" /></td>
+          <td  align="left">$!obj.purchasersName</td>
+          <td align="center">$!obj.attention</td>
+          <td class="lightred">$!obj.phone</td>
+          <td class="lightred">$!obj.province$!obj.city$!obj.area$!obj.betterAddress</td>
+          <!-- <td align="center"  class="blue xiahua"><a href="$!webPath/admin/user_edit.htm?id=$!obj.id">编辑</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:void(0);" onclick="if(confirm('删除会员会同步删除删除该会员所有信息，且不可恢复，是否继续？'))window.location.href='$!webPath/admin/user_del.htm?mulitId=$!obj.id&currentPage=$!currentPage'">删除</a></td>
+         --></tr>
+        #end
+        #end
+        <tr style="background:#F2F2F2; height:30px;">
+          <td colspan="9"><!-- <div class="shopbtn shopfx">
+              <input name="all" type="checkbox" id="all" onclick="selectAll(this)" value="" />
+              &nbsp;&nbsp;全部</div>
+            <div class="shop_btn_del shopbtn">
+              <input name="" type="button" value="删除" style="cursor:pointer;" onclick="cmd('$!webPath/admin/user_del.htm')"/>
+            </div> --></td>
+        </tr>
+      </table>
+    </div>
+    <div class="fenye">
+      <input name="userRole" type="hidden" id="userRole" value="BUYER" />
+      <input type="hidden" name="currentPage" id="currentPage" value="$!currentPage" />
+      <input name="mulitId" type="hidden" id="mulitId" />
+      $!gotoPageHTML
+	</div>
+	</FORM>
+  </div>
+</body>
+</html>

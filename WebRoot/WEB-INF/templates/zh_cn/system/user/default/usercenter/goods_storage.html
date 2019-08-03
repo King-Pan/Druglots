@@ -1,0 +1,350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>出售中的商品 - Powered by Druglots</title>
+    <meta name="keywords" content="$!config.keywords" />
+    <meta name="description" content="$!config.description" />
+    <meta name="generator" content="wemall 2.0" />
+    <meta name="author" content="www.wemall.com">
+    <meta name="copyright" content="wemall Inc. All Rights Reserved">
+    <link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+    <link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet" />
+    <script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+    <script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+    <script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+    <script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+</head>
+<script>
+    function save(assigntime,id){
+    var deadlinetime = new Date();//当前日期   ，时间类型
+    assigntime=Date.parse(assigntime); //有效日期  字符串类型转  时间类型
+    if (assigntime<=deadlinetime){//判断时间大小
+        alert("有效期需大于当前时间！");
+        return false;
+    }
+    location.href="$!webPath/seller/goods_sale.htm?mulitId="+id;
+}
+
+jQuery(document).ready(function() {
+    var formatDate = function (date) {
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    m = m < 10 ? '0' + m : m;
+    var d = date.getDate();
+    d = d < 10 ? ('0' + d) : d;
+    return y + '-' + m + '-' + d;
+};
+
+var arr = [];
+var arr2 = []
+var text = "";
+var deadlineArr = [];
+var startTime = document.getElementsByClassName("startTime");
+
+
+var checkboxArr = document.getElementsByClassName("checkbox");
+
+
+for(var i=0;i<startTime.length;i++){
+  arr[i] = startTime[i].innerText || tartTime[i].innerHTML;
+}
+
+// console.log(arr);
+ var endTime = formatDate(new Date())
+
+document.getElementById("button_common").addEventListener("click", function(){
+  for(var i=0;i<checkboxArr.length;i++){
+    console.log(checkboxArr[i].checked)
+    if(checkboxArr[i].checked){
+      var jd = checkboxArr[i].parentNode.parentNode.previousElementSibling.innerText || checkboxArr[i].parentNode.parentNode.previousSibling.innerText || checkboxArr[i].parentNode.parentNode.previousElementSibling.innerHTML || checkboxArr[i].parentNode.parentNode.previousSibling.innerHTML
+      arr2.push(jd)
+    }
+}
+// console.log(arr2)
+  var mulitId="";
+  jQuery("#ListForm").find(":checkbox:checked[name!='currentAll']").each(function(){
+    if(jQuery(this).val()!=""){
+      mulitId+=jQuery(this).val()+",";
+    }
+  });
+  if(mulitId ==""){
+    alert("至少选择一条数据记录");
+    return false;
+  }
+  var h = compareDate(arr, endTime);
+  if (!h){
+      if(deadlineArr.length !=0){
+        text = deadlineArr.join("，")
+
+          alert("\""+text+"\"商品不能上架，有效期低于当前日期，请修改");
+          deadlineArr = [];
+          text = "";
+      }
+      return false;
+  }
+
+   cmd2('$!webPath/seller/goods_sale.htm','');
+}, false)
+
+
+function cmd2(){
+  var url=arguments[0];
+  var mulitId="";
+  jQuery("#ListForm").find(":checkbox:checked[name!='currentAll']").each(function(){
+    if(jQuery(this).val()!=""){
+      mulitId+=jQuery(this).val()+",";
+    }
+  });
+  if(mulitId!=""){
+    jQuery("#ListForm #mulitId").val(mulitId);
+    // if(confirm("确定要执行该操作？")){
+    //    jQuery("#ListForm").attr("action",url);
+    //    jQuery("#ListForm").submit();
+    // }
+  if(true){
+       jQuery("#ListForm").attr("action",url);
+       jQuery("#ListForm").submit();
+    }
+  }else{
+       alert("至少选择一条数据记录");
+  }
+}
+
+
+var nameproductArr = document.getElementsByClassName("nameproduct");
+
+//比较日期大小
+function compareDate(checkStartDate, checkEndDate) {
+    var arys1 = new Array();
+    var arys2 = new Array();
+    for(var k=0;k<nameproductArr.length;k++){
+      if (checkStartDate[k] != null && checkEndDate != null) {
+        if (checkStartDate[k].indexOf("-") != -1 && checkEndDate.indexOf("-") != -1) {
+            arys1 = checkStartDate[k].split('-');
+            arys2 = checkEndDate.split('-');
+        } else if (checkStartDate[k].indexOf("/") != -1 && checkEndDate.indexOf("/") != -1) {
+            arys1 = checkStartDate[k].split('/');
+            arys2 = checkEndDate.split('/');
+        }
+        var sdate = new Date(arys1[0], parseInt(arys1[1] - 1), arys1[2]);
+        var edate = new Date(arys2[0], parseInt(arys2[1] - 1), arys2[2]);
+        if (sdate <= edate) {
+            var currentText = nameproductArr[k].firstChild.innerText;
+            // console.log(k)
+            deadlineArr.push(currentText)
+
+            // alert("\""+currentText+"\"商品不能上架，有效期低于当前日期，请修改");
+            // return false;
+        } else {
+            return true;
+        }
+    }
+    }
+}
+
+
+});
+</script>
+
+<body>
+    $!httpInclude.include("/top.htm")
+    <div class="main">
+        $!httpInclude.include("/seller/nav_head.htm")
+        <div class="user_center">
+            <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+                <tr>
+                    $!httpInclude.include("/seller/nav.htm?op=goods_storage")
+                    <td id="centerbg" valign="top">
+                        <div class="buyer_position">
+                            <div class="buyer_p_box"><a href="$!webPath/seller/index.htm">卖家中心</a> > <span>仓库中的商品</span></div>
+                        </div>
+                        <form action="$!webPath/seller/goods_storage.htm" method="post" name="ListForm" id="ListForm">
+                            <div class="productmain">
+                                <div class="pdctitle blue2">仓库中的商品
+                                    <span class="classname">
+                                        <input name="mulitId" type="hidden" id="mulitId" />
+                                        <input name="op" type="hidden" id="op" value="storage" />
+                                    </span>
+                                </div>
+                                <div class="alldel">
+                                    <div class="alldel_r"><span class="alldelsel">商品分类&nbsp;&nbsp;
+                                            <select name="user_class_id" class="user_class_id grandpa">
+                                                <option value="">请选择</option>
+                                                #foreach($obj in $objs)
+                                                #if($obj.gc.parent.parent!="")
+                                                <option value="$!obj.gc.parent.parent.id">$!obj.gc.parent.parent.className</option>
+                                                #end
+                                                #end
+                                            </select>
+                                            <select name="user_class_id" class="user_class_id father">
+                                                <option value="">请选择</option>
+                                                #foreach($obj in $objs)
+                                                #if($obj.gc.parent.parent!="")
+                                                #if($obj.gc.parent!="")
+                                                <option value="$!obj.gc.parent.id">$!obj.gc.parent.className</option>
+                                                #end
+                                                #end
+                                                #end
+                                            </select>
+                                            <select name="user_class_id" class="user_class_id son">
+                                                <option value="">请选择</option>
+                                                #foreach($obj in $objs)
+                                                <option value="$!obj.gc.id">$!obj.gc.className</option>
+                                                #end
+                                            </select>
+                                        </span><span class="alldelsear">　商品名称
+                                            <input name="goods_name" type="text" id="goods_name" />
+                                        </span><span class="alldelbtn">
+                                            <input name="" type="button" value="搜索" style="cursor:pointer;" onclick="search();"//> </span> </div> <div class="alldel_l"> <span class="alldel_la">
+                                                <input name="all" type="checkbox" id="all" value="" onclick="selectAll(this)" />
+                                            </span><span class="alldel_lb"><label for="all">全选</label></span> <span class="alldel_lc"><a class="button_common" href="javascript:void(0);" onclick="cmd('$!webPath/seller/goods_del.htm','')">删除</a></span> <span class="alldel_ld1"><a class="button_common" href="javascript:void(0);" id="button_common">上架</a></span> </div>
+                                </div>
+                                <div class="operation">
+                                    <table width="990" border="0" cellspacing="0" cellpadding="0" id="opertable">
+                                        <thead>
+                                            <tr id="opertitle">
+                                                <td class="proname" width="220">商品名称</td>
+                                                <td width="217" class="proclassify">商品分类</td>
+                                                <td width="130" class="promoney">价格</td>
+                                                <td width="51" class="prorec">推荐</td>
+                                                <td width="240" align="center">操作</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="select-tbody">
+                                            #foreach($obj in $objs)
+                                            <tr class="opertr">
+                                                <td class="startTime" style="display:none">$!obj.validity_time</td>
+                                                <td class="proname" valign="middle"><span class="checkpro">
+                                                        <input type="checkbox" value="$!obj.id" class="checkbox" />
+                                                        #if($!obj.goods_main_photo)
+                                                        #set($img="$!webPath/$!{obj.goods_main_photo.path}/$!{obj.goods_main_photo.name}")
+                                                        #else
+                                                        #set($img="$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+                                                        #end
+                                                    </span><span class="imgpro"><img src="$!img" width="60" height="63" /></span><span class="nameproduct"><a href="$!webPath/goods_$!{obj.id}.htm" target="_blank">$!obj.goods_name</a></span></td>
+                                                <td class="proclassify">#if($!obj.gc)$!storeTools.generic_goods_class_info($!obj.gc)#end</td>
+                                                <td class="promoney">$!obj.store_price</td>
+                                                <td class="prorec"><img src="$!webPath/resources/style/system/front/default/images/usercenter/$!{obj.goods_recommend}.jpg" width="16" height="14" /></td>
+                                                <td class="operajt"><span class="sale"><a onclick="save('$!obj.validity_time','$!obj.id')">上架</a></span><span class="edit"><a href="$!webPath/seller/goods_edit.htm?id=$!obj.id" target="_blank">编辑</a></span><span class="del"><a href="javascript:if(confirm('删除后不可恢复?'))window.location.href='$!webPath/seller/goods_del.htm?mulitId=$!obj.id&op=storage'">删除</a></span></td>
+                                            </tr>
+                                            #end
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="alldel">
+                                    <div class="userfenye">$!gotoPageHTML</div>
+                                    <!--  <div class="alldel_l"> <span class="alldel_la">
+                <input name="all1" type="checkbox" id="all1" value="" onclick="selectAll(this)" />
+              </span><span class="alldel_lb"><label for="all">全选</label></span> <span  class="alldel_lc"><a class="button_common" href="javascript:void(0);" onclick="cmd('$!webPath/seller/goods_del.htm','')">删除</a></span> <span class="alldel_ld1"><a href="javascript:void(0);" onclick="cmd('$!webPath/seller/goods_sale.htm','')" class="button_common">上架</a></span> </div> -->
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        $!httpInclude.include("/footer.htm")
+    </div>
+    <script>
+    window.onload = function() {
+        var F1 = document.getElementsByClassName("user_class_id");
+        for (var n = 0; n < F1.length; n++) {
+            var i = 0
+            while (i < F1[n].options.length) {
+                var j = i + 1;
+                while (j < F1[n].options.length) {
+                    if (F1[n].options[i].text == F1[n].options[j].text) {
+                        F1[n].options[j] = null;
+                    } else {
+                        j++;
+                    }
+                }
+                i++;
+            }
+        }
+
+        $(".father").hide();
+        $(".son").hide();
+        $(".grandpa").on('change', function() {
+            $(".father").show();
+        })
+
+        $(".father").on('change', function() {
+            $(".son").show();
+        })
+
+    }
+
+
+    //点击搜索事件绑定
+    function search() {
+        // 声明变量
+        var filter, tr, tds, flag = true,
+            flag2 = true,
+            flag3 = true;
+        var grandpa = $(".grandpa option:selected")  //一级类的选中的option
+        var father = $(".father option:selected")   //二级类的选中的option
+        var son = $(".son option:selected")     //三级类的选中的option
+        var gIndex = $(".grandpa").get(0).selectedIndex;    //一级类的选中的索引
+        var fIndex = $(".father").get(0).selectedIndex;   //一级类的选中的索引
+        var sIndex = $(".son").get(0).selectedIndex;    //一级类的选中的索引
+        filter = $("#goods_name").val().toUpperCase();    //用户输入框输入的文字
+        tr = $("#select-tbody tr")    //查询表格中的tr标签行数据
+
+        //循环查询是否有符合条件的商品
+        for (var a = 0; a < tr.length; a++) {
+            var tds = $("#select-tbody tr:eq(" + a + ") td:eq(2)");  //商品分类的tr标签中
+            var tdsf = $("#select-tbody tr:eq(" + a + ") td:eq(1)");  //商品名称的tr标签中
+            for (var i = 0; i < tds.length; i++) {
+                var thval = tds.text(); //tr标签中的商品分类
+                thval = thval.split(">")
+                var thvalf = tdsf.text();//tr标签中的商品名称
+                if (filter == "" && gIndex && fIndex && sIndex) { //1、输入框为空,并且商品分类都选择了，执行下面代码
+                    flag2 = false;
+                    if (thval[1].toUpperCase().indexOf(grandpa.text()) != -1 && thval[2].toUpperCase().indexOf(father.text()) != -1 && thval[3].toUpperCase().indexOf(son.text()) != -1) { //不存在时返回-1   !=-1就是存在
+                        $("#select-tbody tr:eq(" + a + ")").fadeIn();
+                        flag = false;
+
+                    } else {
+                        $("#select-tbody tr:eq(" + a + ")").fadeOut(0);
+                    }
+                } else if (filter == "" && !gIndex) { //2、输入框为空，并且没有选择商品分类，执行下面代码
+                    flag3 = false;
+                } else if (filter != "" && !gIndex && !fIndex && !sIndex) { //3、输入框不为空，并且没有选择商品分类，执行下面代码
+                    flag2 = false;
+                    if (thvalf.toUpperCase().indexOf(filter) != -1) {
+                        $("#select-tbody tr:eq(" + a + ")").fadeIn();
+                        flag = false;
+                    } else {
+                        $("#select-tbody tr:eq(" + a + ")").fadeOut(0);
+                    }
+                } else if (filter != "" && gIndex && fIndex && sIndex) { //4、输入框不为空，并且商品分类都选择了，执行下面代码
+                    flag2 = false;
+                    if (thval[1].toUpperCase().indexOf(grandpa.text()) != -1 && thval[2].toUpperCase().indexOf(father.text()) != -1 && thval[3].toUpperCase().indexOf(son.text()) != -1 && thvalf.toUpperCase().indexOf(filter) != -1) {
+                        $("#select-tbody tr:eq(" + a + ")").fadeIn();
+                        flag = false;
+                    } else {
+                        $("#select-tbody tr:eq(" + a + ")").fadeOut(0);
+                    }
+                }
+            }
+        }
+        //if(input.value!="" && input.value != null){//控制模糊搜索时 是否允许空格搜索
+        //
+        //
+        //用户操作可能出现的三种情况
+        if (!flag3) {
+            alert("搜索条件不能为空！")
+        } else if (flag2) {
+            alert("请选择商品分类！")
+        } else if (flag) {
+            alert("查询不到相关信息！")
+        }
+
+    }
+    </script>
+</body>
+
+</html>

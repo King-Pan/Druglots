@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class=" csscalc csstransforms">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=1200">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/adv.css">	
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/.pond.js/1.4.2/.pond.min.js"></script>
+    <![endif]-->
+  </head>
+  <script>
+     function submitBtn2(){
+		var oFile = document.getElementById('file').value;
+		alert ("1 "); 
+		if(!oFile){
+			alert("输入框不能为空！")
+		} 
+	}
+  </script>
+  <body>  
+  <!--头部结束-->
+    <!--主体开始:存放模块子页面-->	
+    <!--主体开始:存放模块子页面-->	
+    <main class="main-content pos-rel" style="min-height: 823px;">
+		<section class="security-section section">
+			<section class="showContent bg-white">
+				<!--插入页面-->
+				<section id="insertSection" class="insert">
+				  <form action="http://192.168.1.146:8080/" method="post"  enctype="multipart/form-data">
+						<div id="list" class="myTrackPage subPage" data-port="sec_cert.htm">
+							<ul class="list-adv clearfix">
+								<li class="col-xs-12 col-lg-6">
+									<input type="file" id="file">
+									<img src="images/bs.png" alt="">
+									<img src="images/khxkz.jpg" alt="" class="imgStyle">
+									<p class="colorP">开户许可证</p>
+									<p>说明：</p>
+									<ol>
+										<li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+										<li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+										<li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+									</ol>
+								</li>
+								<li class="col-xs-12 col-lg-6">
+									<input type="file">
+									<img src="images/bs.png" alt="">
+									<img src="images/ypjyxkz.jpg" alt="" class="imgStyle">
+									<p class="colorP">药品经营许可证</p>
+									<p>说明：</p>
+									<ol>
+										<li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+										<li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+										<li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+									</ol>
+								</li>
+								<li class="col-xs-12 col-lg-6">
+									<input type="file">
+									<img src="images/bs.png" alt="">
+									<img src="images/gspz.jpg" alt="" class="imgStyle">
+									<p class="colorP">GSP证</p>
+									<p>说明：</p>
+									<ol>
+										<li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+										<li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+										<li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+									</ol>
+								</li>
+								<li class="col-xs-12 col-lg-6">
+									<input type="file">
+									<img src="images/bs.png" alt="">
+									<img src="images/three.png" alt="" style="visibility:hidden;">
+									<p class="colorP">法人身份证</p>
+									<p>说明：</p>
+									<ol>
+										<li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+										<li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+										<li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+									</ol>
+								</li>
+							
+								
+								<li class="col-xs-12 col-lg-6">
+									<input type="file">
+									<img src="images/bs.png" alt="">
+									<img src="images/three.png" alt="" style="visibility:hidden;">
+									<p class="colorP">其他证照</p>
+									<p>说明：</p>
+									<ol>
+										<li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+										<li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+										<li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+									</ol>
+								</li>
+							</ul>
+							<div class="clause">
+								<input type="checkbox">
+								<a href="javascript:void(0)" onclick="$('.toggle-clause').toggle()">请认真阅读《融资申请规则条款》，同意后便可进行融资申请。</a>
+								<p class="toggle-clause">融资申请规则条款：若用户发起申请，系统将会把申请的数据透露给融资机构。<span onclick="$('.toggle-clause').hide()">X</span></p>
+							</div>
+							<div class="btnGroup">
+								<button type="button" class="cancelBtn">取消</button>
+								<button type="button" class="submitBtn" onclick="submitBtn2()">提交</button>
+							</div>
+						</div>
+					</form>
+				</section>
+			</section>
+		</section>
+	</main>
+    <!--主体结束-->
+    <!--尾部-->
+    <footer class="footer fs12 footer-gray text-center">
+    	<div class="foot-div">
+    		<span>©深圳市特米医疗供应链科技有限公司 版权所有 粤ICP备17098258</span>
+    		<span> 电话：0755-23945599</span>
+    	</div>
+    </footer>
+</body>
+</html>

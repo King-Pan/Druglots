@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>建立采购关系-$!{config.title}-Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+<meta name="copyright" content="wemall Inc. All Rights Reserved">
+<link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet" />
+<link  href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css" type=text/css rel=stylesheet>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+
+<script>
+/* function change(obj){
+	var value = $(obj).find('option:selected').text();
+	jQuery.post("$!webPath/buyer/queryProcurementRelationship.htm",
+				{
+				"store_id":value
+				},
+				function(data){
+					if(data){
+						var group = $("#storeId");
+            			group.empty();
+            			for(var i=0;i<data.length;i++) {
+                			group.append("<option value='"+data[i].id+"'>"+data[i].name+"</option>");
+                			group.append("<span name='storeName' style='display:none;''>"+data[i].store_name+"</span>");
+            			}
+					}
+				},"text");
+} */
+/* function change(obj){
+	var value = $(obj).find('option:selected').text();
+	$('#storeId').val(value);
+} */
+
+
+var TempArr=[];//存储option
+
+$(function(){
+    /*先将数据存入数组*/
+    $("#storeId option").each(function(index, el) {
+        TempArr[index] =$(this).val()+";"+$(this).text();
+    });
+    $(document).bind('click', function(e) {  
+        var e = e || window.event; //浏览器兼容性   
+        var elem = e.target || e.srcElement;  
+        while (elem) { //循环判断至跟节点，防止点击的是div子元素   
+            if (elem.id && (elem.id == 'typenum' || elem.id == "makeupCo")) {
+                return;  
+            }  
+            elem = elem.parentNode;  
+        }
+       // $('#storeId').css('display', 'none'); //点击的不是div或其子元素   
+    });
+})
+function setfocus(this_){
+    var select = $("#storeId");
+    for(i=0;i<TempArr.length;i++){
+    	/* console.log("setfocus:"+TempArr[i]);
+    	console.log("indexOf:"+TempArr[i].indexOf(";"));
+    	console.log("length:"+TempArr[i].length);
+    	console.log("setfocus_substr_value:"+TempArr[i].substr(0,TempArr[i].indexOf(";")));
+    	console.log("setfocus_substr_text:"+TempArr[i].substr(TempArr[i].indexOf(";")+1,TempArr[i].length)); */
+        var option = $("<option ></option>").text(TempArr[i].substr(TempArr[i].indexOf(";")+1,TempArr[i].length));
+        option=option.val(TempArr[i].substr(0,TempArr[i].indexOf(";")));
+        select.append(option);
+    } 
+}
+function setinput(this_){
+    var select = $("#storeId");
+    select.html("");
+    for(i=0;i<TempArr.length;i++){
+   			/* console.log("setinput:"+TempArr[i]);
+    		console.log("setinput_indexOf:"+TempArr[i].indexOf(";"));
+    		console.log("setinput_length:"+TempArr[i].length);
+    		console.log("setinput_substr_value:"+TempArr[i].substr(0,TempArr[i].indexOf(";")));
+    		console.log("setinput_substr_text:"+TempArr[i].substr(TempArr[i].indexOf(";")+1,TempArr[i].length)); */
+    		var temparr_value=TempArr[i].substr(0,TempArr[i].indexOf(";"));
+    		var temparr_text=TempArr[i].substr(TempArr[i].indexOf(";")+1,TempArr[i].length);
+        //若找到以txt的内容开头的，添option
+        if(temparr_text.substring(0,this_.value.length).indexOf(this_.value)==0){
+        	/* var obj=document.getElementById('mySelect');
+   			//添加一个选项
+    		obj.add(new Option("文本","值")); //这个只能在IE中有效
+    		obj.options.add(new Option("text","value")); //这个兼容IE与firefox */
+            var option = $("<option></option>").text(temparr_text);
+            option=option.val(temparr_value);
+            select.append(option);
+            
+            var spanTag= $("<span></span>");
+            //var spanTag = document.createElement("span");
+            spanTag.attr("name","storeName");
+            spanTag.css("display","none");
+            spanTag.html(temparr_value);
+            option.after(spanTag);
+        }
+    }
+}
+ function shenqing(a){
+	var storeid=$(a).parent().parent().children("td:nth-child(2)").text();
+	var ywyid=$(a).parent().parent().children("td:nth-child(4)").text();
+	//var ywyid=$(a).parent().parent().children("td:nth-child(3)").children().children("option:selected").val();
+	console.log();
+	//location.href="$!webPath/buyer/addPurchaseRelation.htm?storeId="+storeid+"&invitationcodeid="+ywyid; 
+	  jQuery.ajax({
+		type:'POST',
+		url:'$!webPath/buyer/shouying.htm',
+		data:{},
+		success:function(data){
+		if(data=="erro"){
+		alert("请先通过首营认证！");
+		}else{
+		jQuery.ajax({
+		type:'POST',
+		url:'$!webPath/buyer/addPurchaseRelation.htm',
+		data:{"storeId":storeid,"invitationcodeid":ywyid},
+		success:function(data){
+		confirm("申请成功！");
+		location.href="$!webPath/buyer/PurchaseRelation_list.htm?state=wodezhanghu";
+			/* jQuery("body").empty();
+     		jQuery("body").append(data);*/
+		} 
+		})  
+		}
+		}
+		})
+	     
+} 
+</script>
+
+</head>
+<body>
+$!httpInclude.include("/top.htm")
+<div class="main">
+  $!httpInclude.include("/buyer/head.htm")
+  <div class="user_center">
+    <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+      <tr>
+        $!httpInclude.include("/buyer/account_nav.htm?op=Purchase")
+        <td id="centerbg" valign="top">
+        <div class="buyer_position"><div class="buyer_p_box"><a href="$!webPath/buyer/account.htm">我的账户</a> > <span>建立采购关系</span></div></div>
+        <div class="productmain">
+            <div class="ordernav">
+              <ul class="orderul">
+                <li class="this"><a href='$!webPath/buyer/initialPurchaseRelation.htm	' >建立采购关系</a></li>
+                <li><a href='$!webPath/buyer/PurchaseRelation_list.htm?state=wodezhanghu'>采购关系列表</a></li>
+              </ul>
+            </div>
+            <div class="ordercon">
+              <div class="addnav">
+                <form action="$!webPath/buyer/addPurchaseRelation.htm" method="post" name="theForm" id="theForm">
+                <div class="operation">
+                	<table width="990" border="0" cellspacing="0" cellpadding="0" id="opertable" >
+                	<tr id="opertitle">
+                	  <td width="25%" align="center">编号</td>
+                      <td width="25%" align="center">店铺名称</td>
+                      <td align="center" style="display:none;"></td>
+                      <td width="25%" align="center">业务员</td>
+                      <td width="25%" align="center">操作</td>
+                  </tr>
+                  #foreach($obj in $objs)
+                  <tr>
+                        <td width="25%" align="center">${velocityCount}</td>
+                  		<td align="center" style="display:none;">$!obj.id</td>
+                    	<td align="center" style="display:none;">$!invitationCode.id</td>
+                      <td width="25%" align="center">$!obj.store_name</td>
+                      <!-- <td align="center" style="display:none;">32784</td> -->
+                      <td width="25%" align="center">$!invitationCode.salesman
+                     <!--  <select style="width:150px;" id="invitationcodeid" name="invitationcodeid" areaMark="province">
+                         <option >请选择...</option>
+                         <option value="18271250729">18271250729</option>
+                      	 #foreach($obj2 in $lists)
+                      		<option value="$!obj2.id">$!obj2.salesman  $!obj2.phone</option>
+                      	 #end
+                      	 </select> -->
+                      </td>
+                      <td width="25%" align="center">
+                      	<input name="" type="button" onclick="shenqing(this);" value="申请建立采购关系" style="cursor:pointer;"/>
+                      </td>
+                  #end
+                	
+                	</table>
+                </div>
+                </form>
+              </div>
+            </div>
+                
+            
+            
+            <!-- <div class="ordercon">
+              <div class="addnav">
+                <form action="$!webPath/buyer/addPurchaseRelation.htm" method="post" name="theForm" id="theForm">
+                  <table width="705" border="0" cellspacing="0" cellpadding="0" class="addnavtable">
+                    <tr>
+                      <td width="100" align="right">商家选择：</td> 
+                      <td class="px10"><span class="setinput">
+                       <input id="storeId1" name="storeId1" onfocus="setfocus(this)" oninput="setinput(this);" style="width:150px" type="text" value>
+                       <select id="storeId" name="storeId" >
+                       #if($store_name)
+                      	 <option value="$!store_id">$!store_name</option>
+                      	 <input name="storeName" type="hidden" value="$!store_name" />
+                       #else
+						 <option>请选择...</option>
+                      	 #foreach($obj in $objs)
+                      	    #if($!obj.id!=$store.id){
+                      	    	<option value="$!obj.id">$!obj.store_name</option>
+                      	    	<span name="storeName" style="display:none;">$!obj.store_name</span>
+                      	    }
+                      	    #end
+                      	 #end
+                      	 #end
+                       </select>
+                       
+                                                                                关联业务员
+                        <select id="invitationcodeid" name="invitationcodeid" areaMark="province">
+                         <option>请选择...</option>
+                      	 #foreach($obj in $lists)
+                      		<option value="$!obj.id">$!obj.salesman  $!obj.phone</option>
+                      	 #end
+                      	 </select>
+					    
+                       </td>
+                       
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td class="px10"><span class="setsub">
+                        <input name="" type="submit"  value="提交" style="cursor:pointer;"/>
+                      </span></td>
+                    </tr>
+                  </table>
+                </form>
+              </div>
+            </div> -->
+          </div></td>
+      </tr>
+    </table>
+  </div>
+   $!httpInclude.include("/footer.htm")
+</div>
+</body>
+</html>

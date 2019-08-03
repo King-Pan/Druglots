@@ -1,0 +1,409 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>首营资料-$!{config.title}-Powered by Druglots</title>
+    <meta name="keywords" content="$!config.keywords" />
+    <meta name="description" content="$!config.description" />
+    <meta name="generator" content="wemall 2.0" />
+    <meta name="author" content="www.wemall.com">
+    <meta name="copyright" content="wemall Inc. All Rights Reserved">
+    <link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+    <link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet" />
+    <link href="$!webPath/resources/style/system/front/default/css/goods.css" type="text/css" rel="stylesheet" />
+    <link href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css" type=text/css rel=stylesheet>
+    <script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+    <script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+    <script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+    <script src="$!webPath/resources/js/verify_IousCertification.js"></script>
+    <script src="$!webPath/resources/js/zw.verify2.js"></script>
+    <SCRIPT src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></SCRIPT>
+    <LINK rel=stylesheet href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+    <SCRIPT src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></SCRIPT>
+    <script src="$!webPath/resources/js/jszip.min.js"></script>
+    <script src="$!webPath/resources/js/Filesaver.js"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script> -->
+    <script>
+        window.onload = function () {
+
+				    	var t=$("#temiiOpeningStatus").val();
+				    	if (t=='0' || t=='2') {
+			 				$("#btn").hide();
+			    		} else{
+			    			$("#btn").show();
+			    		}
+
+				    	if ("$!auth.businessLicense"!="") {
+				    		$(".bsImg").attr('src',"$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.businessLicense");
+				    	}
+
+				    	if ("$!auth.drugLicense"!="") {
+				    		$(".bsImg2").attr('src',"$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.drugLicense");
+				    	}
+
+				    	if ("$!auth.gSPCertificate"!="") {
+				    		$(".bsImg3").attr('src',"$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.gSPCertificate");
+				    	}
+
+				    	if ("$!auth.purchaseOrders"!="") {
+				    		$(".bsImg4").attr('src',"$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.purchaseOrders");
+				    	}
+
+				    	if ("$!auth.iDcard"!="") {
+				    		$(".bsImg5").attr('src',"$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.iDcard");
+				    	}
+				    	if ("$!auth.HandIDcard"!="") {
+				    		$(".bsImg6").attr('src',"$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.HandIDcard");
+				    	/* 	$("#btn").attr('value',"修改"); */
+				    	}
+
+
+
+				    };
+			</script>
+</head>
+<style type="text/css">
+#xz {
+    color: red;
+}
+
+#fd:hover {
+    width: 300px;
+    height: 300px;
+
+    transform: scale(1.0);
+}
+
+#fd {
+    width: 100px;
+    height: 100px;
+}
+
+.openstxt>input {
+    width: 220px;
+}
+
+.openstxt {
+    width: 800px;
+}
+
+.STYLE1 {
+    color: #FF0000
+}
+
+#downloadImgs {
+    float: right;
+    margin-right: 15px;
+    border: 1px solid #62a6dd;
+    background: #62a6dd;
+    color: #fff;
+    border-radius: 3px;
+    padding: 2px 5px;
+    margin-top: 2px;
+}
+}
+</style>
+
+<body>
+    $!httpInclude.include("/top.htm")
+    <div class="main">
+        $!httpInclude.include("/buyer/head.htm")
+        <div class="user_center">
+            <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+                <tr>
+                    $!httpInclude.include("/buyer/account_nav.htm?op=Purchase")
+                    <td id="centerbg" valign="top">
+                        <div class="buyer_position">
+                            <div class="buyer_position">
+                                <div class="buyer_p_box">
+                                    <a href="$!webPath/seller/index.htm">我的账户</a> > <span>采购关系</span>
+                                    <button id="downloadImgs">资料一键下载</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="productmain">
+                            <div class="ordernav">
+                                <ul class="orderul">
+                                    <li><a href='$!webPath/buyer/initialPurchaseRelation.htm'>建立采购关系</a></li>
+                                    <li><a href='$!webPath/buyer/PurchaseRelation_list.htm?state=wodezhanghu'>采购关系列表</a></li>
+                                    <li class="this"><a href='#'>详情</a></li>
+                                </ul>
+                            </div>
+                            <div class="ordercon">
+                                <div class="addnav">
+                                    <form action="http://www.druglots.cn:80/user/login2.htm" onsubmit="return myCheck();" method="post" name="theForm" id="theForm" enctype="multipart/form-data">
+                                        <table width="800" border="0" cellspacing="0" cellpadding="0" class="addnavtable">
+                                            <tr style="display: none;">
+                                                <!-- <td ><a class="xz" id="xz" id="xz" download="营业执照" href="http://localhost:8081/Druglots/resources/style/system/front/default/images/top_car.png">
+											  	营业执照下载</a></td> -->
+                                                <td><a class="xz" id="xz" id="xz" download="营业执照" href="$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.businessLicense ">
+                                                        营业执照下载</a></td>
+                                                <td><a class="xz" id="xz" id="xz" download="药品经营许可证" href="$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.drugLicense ">
+                                                        经营许可证下载</a></td>
+                                                <td><a class="xz" id="xz" id="xz" download="GSP证" href="$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.gSPCertificate ">
+                                                        GSP证下载</a></td>
+                                                <td><a class="xz" id="xz" id="xz" download="身份证正面" href="$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.iDcard ">
+                                                        身份证正面下载</a></td>
+                                                <td><a class="xz" id="xz" id="xz" download="身份证反面" href=" $!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.handIDcard ">
+                                                        身份证反面下载</a></td>
+                                                <td><a class="xz" id="xz" id="xz" download="手持身份证照" href="$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$auth.purchaseOrders ">
+                                                        手持身份证下载</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="opentableleft"><span class="STYLE1">*</span>企业名称：</td>
+                                                <td><span class="openstxt">
+                                                        <input name="enterpriseName" readonly type="text" id="enterprisename" value="$!auth.enterpriseName">
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="opentableleft"><span class="STYLE1">*</span>营业执照注册号：</td>
+                                                <td><span class="openstxt">
+                                                        <input name="businesRegsNumber" readonly type="text" id="businesRegsNumber" value="$!auth.businesRegsNumber">
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="opentableleft"><span class="STYLE1">*</span>所属区域：</td>
+                                                <td><span class="openstxt">
+                                                        <input name="areaId" type="text" readonly id="areaId" value="$!auth.areaId">
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="opentableleft"><span class="STYLE1">*</span>详细街道：</td>
+                                                <td><span class="openstxt">
+                                                        <input name="detailedStreet" readonly type="text" id="detailedstreet" value="$!auth.detailedStreet">
+                                                    </span>
+                                                </td>
+                                                <td width="363">
+                                                    <ol>
+                                                        <li>详细街道地址请保持与GSP证书地址一致</li>
+                                                    </ol>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="opentableleft"><span class="STYLE1">*</span>营业执照：</td>
+                                                <td><span class="openstxt">
+                                                        <img id="fd" src="$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.businessLicense" alt="" height='70' width='90' class="bsImg bsImg_new" />
+                                                        <!-- <input readonly= "true" name="file1"
+														type="file" id="file1" onchange="show(this.files)"/>
+															<img id="fd" src="$!webPath/upload/images/bs.png" alt=""
+															height='70' width='90' class="bsImg"/>
+															 -->
+                                                    </span></td>
+                                                <td width="363">
+                                                    <ol>
+                                                        说明：
+                                                        <li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+                                                        <li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+                                                        <li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+                                                    </ol>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="opentableleft"><span class="STYLE1">*</span>营业执照号码：</td>
+                                                <td><span class="openstxt">
+                                                        <input readonly="true" name="businessNumber" type="text" id="fileNumber1" value="$!auth.businessNumber" />
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="opentableleft"><span class="STYLE1">*</span>营业执照有效截止日期：</td>
+                                                <td style="width:200px;"><span class="openstxt">
+                                                        <input readonly="true" name="EndBusinessDate" type="text" readonly id="fileEndTime1" value="$!auth.endBusinessDate" /></span>
+                                                    #if($!EndBusinessDatetitle)
+                                                    <span style="color:#f00;">$!EndBusinessDatetitle</span>
+                                                    #end
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="opentableleft"><span class="STYLE1">*</span>药品经营许可证：</td>
+                                                <td><span class="openstxt">
+                                                        <img id="fd" src="$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.drugLicense" height='70' width='90' alt="" class="bsImg2 bsImg_new" />
+                                                    </span></td>
+                                                <td>
+                                                    <ol>
+                                                        说明
+                                                        <li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+                                                        <li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+                                                        <li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+                                                    </ol>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="opentableleft"><span class="STYLE1">*</span>药品经营许可证号码：</td>
+                                                <td><span class="openstxt">
+                                                        <input readonly="true" name="DrugNumber" type="text" id="fileNumber2" value="$!auth.drugNumber" /></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="opentableleft"><span class="STYLE1">*</span>药品经营许可证有效截止日期：</td>
+                                                <td style="width:200px;"><span class="openstxt">
+                                                        <input readonly="true" name="EndDrugDate" type="text" readonly id="fileEndTime2" value="$!auth.endDrugDate" /></span>
+                                                    #if($!EndDrugDatetitle)
+                                                    <span style="color:#f00;">$!EndDrugDatetitle</span>
+                                                    #end
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="opentableleft"><span class="STYLE1">*</span>GSP证：</td>
+                                                <td><span class="openstxt">
+                                                        <img id="fd" src="$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.gSPCertificate" alt="" height='70' width='90' class="bsImg3 bsImg_new" />
+                                                    </span></td>
+                                                <td>
+                                                    <ol>
+                                                        说明
+                                                        <li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+                                                        <li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+                                                        <li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+                                                    </ol>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="opentableleft"><span class="STYLE1">*</span>GSP证号码：</td>
+                                                <td><span class="openstxt">
+                                                        <input readonly="true" name="GSPNumber" type="text" id="fileNumber3" value="$!auth.gSPNumber" /></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="opentableleft"><span class="STYLE1">*</span>GSP证有效截止日期：</td>
+                                                <td style="width:200px;"><span class="openstxt">
+                                                        <input readonly="true" name="EndGSPDate" type="text" readonly id="fileEndTime3" value="$!auth.endGSPDate" /></span>
+                                                    #if($!endGSPDatetitle)
+                                                    <span style="color:#f00;">$!endGSPDatetitle</span>
+                                                    #end
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="opentableleft"><span class="STYLE1">*</span>上传身份证正面：</td>
+                                                <td><span class="openstxt">
+                                                        <img id="fd" src="$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.iDcard" alt="" height='70' width='90' class="bsImg5 bsImg_new" />
+                                                    </span></td>
+                                                <td>
+                                                    <ol>
+                                                        说明
+                                                        <li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+                                                        <li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+                                                        <li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+                                                    </ol>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="opentableleft"><span class="STYLE1">*</span>上传身份证反面：</td>
+                                                <td><span class="openstxt">
+                                                        <img id="fd" src="$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.handIDcard" alt="" height='70' width='90' class="bsImg6 bsImg_new" />
+                                                <td>
+                                                    <ol>
+                                                        说明
+                                                        <li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+                                                        <li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+                                                        <li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+                                                    </ol>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="opentableleft"><span class="STYLE1">*</span>手持身份证：</td>
+                                                <td><span class="openstxt">
+                                                        <img id="fd" src="$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$auth.purchaseOrders" alt="" height='70' width='90' class="bsImg4 bsImg_new" />
+                                                    </span></td>
+                                                <td>
+                                                    <ol>
+                                                        说明
+                                                        <li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+                                                        <li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+                                                        <li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+                                                    </ol>
+                                                </td>
+                                            </tr>
+                                            <!--       <td class="opentableleft"><span class="STYLE1">*</span>采购委托书号码：</td>  -->
+                                            <span class="openstxt">
+                                                <input name="PurchaseNumber" type="hidden" id="fileNumber4" value="1" />
+                                            </span>
+                                            <!--              <td class="opentableleft"><span class="STYLE1">*</span>采购委托书有效截止日期：</td>  -->
+                                            <span class="openstxt">
+                                                <input name="EndPurchaseDate" type="hidden" readonly id="fileEndTime4" value="3019-1-28">
+                                            </span>
+                                            <tr>
+                                                <td class="opentableleft"><span class="STYLE1">*</span>身份证号码：</td>
+                                                <td><span class="openstxt">
+                                                        <input readonly="true" name="IDcardNumber" type="text" id="fileNumber5" value="$!auth.iDcardNumber" /> </span>
+                                                </td>
+                                                <td><span class="c_red" id="span_username"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="opentableleft"><span class="STYLE1">*</span>身份证有效截止日期：</td>
+                                                <td style="width:200px;"><span class="openstxt">
+                                                        <input readonly="true" name="EndIDcardDate" type="text" readonly id="fileEndTime5" value="$!auth.endIDcardDate" /></span>
+                                                    #if($!endIDcardDatetitle)
+                                                    <span style="color:#f00;">$!endIDcardDatetitle</span>
+                                                    #end
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="opentableleft"><span class="STYLE1">*</span>税号：</td>
+                                                <td><span class="openstxt">
+                                                        <input readonly="true" name="DutyParagraph" type="text" value="$!auth.dutyParagraph" /></span></td>
+                                            </tr>
+                                            <input name="Features" value="1" type="hidden"> </input>
+                                            <input id="temiiOpeningStatus" name="temiiOpeningStatus" type="hidden" value="$!auth.temiiOpeningStatus"> </input>
+                                            <input type="hidden" name="userName" value="$!user.userName"></input>
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                <!-- <td class="px10"><span class="setsub">
+												#if($!{authenticationList.size()}<0)
+													<input id="btn" type="submit" value="提交" style="cursor: pointer;" />
+												#else
+													<input id="btn" type="submit" value="提交" style="cursor: pointer;" />
+												#end
+												</span></td> -->
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        $!httpInclude.include("/footer.htm")
+    </div>
+    <script>
+    $("#downloadImgs").click(function() {
+        var imgs = document.getElementsByClassName("bsImg_new")
+        var zip = new JSZip();
+        var file_name = $(".dd").attr('id');
+
+        Array.prototype.forEach.call(imgs, function(item, index) {
+            var img_name = item.getAttribute('alt');
+            var imgdata = getBase64Image($(item).attr('src'));
+            var img_arr = imgdata.split(',');
+            zip.file((index + 1).toString() + '.jpg', img_arr[1], { base64: true });
+
+        })
+        zip.generateAsync({ type: "blob" })
+            .then(function(content) {
+                saveAs(content, "$!{auth.enterpriseName}.zip");
+            });
+
+
+    });
+
+    function getBase64Image(images) {
+        var img = new Image();
+        img.src = images;
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        var ext = img.src.substring(img.src.lastIndexOf(".") + 1).toLowerCase();
+        var dataURL = canvas.toDataURL();
+        return dataURL;
+    }
+    </script>
+</body>
+
+</html>

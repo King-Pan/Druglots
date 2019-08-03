@@ -1,0 +1,90 @@
+ul li{
+			list-style:none;
+		}
+		.none {
+			display: none;
+		}
+		input[type="file"]:focus {
+			outline: none;
+		}
+		.list-adv>li{
+			margin-top:10px;
+			position:relative;
+		}
+		.list-adv>li>input{
+			position:absolute;
+			top:15px;
+			width:115px;
+			height:115px;
+			opacity:0;
+		}
+		.list-adv>li>input+img{
+			border:2px dotted #ccc;
+			padding:25px;
+		}
+		.list-adv>li>img+img{
+			width:100px;
+		}
+		.colorP{
+			color:#FF9966;
+			font-weight:bold;
+			padding:10px 0;
+			font-size:15px;
+		}
+		ol{
+			padding-left:0;
+		}
+		.clause{
+			margin-top:20px;
+			padding-left:15px;
+			margin-bottom:20px;
+			position:relative;
+		}
+		.clause>a{
+			position:absolute;
+			text-decoration:underline;
+		}
+		.clause>p{
+			position:absolute;
+			top:-15px;
+			left:430px;
+			width:200px;
+			background:#fff;
+			border:1px solid #333;
+			padding:20px 20px 20px 5px;
+			display:none;
+		}
+		.clause>p>span{
+			position:absolute;
+			right:0;
+			top:0;
+			padding:3px;
+			border-bottom:1px solid #ccc;
+			border-left:1px solid #ccc;
+			color:#ccc;
+			cursor:pointer;
+		}
+		.btnGroup{
+			margin-left:25%;
+			margin-top:100px;
+		}
+		.cancelBtn,.submitBtn{
+			border:none;
+			border-radius:5px;
+			padding:8px 30px;
+			color:#fff;
+			margin-right:20px;
+			margin-left:15px;
+		}
+		.cancelBtn{
+			background:#CCCCCC;
+		}
+		.submitBtn {
+			background:#FF9933;
+		}
+        .list-adv>li>img+img.imgStyle{
+            width:160px;
+        }
+        input[type=file] {
+    display: block;
+}

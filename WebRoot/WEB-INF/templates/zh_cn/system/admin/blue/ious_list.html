@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
+<script>
+   $(function(){
+     function number(){
+          for(var i=0;i< $(".numberClass").length;i++){
+	      $(".numberClass").get(i).innerHTML = i+1;
+          }
+     }
+     number();
+});
+</script>
+</head>
+<body>
+<div class="cont">
+  <h1 class="seth1">白条认证管理</h1>
+  <div class="settab"><span class="tab-one"></span> <span class="tabs"> <a href="$!webPath/admin/ious_list.htm"  class="this">白条资料列表</a></span></div>
+    <form action="" method="post" name="ListForm" id="ListForm">
+  <div class="leveltable">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="level_table">
+      <tr style="background: #if($!config.websiteCss=='blue') #2A7AD2 #end 
+      #if($!config.websiteCss=='black')#333 #end; height:30px; color:#FFF">
+        <td colspan="2">&nbsp;</td>        
+        <td width="10%" >序号</td>
+        <td width="10%" >用户名称</td>
+        <td width="10%">营业执照号码</td>
+        <td width="10%">药品经营许可证号码</td>
+        <td width="10%">gsp证书号码</td>
+        <td width="10%">采购委托书号码</td>
+        <td width="10%">身份证号码</td>
+        <td width="10%">对公账号</td>
+        <td width="10%">审核状态</td>
+        <td width="20%">操作</td>
+      </tr>
+	  #foreach($obj in $objs)
+      <tr>
+        <td colspan="2"><input type="checkbox" name="checkbox" id="checkbox" value="$!obj.id" /></td>
+        <td><span class="numberClass"></span></td>
+        <td>$!{obj.userName}</td>
+        <td>$!{obj.businessLicense}</td>
+        <td>$!{obj.drugNumber}</td>
+        <td>$!{obj.gSPNumber}</td>
+        <td>$!{obj.purchaseNumber}</td>
+        <td>$!{obj.iDcardNumber}</td>
+        <td>$!{obj.publicAccount}</td>
+        <td>
+        	#if($!{obj.temiiOpeningStatus}==1)
+		  		未开通
+			#end
+			#if($!{obj.temiiOpeningStatus}==0)
+		  		审核中
+			#end	
+			#if($!{obj.temiiOpeningStatus}==2)
+		  		审核通过
+			#end
+			#if($!{obj.temiiOpeningStatus}==3)
+		  		审核失败
+			#end
+        </td>
+        <td class="ac9"><a href="$!webPath/admin/queryIous.htm?id=$!obj.id">查询详情</a></td>
+      </tr>
+      #end
+      <tr>
+        <td align="center"><input type="checkbox" name="all" id="all" value="" onclick="selectAll(this)"/>
+          <input name="mulitId" type="hidden" id="mulitId" /></td>
+        <td colspan="2" class="bdel">
+		<span class="sp1">全部</span><span class="sp2">
+          <div class="shop_btn_del shopbtn">
+            <input name="" type="button" value="删除" onclick="cmd('$!webPath/admin/ious_del.htm');" style="cursor:pointer;" />
+          </div>
+          </span>		  </td>
+        <td colspan="7"></td>
+      </tr>
+    </table>
+  </div>
+  <div class="fenye" align="right">
+       <span id="queryCondition" style="display:none">
+		   #foreach($sm in $sms)
+     <input name="$!sm.key" id="$!sm.key" type="hidden" value="$!sm.value"/>
+		   #end
+	 </span>
+	   <input name="currentPage" type="hidden" id="currentPage" value="$!currentPage" />
+	   $!gotoPageFormHTML </div>
+  </form>
+</div>
+</body>
+</html>

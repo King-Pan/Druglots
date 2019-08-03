@@ -1,0 +1,51 @@
+<!DOCTYPE html> 
+
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Mini Ajax File Upload Form</title> 
+    </head>
+
+<script type="text/javascript">
+  //获取token
+var upload_album_id = parent.window.document.getElementById("upload_album_id").value;   
+     
+ window.
+</script>
+<body>
+<form action="$!webPath/seller/swf_upload.htm" method="post" id="theForm">
+<table style="float:left;" width="100%" border="0" cellspacing="0" cellpadding="0" class="box_table">
+    <tr>
+      <td width="120" align="right" class="hui_table"><input name="id" type="hidden" id="id" value="$!obj.id" />
+      上传至：</td>
+      <td align="left"><span class="dia_txt">
+         <select name="upload_album_id" id="upload_album_id">
+            <!--  #foreach($obj in $objs) -->
+             <option value="1">默认相册</option>
+             <option value="2">2018</option>
+             <!-- #end -->
+            </select>
+      </span></td>
+    </tr>
+    <tr id="img_select_info" style="display:none;">
+      <td align="right" class="hui_table">图片信息：</td>
+      <td align="left"><span id="img_desc_info"></span></td>
+    </tr>
+    <tr>
+      <td width="120" align="right" class="hui_table">选择图片：</td>
+      <td align="left"><span id="upload_imgs"> <input type="file" id="file"  multiple/> </span></td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><span class="inputbtn">
+        <input type="submit" value="上传" style="cursor:pointer;" onclick="doUpload()"/>
+        <img src="$!webPath/resources/style/common/images/wait.gif" style="display:none;" id="upload_wait" />
+        <input name="currentPage" type="hidden" id="currentPage" value="$!currentPage" />
+        </span></td>
+    </tr>
+  </table>
+</form>
+
+       
+
+    </body>
+</html>

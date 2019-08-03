@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>采购关系审核- Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+<meta name="copyright" content="wemall Inc. All Rights Reserved">
+<link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/common/css/overlay.css" type="text/css" rel="stylesheet" />
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+
+</head>
+<style>
+ #opertitle{
+    text-align:center;
+}
+	
+	/* 弹出框样式 */
+	.clear-float::after {content: ""; display: block; clear: both;}
+	#wrap {position: fixed; z-index: 10000; top: 0; bottom: 0; left: 0; right: 0; background-color: rgba(0, 0, 0, .4); display: none;}
+	#wrap .zw-position {position: relative; width: 100%; height: 100%;}
+	#wrap .zw-position .zw-content {position: absolute; top: 100px; left: calc(50% - 130px); background-color: #fff; border-radius: 8px;}
+	#wrap .zw-position .zw-content .zw-head {padding: 10px; border-bottom: 1px solid #dedede;}
+	#wrap .zw-position .zw-content .zw-head div.zw-text {font-weight: 700; font-size: 18px; color: #90B6E3; float: left;}
+	#wrap .zw-position .zw-content .zw-head div.zw-delete {margin: -11px -3px 0 0; font-weight: bolder; float: right; cursor: pointer; color: #f00;
+		user-select: none;}
+	#wrap .zw-position .zw-content .zw-head div.zw-delete:hover {color: #df0000;}
+	#wrap .zw-position .zw-content .zw-body {padding: 20px 10px; border-bottom: 1px solid #dedede;}
+	#wrap .zw-position .zw-content .zw-body label {font-weight: 500; color: #616161;}
+	#wrap .zw-position .zw-content .zw-body input.zw-back {padding: 5px 10px; border: 1px solid #ccc; border-radius: 4px; min-width: 200px;
+		color: #555; height: 20px;}
+	#wrap .zw-position .zw-content .zw-footer {padding: 15px 10px 10px 10px; height: 30px;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position {position: relative; width: 100%; height: 100%;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn {position: absolute; right: 0;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button {width: 60px; height: 30px;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button {width: 60px; height: 30px; outline: none; border-radius: 4px;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button.zw-cancel {background-color: #dedede; border: 1px solid #a8a8a8; color: #666;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button.zw-cancel:hover {background-color: #cecece;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button.zw-cancel:active {background-color: #a9a9a9;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button.zw-confirm {background-color: #5bc0de; border: 1px solid #46b8da; color: #fff;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button.zw-confirm:hover {background-color: #31b0d5;}
+	#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button.zw-confirm:active {background-color: #269abc;}
+</style>
+
+<script>
+function shenhesave(){
+	$(a).parent().parent().children("td:nth-child(6)").val.style="block";
+
+}
+</script>
+
+<body>
+$!httpInclude.include("/top.htm")
+<div class="main"> $!httpInclude.include("/seller/nav_head.htm")
+  <div class="user_center">
+    <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+      <tr> $!httpInclude.include("/seller/nav.htm?op=Procure_Management")
+        <td id="centerbg" valign="top">
+         <div class="buyer_position"><div class="buyer_p_box"><a href="$!webPath/seller/index.htm">卖家中心</a> > <span>采购关系审核管理</span></div></div>
+        <div class="productmain">
+            <div class="ordernav">
+              <ul class="orderul">                
+                <li class="this"><a href="$!webPath/buyer/PurchaseRelation_list.htm?state=audit">采购关系审核</a></li>
+              </ul>
+            </div>
+            <div class="ordercon">
+              <div class="addnav">
+                <form action="$!webPath/buyer/addPurchaseRelation.htm" method="post" name="theForm" id="theForm">
+                  <table width="990" border="0" cellspacing="0" cellpadding="0" id="opertable" >
+                  
+                  <!-- 卖家   店铺 -->
+                  <tr id="opertitle">
+                      <td width="10%" align="center">序号</td>
+                      <td width="10%" align="center">买家名称</td>
+                      <td width="10%" align="center">审核时间</td>
+                      <td width="10%" align="center">审核状态</td>
+                      <td width="10%" align="center">详情</td>
+                      <td width="10%" align="center">操作</td>
+                  </tr>
+				   #foreach($obj in $objs)
+                    <tr>
+                      <td width="10%" align="center" style="display:none">$!obj.id</td>
+                      <td width="10%" align="center" style="display:none">$!obj.buyerName</td>   
+                      <td width="10%" align="center">${velocityCount}</td>
+                      <td width="10%" align="center">$!obj.auth</td>
+                      <td width="10%" align="center">$!date.format('yyyy-MM-dd',$!obj.auditAddTime)</td>
+                      <td width="10%" align="center">
+                          #if($!obj.auditStatus==0)
+                          	审核中
+                          #end
+                          #if($!obj.auditStatus==1)
+                          	审核通过
+                          #end
+                          #if($!obj.auditStatus==2)
+                          	审核不通过
+                          #end
+                      </td>
+                      <td width="10%" align="center" style="display:none;"><input type="text" value=""/></td>
+                      <td width="10%" align="center"><a href="$!webPath/seller/queryProcuAuthentication.htm?buyerId=$!obj.buyerId" style="color:red">查   看</a></td>
+                      <td width="10%" align="center">
+                      	 #if($!obj.auditStatus==0)
+                          	<a href="$!webPath/buyer/PurchaseRelation_review.htm?id=$!obj.id&auditStatus=1&shopkeeperId=$!obj.buyerName" style="color:#51B11C">审核通过</a><br/><br/>
+                          	<input onclick="backBtn(this)" style="color:red" value="审核不通过" type="button"/>
+                         #end
+                      </td>
+                    </tr>
+                   #end
+                </table>
+                </form>
+              </div>
+            </div>
+          </div></td>
+      </tr>
+    </table>
+  </div>
+  $!httpInclude.include("/footer.htm")
+</div>
+<!-- 弹出框 -->
+<div id="wrap">
+	<div class="zw-position">
+		<div class="zw-content">
+			<div class="zw-head clear-float">
+				<div class="zw-text">请填写驳回理由</div>
+				<div class="zw-delete" onclick="cancelBtn()">x</div>
+			</div>
+			<div class="zw-body">
+				<div class="zw-inner">
+					<div class="err-info" style="color: #f00; padding-left: 100px; margin-bottom: 5px; font-size: 14px;"></div>
+					<input type="hidden" name="data-id">
+					<label for="go-back">驳回： </label>
+					<input class="zw-back" type="text" name="back-reason" id="go-back">
+				</div>
+			</div>
+			<div class="zw-footer">
+				<div class="zw-btn-position">
+					<div class="zw-btn">
+						<button class="zw-cancel" onclick="cancelBtn()">取消</button>
+						<!--<a href='$!webPath/updnotpass.htm?storeId=$!zl.storeId'>-->
+						<button class="zw-confirm" onclick="reBack()">确定</button>
+						<!--</a>-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	let trDom = null;
+	function cancelBtn() {
+		jQuery('#wrap').css('display', 'none');
+		jQuery('.err-info:eq(0)').html('');
+		jQuery("input[name=back-reason]").val("");
+
+	}
+	function backBtn(self) {
+		jQuery('#wrap').css('display', 'block');
+		trDom = jQuery(self).parent().parent();
+	}
+	function reBack() {
+		let inputDom = jQuery("input[name=back-reason]");
+		let id = $('#opertable tr:eq(1) td:eq(0)').html();
+		let shopkeeperId = $('#opertable tr:eq(1) td:eq(1)').html();
+		let refReason = inputDom.val().trim();
+		if (refReason != "") {
+			jQuery.ajax({
+				url: "$!webPath/buyer/PurchaseRelation_review.htm",
+				type: "post",
+				data: {
+					"zhcause": refReason,	
+					"id": id,
+					"auditStatus": 2,
+					"shopkeeperId":shopkeeperId,
+				},
+				success(args) {
+					jQuery("#wrap").css("display", "none");
+					jQuery(".err-info:eq(0)").html("");
+					inputDom.val("");
+					alert("操作成功！");
+					trDom.remove();
+				}
+			});
+
+		} else {
+			inputDom.focus();
+			jQuery(".err-info:eq(0)").html("驳回理由不能为空！");
+		}
+	}
+</script>
+</body>
+</html>

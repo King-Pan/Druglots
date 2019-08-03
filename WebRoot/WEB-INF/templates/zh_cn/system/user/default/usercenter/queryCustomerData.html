@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>客户药房资料 - Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+<meta name="copyright" content="wemall Inc. All Rights Reserved">
+<link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/common/css/overlay.css" type="text/css" rel="stylesheet" />
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+
+</head>
+<script>
+ $(function(){
+     function number(){
+     var page=$("#currentPage").val();
+     if(page == 1){
+      for(var i=0;i< $(".numberClass").length;i++){
+	      $(".numberClass").get(i).innerHTML = i+1;
+          }
+
+     }else{
+     for(var i=0;i< $(".numberClass").length;i++){
+	      $(".numberClass").get(i).innerHTML = i+(page-1)*12+1;
+          }
+     }
+
+     }
+     number();
+});
+</script>
+<style>
+ #opertitle{
+    text-align:center;
+}
+
+</style>
+<body>
+$!httpInclude.include("/top.htm")
+<div class="main"> $!httpInclude.include("/seller/nav_head.htm")
+  <div class="user_center">
+    <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+      <tr> $!httpInclude.include("/seller/nav.htm?op=client_management")
+        <td id="centerbg" valign="top">
+         <div class="buyer_position"><div class="buyer_p_box"><a href="$!webPath/seller/index.htm">卖家中心</a> > <span>客户药房资料</span></div></div>
+        <div class="productmain">
+            <div class="ordernav">
+              <ul class="orderul">
+                <li><a href="$!webPath/seller/client_management.htm">首营资料信息</a></li>
+                <li class="this"><a href="$!webPath/seller/queryCustomerData.htm">客户药房信息</a></li>
+                <li><a href="$!webPath/seller/DataImport.htm">药房资料导入</a></li>
+                <li><a href="$!webPath/seller/relatedAccount.htm?seek=1">关联客户经理信息</a></li>
+              </ul>
+            </div>
+            <div class="ordercon">
+              <form method="post" name="ListForm" id="ListForm" action="$!webPath/seller/queryCustomerData.htm">
+                <div class="operation">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0" id="opertable" >
+                    <tr id="opertitle">
+                      <td width="6%">序号</td>
+                      <td width="8%">用户名称</td>
+                      <td width="10%">客户名称</td>
+                      <td width="10%">药房名称</td>
+                      <td width="10%">药房地址</td>
+                      <td width="10%">营业执照</td>
+                      <td width="10%">药品经营许可证</td>
+                      <td width="10%">GSP证</td>
+ <!--                      <td width="10%">采购委托书</td> -->
+                      <td width="16%">身份证号码</td>
+                    </tr>
+                     #foreach($obj in $objs)
+                    <tr id="opertitle">
+                       <td class="numberClass"></td>
+                       <td>$!obj.userName</td>
+                       <td>$!obj.auth</td>
+                       <td>$!obj.pharmacyName</td>
+                       <td>$!obj.pharmacyAddress</td>
+                       <td>$!obj.business</td>
+                       <td>$!obj.DrugDistributionLicense</td>
+                       <td>$!obj.GSPCertificate</td>
+  <!--                      <td>$!obj.PurchaseOrder</td> -->
+                       <td>$!obj.IdCard</td>
+                    </tr>
+                    #end
+                  </table>
+                </div>
+                <input id="currentPage" name="currentPage" type="hidden" value="$!currentPage"/>
+                <input id="type" name="type" type="hidden" value="$!type"/>
+    		  	<div class="alldel">
+                <div  class="userfenye">
+                  $!gotoPageFormHTML</div>
+              </div>
+
+              </form>
+
+            </div>
+          </div></td>
+      </tr>
+    </table>
+  </div>
+  $!httpInclude.include("/footer.htm")
+</div>
+</body>
+</html>

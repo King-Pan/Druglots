@@ -1,0 +1,496 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>买家赊销管理-$!{config.title}-Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+	<meta name="copyright" content="wemall Inc. All Rights Reserved">
+		<link
+			href="$!webPath/resources/style/system/front/default/css/public.css"
+			type="text/css" rel="stylesheet" />
+		<link
+			href="$!webPath/resources/style/system/front/default/css/user.css"
+			type="text/css" rel="stylesheet" />
+		<link href="$!webPath/resources/style/common/css/overlay.css"
+			type="text/css" rel="stylesheet" />
+		<link href="$!webPath/resources/js/theme/default/laydate.css"
+			type="text/css" rel="stylesheet" />
+		<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+		<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+		<script src="$!webPath/resources/js/laydate.js"></script>
+		<style>
+/* 弹出框样式 */
+.clear-float::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+#wrap {
+	position: fixed;
+	z-index: 10000;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, .4);
+	display: none;
+}
+
+#wrap .zw-position {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#wrap .zw-position .zw-content {
+	position: absolute;
+	top: 100px;
+	left: calc(50% - 130px);
+	background-color: #fff;
+	border-radius: 8px;
+}
+
+#wrap .zw-position .zw-content .zw-head {
+	padding: 10px;
+	border-bottom: 1px solid #dedede;
+}
+
+#wrap .zw-position .zw-content .zw-head div.zw-text {
+	font-weight: 700;
+	font-size: 18px;
+	color: #90B6E3;
+	float: left;
+}
+
+#wrap .zw-position .zw-content .zw-head div.zw-delete {
+	margin: -11px -3px 0 0;
+	font-weight: bolder;
+	float: right;
+	cursor: pointer;
+	color: #f00;
+	user-select: none;
+}
+
+#wrap .zw-position .zw-content .zw-head div.zw-delete:hover {
+	color: #df0000;
+}
+
+#wrap .zw-position .zw-content .zw-body {
+	padding: 20px 10px;
+	border-bottom: 1px solid #dedede;
+}
+
+#wrap .zw-position .zw-content .zw-body label {
+	font-weight: 500;
+	color: #616161;
+}
+
+#wrap .zw-position .zw-content .zw-body input.zw-back {
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	min-width: 200px;
+	color: #555;
+	height: 20px;
+}
+
+#wrap .zw-position .zw-content .zw-footer {
+	padding: 15px 10px 10px 10px;
+	height: 30px;
+}
+
+#wrap .zw-position .zw-content .zw-footer .zw-btn-position {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn {
+	position: absolute;
+	right: 0;
+}
+
+#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button
+	{
+	width: 60px;
+	height: 30px;
+}
+
+#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button
+	{
+	width: 60px;
+	height: 30px;
+	outline: none;
+	border-radius: 4px;
+}
+
+#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button.zw-cancel
+	{
+	background-color: #dedede;
+	border: 1px solid #a8a8a8;
+	color: #666;
+}
+
+#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button.zw-cancel:hover
+	{
+	background-color: #cecece;
+}
+
+#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button.zw-cancel:active
+	{
+	background-color: #a9a9a9;
+}
+
+#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button.zw-confirm
+	{
+	background-color: #5bc0de;
+	border: 1px solid #46b8da;
+	color: #fff;
+}
+
+#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button.zw-confirm:hover
+	{
+	background-color: #31b0d5;
+}
+
+#wrap .zw-position .zw-content .zw-footer .zw-btn-position .zw-btn button.zw-confirm:active
+	{
+	background-color: #269abc;
+}
+
+#test1 {
+	width: 190px;
+}
+</style>
+<script>
+    $(function() {
+    function number() {
+        var page = $("#currentPage").val();
+        if (page == 1) {
+            for (var i = 0; i < $(".numberClass").length; i++) {
+                $(".numberClass").get(i).innerHTML = i + 1;
+            }
+
+        } else {
+            for (var i = 0; i < $(".numberClass").length; i++) {
+                $(".numberClass").get(i).innerHTML = i + (page - 1) * 12 + 1;
+            }
+        }
+
+    }
+    number();
+});
+</script>
+</head>
+
+<body>
+	$!httpInclude.include("/top.htm")
+	<div class="main">
+		$!httpInclude.include("/buyer/head.htm")
+		<div class="user_center">
+			<table width="1200" border="0" cellspacing="0" cellpadding="0"
+				class="user_table">
+				<tr>
+					$!httpInclude.include("/buyer/account_nav.htm?op=Charge")
+					<td id="centerbg" valign="top">
+						<div class="buyer_position">
+							<div class="buyer_p_box">
+								<a href="$!webPath/buyer/account.htm">我的账户</a> > <span>赊销管理</span>
+								> <span>还款详情</span>
+							</div>
+						</div>
+						<div class="productmain">
+							<div class="ordernav">
+								<ul class="orderul">
+									<li><a
+										href="$!webPath/buyer/buyer_charge_sales_wallet.htm">赊销钱包</a></li>
+									<li><a href="$!webPath/buyer/buyer_my_charge_sales.htm">我的赊销</a></li>
+									<li><a
+										href="$!webPath/buyer/buyer_charge_sales_amount_granted.htm?flag=save"">申请赊销</a></li>
+									<li class="this"><a
+										href="$!webPath/buyer/buyer_charge_sales_check.htm">赊销审核</a></li>
+									<li id="ssdd"><a
+										href="$!webPath/buyer/buyer_charge_sales_order.htm?twoStatus=1">赊销订单</a></li>
+								</ul>
+							</div>
+							<div class="ordercon">
+								<div class="addnav">
+									<form method="post"
+										action="$!webPath/buyer/buyer_charge_sales_check.htm">
+										<div class="seInput seInput2  seInput3 totalPart clearfix">
+											<div class="everyPart">
+												<div class="leftPart">商家名称：</div>
+												<div class="rightPart">
+													<input type="text" name="enterpriseName">
+												</div>
+											</div>
+											<div class="everyPart">
+												<div class="leftPart">商家编码：</div>
+												<div class="rightPart">
+													<input type="text" name="sellerId" disabled="disabled">
+												</div>
+											</div>
+											<div class="everyPart">
+												<div class="leftPart">申请期限：</div>
+												<div class="rightPart">
+													<input type="text" id="test1" name="startTime">
+												</div>
+											</div>
+											<div class="everyPart">
+												<div class="leftPart">审核状态：</div>
+												<div class="rightPart">
+													<select name="zstatus" id="buyerId"
+														style="height: 26px; font-size: 14px;">
+														<option value="">请选择</option>
+														<option value="1">未申请</option>
+														<option value="2">待审核</option>
+														<option value="3">已授额</option>
+														<option value="4">已驳回</option>
+														<option value="5">待线下核实</option>
+														<option value="6">待上传合同</option>
+														<option value="7">已关闭</option>
+													</select>
+												</div>
+											</div>
+											<div class="everyPart">
+												<div class="leftPart">审核额度：</div>
+												<div class="rightPart">
+													<input type="text" name="buyerCombination">
+												</div>
+											</div>
+										</div>
+										<div class="btn-box">
+											<input class="apply-button"
+												style='background-color: #09F; border: 1px solid #09F;'
+												type="submit" value="查询" />
+											<button class="apply-button"
+												style='background-color: #fff; border: 1px solid #999; color: #666'
+												type="reset" value="重置">重置</button>
+										</div>
+									</form>
+									<div id="bigbox">
+										<div id="tablebox">
+											<form action="" method="post" name="ListForm" id="ListForm">
+												<table width="150%" border="0" cellspacing="0"
+													cellpadding="0">
+													<tr style="background-color: #2A7AD2; height: 30px;"
+														class="yyyy">
+														<td style="color: white;">序号</td>
+														<td style="color: white;">商家名称</td>
+														<td style="color: white;">商家编码</td>
+														<td style="color: white;">申请日期</td>
+														<td style="color: white;">申请期限</td>
+														<td style="color: white;">申请额度（元）</td>
+														<td style="color: white;">审核状态</td>
+														<td style="color: white;">附件</td>
+														<td style="color: white;">操作</td>
+													</tr>
+													#foreach($!obj in $!objs)
+													<tr class="zzzz">
+													    <td class="numberClass"></td>
+														#if($!obj.authString)
+														<td>$!obj.authString</td>
+														<td></td>
+														<td>$!date.format('yyyy-MM-dd',$!obj.startTime)</td>
+														<td>$!date.format('yyyy-MM-dd',$!obj.startTime) 至
+															$!date.format('yyyy-MM-dd',$!obj.monthClean)</td>
+														<td>$!obj.buyerCombination元</td> #if($!obj.zstatus==2)
+														<td>审核中</td> #elseif($!obj.zstatus==3)
+														<td>已授额</td> #elseif($!obj.zstatus==4)
+														<td>已驳回</td> #elseif($!obj.zstatus==5)
+														<td>待线下核实</td> #elseif($!obj.zstatus==6)
+														<td>待上传合同</td> #elseif($!obj.zstatus==7)
+														<td>已关闭</td> #else
+														<td></td> #end #if($!obj.fileUrl)
+														<td><a href="$!webPath$!obj.fileUrl">附件 </a></td> #else
+														<td>--</td> #end #if($!obj.zstatus==2)
+														<td><a href="javascript:">--</a></td>
+														#elseif($!obj.zstatus==3)
+														<td><a href="javascript:">--</a></td>
+														#elseif($!obj.zstatus==4)
+														<td><a href="javascript:"
+															onclick="openTc('bhly',$!obj.refReason)">驳回理由</a></td>
+														#elseif($!obj.zstatus==5)
+														<td><a href="javascript:">--</a></td>
+														#elseif($!obj.zstatus==6)
+														<td><a href="javascript:"
+															onclick="openTc('uploadHt')">--</a></td>
+														#elseif($!obj.zstatus==7)
+														<td><a href="javascript:">--</a></td> #else
+														<td><a href="javascript:">&nbsp;</a></td> #end #end
+													</tr>
+													#end
+												</table>
+												<input id="currentPage" name="currentPage" type="hidden"
+													value="$!currentPage" /> <input id="type" name="type"
+													type="hidden" value="$!type" />
+												<div class="alldel">
+													<div class="userfenye">$!gotoPageFormHTML</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		$!httpInclude.include("/footer.htm")
+	</div>
+	<!-- 弹窗上传合同 -->
+	<!-- <div id="black-bg"> -->
+	<div id="tc-box" style="top: 250px">
+		<h1 onclick="closeTc()">x</h1>
+		<div id="uploadHt">
+			<div class="seInput seInput2 clearfix">
+				<div class="fl-part">
+					<p>
+						<span>客户名称：</span>
+					</p>
+					<p>
+						<span>客户编码：</span>
+					</p>
+					<p>
+						<span>授额期限：</span>
+					</p>
+					<p>
+						<span>赊销额度：</span>
+					</p>
+					<p>
+						<span>出账日：</span>
+					</p>
+					<p>
+						<span>最后还款日：</span>
+					</p>
+					<p>
+						<span>逾期日息：</span>
+					</p>
+					<p>
+						<span>上传合同：</span>
+					</p>
+				</div>
+				<div class="fr-part fr-part2">
+					<p>
+						<span>大大大药房</span>
+					</p>
+					<p>
+						<span>HW67836283463</span>
+					</p>
+					<p>
+						<span><input type="text" name=""></span><span
+							class="textOne">年</span>
+					</p>
+					<p>
+						<span><input type="text" name=""></span><span
+							class="textOne">元</span>
+					</p>
+					<p>
+						<span><input type="text" name=""></span><span
+							class="textOne">日</span>
+					</p>
+					<p>
+						<span><input type="text" name=""></span><span
+							class="textOne">日</span>
+					</p>
+					<p>
+						<span><input type="text" name=""></span><span
+							class="textOne">%</span>
+					</p>
+					<p>
+						<span><input type="file" name=""></span>
+					</p>
+				</div>
+			</div>
+			<button class="ht-sub" onclick="">提交</button>
+		</div>
+		<div id="backLy">
+			<div class="seInput seInput2 clearfix">
+				<div class="fl-part">
+					<p>
+						<span>原因：</span>
+					</p>
+				</div>
+				<div class="fr-part">
+					<p>
+						<textarea name="" resize="no"></textarea>
+					</p>
+				</div>
+			</div>
+			<button class="back-sub" onclick="">确认</button>
+		</div>
+		<div id="bhly">
+			<div class="seInput seInput2 clearfix">
+				<div class="fl-part">
+					<p>
+						<span>原因：</span>
+					</p>
+				</div>
+				<div class="fr-part">
+					<p>
+						<textarea resize="no" class="refReason" disabled></textarea>
+					</p>
+				</div>
+			</div>
+			<button class="back-sub" onclick="closeTc()">关闭</button>
+		</div>
+		<div id="isSh">
+			<div class="seInput seInput2 clearfix">
+				<p>
+					<input type="radio" name="isPass"><span>通过</span> <input
+						type="radio" name="isPass"><span>不通过</span>
+				</p>
+			</div>
+			<button class="sh-sub" onclick="">确认</button>
+		</div>
+	</div>
+	<!-- </div> -->
+	<script>
+    jQuery("#ssdd").click(function() {
+        localStorage.removeItem('value')
+        jQuery("#orderTab li").removeClass('this')
+        jQuery("#sx-box").show().siblings().hide();
+
+    })
+
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#test1' //指定元素
+            ,
+        range: true
+    });
+
+    function closeTc() {
+        jQuery("#tc-box").hide();
+        jQuery("#uploadHt").hide();
+        jQuery("#backLy").hide();
+        jQuery("#isSh").hide();
+        jQuery("#bhly").hide();
+    }
+
+    function openTc(e, reason) {
+        if (reason && reason != "") {
+            jQuery(".refReason").val(reason);
+        }
+        jQuery("#tc-box").show();
+        jQuery("#" + e).show();
+    }
+
+
+
+    function cancelBtn() {
+        jQuery('#wrap').css('display', 'none');
+        jQuery('.err-info:eq(0)').html('');
+        jQuery("input[name=back-reason]").val("");
+
+    }
+    </script>
+</body>
+
+</html>

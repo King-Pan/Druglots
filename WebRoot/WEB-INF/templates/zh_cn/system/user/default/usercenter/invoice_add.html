@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>发票管理-$!{config.title}-Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+<meta name="copyright" content="wemall Inc. All Rights Reserved">
+<link href="$!webPath/resources/style/system/front/default/css/public.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/system/front/default/css/user.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/system/front/default/css/goods.css" type="text/css" rel="stylesheet" />
+<link  href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css" type=text/css rel=stylesheet>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+<script>
+var flag=true;
+function myCheck()
+{
+   for(var i=0;i<document.theForm.elements.length-1;i++)
+   {
+      if(document.theForm.elements[i].value=="")
+      {
+         alert("当前表单不能有空项");
+         document.theForm.elements[i].focus();
+         flag  = false;
+      }else{
+       flag  = true;
+      }
+   }
+   var obj=$("#taxnumber").val();
+   jQuery.ajax({
+ 		    type:'POST',
+ 		    async: false,
+ 		    url:'$!webPath/buyer/invoice_insert_checknum.htm',
+ 		    data:{'invoice':obj},
+ 		    success:function(data){
+ 		           if(data==1){
+ 		           alert("税号不可重复");
+ 		           flag = false;
+ 		           }else{
+       flag  = true;
+      }
+ 		          }
+ 		})
+ 		alert(flag)
+ 		return flag;
+}
+</script>
+</head>
+
+<style type="text/css">
+.openstxt>input{
+width:220px;
+}
+.openstxt{
+width:800px;
+}
+.STYLE1 {color: #FF0000}
+</style>
+<body>
+$!httpInclude.include("/top.htm")
+<div class="main">
+  $!httpInclude.include("/buyer/head.htm")
+  <div class="user_center">
+    <table width="1200" border="0" cellspacing="0" cellpadding="0" class="user_table">
+      <tr>
+        $!httpInclude.include("/buyer/account_nav.htm?op=invoice")
+        <td id="centerbg" valign="top">
+        <div class="buyer_position"><div class="buyer_p_box"><a href="$!webPath/buyer/account.htm">我的账户</a> > <span>发票修改</span></div></div>
+        <div class="productmain">
+
+            <div class="ordercon">
+              <div class="operation">
+                <form action="$!webPath/buyer/invoice_insert.htm"  method="post" onSubmit="return myCheck()" name="theForm" id="theForm"  enctype="multipart/form-data">
+                  <table width="800" border="0" cellspacing="0" cellpadding="0" class="addnavtable">
+
+<!--                      <tr>
+                       <td class="opentableleft"><span class="STYLE1">*</span>发票抬头：</td>
+                	  <td><span class="openstxt"> -->
+                 			<input name="rise" type="hidden" value="1">
+                <!-- 		  </span>
+                	  </td>
+                    </tr> -->
+                    <tr>
+                       <td class="opentableleft"><span class="STYLE1">*</span>公司名称：</td>
+                	  <td><span class="openstxt">
+                 			<input name="company" type="text" >
+                		  </span>
+                	  </td>
+                    </tr>
+
+                    <tr>
+                       <td class="opentableleft"><span class="STYLE1">*</span>公司地址：</td>
+                	  <td><span class="openstxt">
+                 			<input name="comaddress" type="text" >
+                		  </span>
+                	  </td>
+                    </tr>
+
+                    <tr>
+                       <td class="opentableleft"><span class="STYLE1">*</span>公司号码：</td>
+                	  <td><span class="openstxt">
+                 			<input name="comphone" type="text" >
+                		  </span>
+                	  </td>
+                    </tr>
+
+                    <tr>
+                       <td class="opentableleft"><span class="STYLE1">*</span>税号：</td>
+                	  <td><span class="openstxt">
+                 			<input name="taxnumber" id="taxnumber" type="text" >
+                		  </span>
+                	  </td>
+                    </tr>
+
+                    <tr>
+                       <td class="opentableleft"><span class="STYLE1">*</span>开户银行：</td>
+                	  <td><span class="openstxt">
+                 			<input name="bank" type="text" >
+                		  </span>
+                	  </td>
+                    </tr>
+
+                    <tr>
+                       <td class="opentableleft"><span class="STYLE1">*</span>银行账户：</td>
+                	  <td><span class="openstxt">
+                 			<input name="bankaccount" type="text" >
+                		  </span>
+                	  </td>
+                    </tr>
+                     <input name="mark" type="hidden" value="1">
+                    <input name="name" type="hidden" value="$!user.userName">
+
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td class="px10"><span class="setsub">
+                        <input id="btn" type="submit"   value="提交" style="cursor:pointer;"/>
+                        </span></td>
+                    </tr>
+
+                  </table>
+                </form>
+              </div>
+              <div class="alldel">
+                <div  class="userfenye">$!gotoPageHTML</div>
+              </div>
+            </div>
+      </tr>
+    </table>
+  </div>
+   $!httpInclude.include("/footer.htm")
+</div>
+</body>
+</html>

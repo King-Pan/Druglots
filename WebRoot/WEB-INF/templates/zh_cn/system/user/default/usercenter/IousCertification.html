@@ -1,0 +1,562 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>白条认证-$!{config.title}-Powered by Druglots</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="wemall 2.0" />
+<meta name="author" content="www.wemall.com">
+	<meta name="copyright" content="wemall Inc. All Rights Reserved">
+		<link
+			href="$!webPath/resources/style/system/front/default/css/public.css"
+			type="text/css" rel="stylesheet" />
+		<link
+			href="$!webPath/resources/style/system/front/default/css/user.css"
+			type="text/css" rel="stylesheet" />
+		<link
+			href="$!webPath/resources/style/system/front/default/css/goods.css"
+			type="text/css" rel="stylesheet" />
+		<link
+			href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css"
+			type=text/css rel=stylesheet>
+			<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+			<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+			<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+			<script src="$!webPath/resources/js/verify_IousCertification.js"></script>
+			<script src="$!webPath/resources/js/zw.verify2.js"></script>
+			<SCRIPT src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></SCRIPT>
+			<LINK rel=stylesheet href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+			<SCRIPT src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></SCRIPT>
+			<script>
+
+
+
+
+
+				/* jQuery(document).ready(function() {
+					jQuery('#fileEndTime1').datepicker({
+						dateFormat : "yy-mm-dd",
+						changeMonth : true,
+						changeYear : true
+					});
+					jQuery('#fileEndTime2').datepicker({
+						dateFormat : "yy-mm-dd",
+						changeMonth : true,
+						changeYear : true
+					});
+					jQuery('#fileEndTime3').datepicker({
+						dateFormat : "yy-mm-dd",
+						changeMonth : true,
+						changeYear : true
+					});
+					jQuery('#fileEndTime4').datepicker({
+						dateFormat : "yy-mm-dd",
+						changeMonth : true,
+						changeYear : true
+					});
+					jQuery('#fileEndTime5').datepicker({
+						dateFormat : "yy-mm-dd",
+						changeMonth : true,
+						changeYear : true
+					});
+					jQuery('#fileEndTime6').datepicker({
+						dateFormat : "yy-mm-dd",
+						changeMonth : true,
+						changeYear : true
+					});
+				}); */
+
+/* 		 		function show(f) {
+					var str = "";
+					for (var i = 0; i < f.length; i++) {
+						var reader = new FileReader();
+						reader.readAsDataURL(f[i]);
+						reader.onload = function(e) {
+							$(".bsImg").attr('src', e.target.result);
+						}
+					}
+				}
+				function show2(f2) {
+					var str = "";
+					for (var i = 0; i < f2.length; i++) {
+						var reader = new FileReader();
+						reader.readAsDataURL(f2[i]);
+						reader.onload = function(e) {
+							$(".bsImg2").attr('src', e.target.result);
+						}
+					}
+				}
+				function show3(f3) {
+					var str = "";
+					for (var i = 0; i < f3.length; i++) {
+						var reader = new FileReader();
+						reader.readAsDataURL(f3[i]);
+						reader.onload = function(e) {
+							$(".bsImg3").attr('src', e.target.result);
+						}
+					}
+				}
+				function show4(f4) {
+					var str = "";
+					for (var i = 0; i < f4.length; i++) {
+						var reader = new FileReader();
+						reader.readAsDataURL(f4[i]);
+						reader.onload = function(e) {
+							$(".bsImg4").attr('src', e.target.result);
+						}
+					}
+				}
+				function show5(f5) {
+					var str = "";
+					for (var i = 0; i < f5.length; i++) {
+						var reader = new FileReader();
+						reader.readAsDataURL(f5[i]);
+						reader.onload = function(e) {
+							$(".bsImg5").attr('src', e.target.result);
+						}
+					}
+				}
+				function show6(f6) {
+					var str = "";
+					for (var i = 0; i < f6.length; i++) {
+						var reader = new FileReader();
+						reader.readAsDataURL(f6[i]);
+						reader.onload = function(e) {
+							$(".bsImg6").attr('src', e.target.result);
+						}
+					}
+				}   */
+
+				  window.onload = function () {
+
+				    	var t=$("#temiiOpeningStatus").val();
+				    	if (t=='0' || t=='2') {
+			 				$("#btn").hide();
+			    		} else{
+			    			$("#btn").show();
+			    		}
+
+				    	if ("$!auth.businessLicense"!="") {
+				    		$(".bsImg").attr('src',"$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.businessLicense");
+				    	}
+
+				    	if ("$!auth.drugLicense"!="") {
+				    		$(".bsImg2").attr('src',"$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.drugLicense");
+				    	}
+
+				    	if ("$!auth.gSPCertificate"!="") {
+				    		$(".bsImg3").attr('src',"$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.gSPCertificate");
+				    	}
+
+				    	if ("$!auth.purchaseOrders"!="") {
+				    		$(".bsImg4").attr('src',"$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.purchaseOrders");
+				    	}
+
+				    	if ("$!auth.iDcard"!="") {
+				    		$(".bsImg5").attr('src',"$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.iDcard");
+				    	}
+				    	if ("$!auth.HandIDcard"!="") {
+				    		$(".bsImg6").attr('src',"$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.HandIDcard");
+				    	/* 	$("#btn").attr('value',"修改"); */
+				    	}
+
+
+
+				    }
+			</script>
+</head>
+<style type="text/css">
+.openstxt>input{
+width:220px;
+}
+.openstxt{
+width:800px;
+}
+.STYLE1 {color: #FF0000}
+</style>
+
+<body>
+	$!httpInclude.include("/top.htm")
+	<div class="main">
+		$!httpInclude.include("/buyer/head.htm")
+		<div class="user_center">
+			<table width="1200" border="0" cellspacing="0" cellpadding="0"
+				class="user_table">
+				<tr>
+					$!httpInclude.include("/buyer/account_nav.htm?op=IousCertification")
+					<td id="centerbg" valign="top">
+						<div class="buyer_position">
+							<div class="buyer_p_box">
+								<a href="$!webPath/buyer/account.htm">我的账户</a> > <span>白条认证</span>
+							</div>
+						</div>
+						<div class="productmain">
+
+							<div class="ordercon">
+								<div class="addnav">
+									<form action="http://www.druglots.cn:80/user/login2.htm"
+										onsubmit="return myCheck();" method="post" name="theForm"
+										id="theForm" enctype="multipart/form-data">
+										<table width="800" border="0" cellspacing="0" cellpadding="0"
+											class="addnavtable">
+											 <tr>
+                       <td class="opentableleft"><span class="STYLE1">*</span>企业名称：</td>
+                	  <td><span class="openstxt">
+                	  	#if($!{authenticationList.size()}>0)
+							#foreach($auth in $authenticationList)
+								<input readonly= "true" name="enterpriseName" type="text" id="enterprisename" value="$!auth.enterpriseName"> </span>
+							#end
+						#else
+							<input readonly= "true" name="enterpriseName" type="text" id="enterprisename" value="">
+						#end
+                	    </span>
+                	  </td>
+                     </tr>
+                     <tr>
+                       <td class="opentableleft"><span class="STYLE1">*</span>营业执照注册号：</td>
+                	  <td><span class="openstxt">
+                	   #if($!{authenticationList.size()}>0)
+							#foreach($auth in $authenticationList)
+								<input readonly= "true" name="businesRegsNumber" type="text" id="businesRegsNumber" value="$!auth.businesRegsNumber"> </span>
+							#end
+						#else
+							<input readonly= "true" name="businesRegsNumber" type="text" id="businesRegsNumber" value="">
+						#end
+                		  </span>
+                	  </td>
+                    </tr>
+                    <tr>
+                      <td class="opentableleft"><span class="STYLE1">*</span>所属区域：</td>
+                      <td>
+                        <span class="openstxt" id="xsSSQ">
+                        #if($!{authenticationList.size()}>0)
+							#foreach($auth in $authenticationList)
+								 <input readonly= "true" type="text" value="$!auth.areaId" ></input> </span>
+							#end
+						#else
+							 <input readonly= "true" type="text" value="" ></input>
+						#end
+                        </span>
+                        </td>
+                    </tr>
+                    <tr>
+                     <td class="opentableleft"><span class="STYLE1">*</span>详细街道：</td>
+                	  <td><span class="openstxt">
+                	   #if($!{authenticationList.size()}>0)
+							#foreach($auth in $authenticationList)
+								<input readonly= "true" name="detailedStreet" type="text" id="detailedstreet" value="$!auth.detailedStreet">  </span>
+							#end
+						#else
+							<input readonly= "true" name="detailedStreet" type="text" id="detailedstreet" value="">
+						#end
+                        </span>
+
+                	  </td>
+                	   <td width="363">
+			 			<ol>
+			 				<li>详细街道地址请保持与GSP证书地址一致</li>
+			 			</ol>
+			 		</td>
+                    </tr>
+											<tr>
+												<td class="opentableleft"><span class="STYLE1">*</span>营业执照：</td>
+												<td><span class="openstxt">
+														#if($!{authenticationList.size()}>0)
+														    #foreach($auth in $authenticationList)
+															<img src="$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.businessLicense" alt=""
+															height='70' width='90' class="bsImg"/>
+															#end
+														#else
+														<input readonly= "true" name="file1"
+														type="file" id="file1" onchange="show(this.files)"/>
+															<img src="$!webPath/upload/images/bs.png" alt=""
+															height='70' width='90' class="bsImg"/>
+
+														#end
+															 <img
+																src="$!webPath/upload/images/three.png" alt=""
+																class="imgStyle"/></span></td>
+												<td width="363">
+													<ol>
+														说明：
+														<li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+														<li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+														<li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+													</ol>
+												</td>
+											</tr>
+											<tr>
+												<td class="opentableleft"><span class="STYLE1">*</span>营业执照号码：</td>
+												<td><span class="openstxt">
+												#if($!{authenticationList.size()}>0)
+													#foreach($auth in $authenticationList)
+														<input readonly= "true" name="businessNumber" type="text" id="fileNumber1" value="$!auth.businessNumber"/>
+													#end
+												#else
+													<input readonly= "true" name="businessNumber" type="text" id="fileNumber1" value=""/>
+												#end
+												 </span>
+												</td>
+											</tr>
+											<tr>
+												<td class="opentableleft"><span class="STYLE1">*</span>营业执照有效截止日期：</td>
+												<td style="width:200px;"><span class="openstxt">
+												#if($!{authenticationList.size()}>0)
+													#foreach($auth in $authenticationList)
+														<input readonly= "true" name="EndBusinessDate" type="text" readonly id="fileEndTime1" value="$!auth.endBusinessDate"/></span>
+														#if($!EndBusinessDatetitle)
+															<span style="color:#f00;">$!EndBusinessDatetitle</span>
+														#end
+													#end
+												#else
+													<input readonly= "true" name="EndBusinessDate" type="text" readonly id="fileEndTime1" value=""/></span>
+												#end
+												</td>
+											</tr>
+											<tr>
+												<td class="opentableleft"><span class="STYLE1">*</span>药品经营许可证：</td>
+												<td><span class="openstxt">
+												#if($!{authenticationList.size()}>0)
+													#foreach($auth in $authenticationList)
+														<img src="$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.drugLicense" height='70'
+														width='90' alt="" class="bsImg2"/>
+													 #end
+												#else
+													<input name="file2" readonly= "true"
+														type="file" id="file2" onchange="show2(this.files)" />
+														<img src="$!webPath/upload/images/bs.png" height='70'
+														width='90' alt="" class="bsImg2"/>
+												#end
+														<img src="$!webPath/upload/images/gspz.jpg" alt=""
+															class="imgStyle"/></span></td>
+												<td><ol>
+														说明
+														<li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+														<li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+														<li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+													</ol></td>
+											</tr>
+											<tr>
+												<td class="opentableleft"><span class="STYLE1">*</span>药品经营许可证号码：</td>
+												<td><span class="openstxt">
+												#if($!{authenticationList.size()}>0)
+													#foreach($auth in $authenticationList)
+														<input readonly= "true" name="DrugNumber" type="text" id="fileNumber2" value="$!auth.drugNumber" /></span></td>
+													#end
+												#else
+													<input readonly= "true" name="DrugNumber" type="text" id="fileNumber2" value="$!auth.drugNumber" /></span></td>
+												#end
+											</tr>
+
+											<tr>
+												<td class="opentableleft"><span class="STYLE1">*</span>药品经营许可证有效截止日期：</td>
+												<td style="width:200px;"><span class="openstxt">
+												#if($!{authenticationList.size()}>0)
+													#foreach($auth in $authenticationList)
+														<input readonly= "true"	name="EndDrugDate" type="text" readonly id="fileEndTime2" value="$!auth.endDrugDate"/></span>
+													#end
+													#if($!EndDrugDatetitle)
+														<span style="color:#f00;">$!EndDrugDatetitle</span>
+													#end
+												#else
+													<input readonly= "true"	name="EndDrugDate" type="text" readonly id="fileEndTime2" value="$!auth.endDrugDate"/></span>
+												#end
+												</td>
+											</tr>
+											<tr>
+												<td class="opentableleft"><span class="STYLE1">*</span>GSP证：</td>
+												<td><span class="openstxt">
+												#if($!{authenticationList.size()}>0)
+													#foreach($auth in $authenticationList)
+														<img src="$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.gSPCertificate" alt="" height='70'
+														width='90' class="bsImg3"/>
+													#end
+												#else
+													<input name="file3" readonly= "true"
+														type="file" id="file3" onchange="show3(this.files)" />
+														<img src="$!webPath/upload/images/bs.png" alt="" height='70'
+														width='90' class="bsImg3"/>
+												#end
+														<img src="$!webPath/upload/images/gspz.jpg" alt=""
+															class="imgStyle"/></span></td>
+												<td><ol>
+														说明
+														<li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+														<li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+														<li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+													</ol></td>
+											</tr>
+											<tr>
+												<td class="opentableleft"><span class="STYLE1">*</span>GSP证号码：</td>
+												<td><span class="openstxt">
+												#if($!{authenticationList.size()}>0)
+													#foreach($auth in $authenticationList)
+														<input readonly= "true"	name="GSPNumber" type="text" id="fileNumber3" value="$!auth.gSPNumber"/></span></td>
+													#end
+												#else
+													<input readonly= "true"	name="GSPNumber" type="text" id="fileNumber3" value="$!auth.gSPNumber"/></span></td>
+												#end
+											</tr>
+											<tr>
+												<td class="opentableleft"><span class="STYLE1">*</span>GSP证有效截止日期：</td>
+												<td style="width:200px;"><span class="openstxt">
+												#if($!{authenticationList.size()}>0)
+													#foreach($auth in $authenticationList)
+														<input readonly= "true"	name="EndGSPDate" type="text" readonly id="fileEndTime3" value="$!auth.endGSPDate"/></span>
+														#if($!endGSPDatetitle)
+															<span style="color:#f00;">$!endGSPDatetitle</span>
+														#end
+													#end
+												#else
+													<input readonly= "true"	name="EndGSPDate" type="text" readonly id="fileEndTime3" value=""/></span>
+												#end
+												</td>
+											</tr>
+
+											<tr>
+												<td class="opentableleft"><span class="STYLE1">*</span>上传身份证正面：</td>
+												<td><span class="openstxt">
+												#if($!{authenticationList.size()}>0)
+													#foreach($auth in $authenticationList)
+														<img src="$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.iDcard" alt="" height='70'
+														width='90' class="bsImg5"/>
+													#end
+												#else
+													<input name="file5" readonly= "true"
+														type="file" id="file5" onchange="show5(this.files)" />
+														<img src="$!webPath/upload/images/bs.png" alt="" height='70'
+														width='90' class="bsImg5"/>
+												#end
+														<img src="$!webPath/upload/images/card1.png" alt=""
+															class="imgStyle"/></span></td>
+												<td><ol>
+														说明
+														<li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+														<li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+														<li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+													</ol></td>
+											</tr>
+											<tr>
+												<td class="opentableleft"><span class="STYLE1">*</span>上传身份证反面：</td>
+												<td><span class="openstxt">
+												#if($!{authenticationList.size()}>0)
+													#foreach($auth in $authenticationList)
+														<img src="$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$!auth.handIDcard" alt="" height='70'
+														width='90' class="bsImg6"/>
+													#end
+												#else
+													<input name="file6" readonly= "true"
+														type="file" id="file6" onchange="show6(this.files)" />
+														<img src="$!webPath/upload/images/bs.png" alt="" height='70'
+														width='90' class="bsImg6"/>
+												#end
+														<img src="$!webPath/upload/images/card2.png" alt=""
+															class="imgStyle"/></span></td>
+												<td><ol>
+														说明
+														<li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+														<li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+														<li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+													</ol></td>
+											</tr>
+											<tr>
+												<td class="opentableleft"><span class="STYLE1">*</span>手持身份证：</td>
+												<td><span class="openstxt">
+												#if($!{authenticationList.size()}>0)
+													#foreach($auth in $authenticationList)
+													<img src="$!webPath/upload/wyInFile/$!auth.newAuthenticationDate/$auth.purchaseOrders" alt="" height='70'
+														width='90' class="bsImg4"/>
+													#end
+												#else
+												<input name="file4" readonly= "true"
+														type="file" id="file4" onchange="show4(this.files)" />
+														<img src="$!webPath/upload/images/bs.png" alt="" height='70'
+														width='90' class="bsImg4"/>
+												#end
+														<img src="$!webPath/upload/images/card3.png" alt=""
+															class="imgStyle"/></span></td>
+												<td><ol>
+														说明
+														<li>1.拍照或扫描该文件进行上传，资料必须真实有效</li>
+														<li>2.照片或扫描件上的信息清晰可见，必须能看清签名和印章</li>
+														<li>3.图片文件格式支持：jpg、jpeg、png，单张图片大小不超过2M并上传至平台。</li>
+													</ol></td>
+											</tr>
+										    <!--       <td class="opentableleft"><span class="STYLE1">*</span>采购委托书号码：</td>  -->
+                	     <span class="openstxt">
+                 			<input name="PurchaseNumber" type="hidden" id="fileNumber4" value="1" />
+                		  </span>
+
+
+
+          <!--              <td class="opentableleft"><span class="STYLE1">*</span>采购委托书有效截止日期：</td>  -->
+                	     <span class="openstxt">
+                 			<input name="EndPurchaseDate" type="hidden" readonly id="fileEndTime4" value="3019-1-28">
+                		 </span>
+											<tr>
+												<td class="opentableleft"><span class="STYLE1">*</span>身份证号码：</td>
+												<td><span class="openstxt">
+												#if($!{authenticationList.size()}>0)
+													#foreach($auth in $authenticationList)
+														<input readonly= "true" name="IDcardNumber" type="text" id="fileNumber5" value="$!auth.iDcardNumber" /> </span>
+													#end
+												#else
+													<input readonly= "true" name="IDcardNumber" type="text" id="fileNumber5" value="" /> </span>
+												#end
+												</td>
+												<td><span class="c_red" id="span_username"></span></td>
+											</tr>
+											<tr>
+												<td class="opentableleft"><span class="STYLE1">*</span>身份证有效截止日期：</td>
+												<td style="width:200px;"><span class="openstxt">
+												#if($!{authenticationList.size()}>0)
+													#foreach($auth in $authenticationList)
+														<input readonly= "true"	name="EndIDcardDate" type="text" readonly id="fileEndTime5" value="$!auth.endIDcardDate"/></span>
+													#end
+													#if($!endIDcardDatetitle)
+														<span style="color:#f00;">$!endIDcardDatetitle</span>
+													#end
+												#else
+													<input readonly= "true"	name="EndIDcardDate" type="text" readonly id="fileEndTime5" value=""/></span>
+												#end
+												</td>
+											</tr>
+											<tr>
+												<td class="opentableleft"><span class="STYLE1">*</span>税号：</td>
+												<td><span class="openstxt">
+												#if($!{authenticationList.size()}>0)
+													#foreach($auth in $authenticationList)
+														<input readonly= "true"	name="DutyParagraph" type="text" value="$!auth.dutyParagraph"/></span></td>
+													#end
+												#else
+													<input readonly= "true"	name="DutyParagraph" type="text" value=""/></span></td>
+												#end
+											</tr>
+											<input name="Features" value="1" type="hidden"> </input>
+											<input id="temiiOpeningStatus" name="temiiOpeningStatus" type="hidden" value="$!auth.temiiOpeningStatus"> </input>
+											<input type="hidden" name="userName" value="$!user.userName"></input>
+
+											<tr>
+												<td>&nbsp;</td>
+												<td class="px10"><span class="setsub">
+												#if($!{authenticationList.size()}<0)
+													<input id="btn" type="submit" value="提交" style="cursor: pointer;" />
+												#else
+													<input id="btn" type="submit" value="提交" style="cursor: pointer;" />
+												#end
+												</span></td>
+											</tr>
+										</table>
+									</form>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		$!httpInclude.include("/footer.htm")
+	</div>
+</body>
+</html>
